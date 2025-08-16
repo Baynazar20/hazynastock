@@ -1,458 +1,776 @@
-import { useState, useEffect } from "react";
-import Layout from "@/components/Layout";
-import PreviewModal from "@/components/PreviewModal";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Search, 
-  Filter, 
-  Download, 
-  Heart, 
-  Play, 
-  Image as ImageIcon,
-  Video,
-  Box,
-  Sparkles,
-  Star,
-  TrendingUp,
-  Eye,
-  ChevronDown,
-  Crown
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SignInModal from "./SignIn";
+import { ChevronDown, User } from "lucide-react";
+import Footer from "./Footer";
 
-// Mock data for demonstration
-const mediaItems = [
+function SideImageCard({
+  src,
+  aspect,
+  style = {},
+}: {
+  src: string;
+  aspect: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      className={`rounded-2xl overflow-hidden ${aspect}`}
+      style={{
+        transition: "transform 0.2s ease-out",
+        ...style,
+      }}
+    >
+      <img src={src} alt="" className="w-full h-full object-cover" />
+    </div>
+  );
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+const faqs: FAQItem[] = [
   {
-    id: 1,
-    type: "image",
-    title: "Mountain Landscape at Sunset",
-    category: "Nature",
-    tags: ["landscape", "mountain", "sunset", "nature"],
-    price: "$3",
-    downloads: 1234,
-    views: 5678,
-    rating: 4.8,
-    thumbnail: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-    contributor: "John Doe",
-    featured: true
+    question:
+      "Is my content private and secure? Does Freepik use my inputs or outputs to train its models?",
+    answer:
+      "Your content is kept private and secure. Freepik does not use your inputs or outputs to train its models unless you explicitly allow it.",
   },
   {
-    id: 2,
-    type: "video",
-    title: "City Traffic Time Lapse",
-    category: "Urban",
-    tags: ["city", "traffic", "timelapse", "urban"],
-    price: "$5",
-    downloads: 890,
-    views: 3456,
-    rating: 4.6,
-    thumbnail: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
-    contributor: "Jane Smith",
-    duration: "0:30"
+    question:
+      "How do credits work, and how many generations do I get per tool?",
+    answer:
+      "Credits are used for AI generation tools. Each tool specifies how many generations are allowed per credit.",
   },
   {
-    id: 3,
-    type: "3d",
-    title: "Modern Chair 3D Model",
-    category: "Furniture",
-    tags: ["chair", "furniture", "modern", "3d"],
-    price: "$12",
-    downloads: 456,
-    views: 2134,
-    rating: 4.9,
-    thumbnail: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
-    contributor: "Alex Johnson"
+    question:
+      "Can I use AI-generated content commercially, and do I own the rights to it?",
+    answer:
+      "Yes, AI-generated content can be used commercially, and you own the rights to it, subject to the platform's terms.",
   },
   {
-    id: 4,
-    type: "icon",
-    title: "Business Icon Pack",
-    category: "Business",
-    tags: ["business", "icons", "pack", "office"],
-    price: "Free",
-    downloads: 2345,
-    views: 8901,
-    rating: 4.7,
-    thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-    contributor: "Sarah Wilson"
+    question: "Do I need to attribute to use Freepik stock content?",
+    answer:
+      "Attribution is required for free plans. Premium subscribers are not required to provide attribution.",
   },
   {
-    id: 5,
-    type: "image",
-    title: "Abstract Geometric Pattern",
-    category: "Abstract",
-    tags: ["abstract", "geometric", "pattern", "design"],
-    price: "$3",
-    downloads: 678,
-    views: 1234,
-    rating: 4.5,
-    thumbnail: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
-    contributor: "Mike Davis"
+    question: "Do you offer legal indemnification for AI and stock content?",
+    answer:
+      "Yes, legal indemnification is offered for eligible AI and stock content to protect you from third-party claims.",
   },
-  {
-    id: 6,
-    type: "video",
-    title: "Ocean Waves Slow Motion",
-    category: "Nature",
-    tags: ["ocean", "waves", "water", "slow motion"],
-    price: "$8",
-    downloads: 345,
-    views: 1567,
-    rating: 4.8,
-    thumbnail: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&h=300&fit=crop",
-    contributor: "Emma Brown",
-    duration: "1:45"
-  }
 ];
 
-const categories = ["All", "Nature", "Urban", "Abstract", "Business", "Furniture"];
-const sortOptions = ["Latest", "Popular", "Most Downloaded", "Highest Rated"];
+export default function Page() {
+  const [scale, setScale] = useState(1);
+  const [sideOffset, setSideOffset] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  let closeTimeout: NodeJS.Timeout;
 
-export default function Index() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedType, setSelectedType] = useState("all");
-  const [sortBy, setSortBy] = useState("Latest");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredItems, setFilteredItems] = useState(mediaItems);
-  const [previewItem, setPreviewItem] = useState<typeof mediaItems[0] | null>(null);
-
-  useEffect(() => {
-    let filtered = mediaItems;
-
-    // Filter by search query
-    if (searchQuery) {
-      filtered = filtered.filter(item =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
-    }
-
-    // Filter by category
-    if (selectedCategory !== "All") {
-      filtered = filtered.filter(item => item.category === selectedCategory);
-    }
-
-    // Filter by type
-    if (selectedType !== "all") {
-      filtered = filtered.filter(item => item.type === selectedType);
-    }
-
-    setFilteredItems(filtered);
-  }, [searchQuery, selectedCategory, selectedType]);
-
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case "image": return <ImageIcon className="h-4 w-4" />;
-      case "video": return <Video className="h-4 w-4" />;
-      case "3d": return <Box className="h-4 w-4" />;
-      case "icon": return <Sparkles className="h-4 w-4" />;
-      default: return <ImageIcon className="h-4 w-4" />;
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      navigate("/Searching");
     }
   };
 
+  const handleSignInSuccess = (userData: any) => {
+    setUser(userData);
+  };
+
+  const handleSignOut = () => {
+    setUser(null);
+  };
+
+  const handleMouseEnter = (link: string) => {
+    if (link === "Stock") {
+      clearTimeout(closeTimeout);
+      setIsDropdownOpen(true);
+    }
+  };
+
+  const handleMouseLeave = (link: string) => {
+    if (link === "Stock") {
+      closeTimeout = setTimeout(() => {
+        setIsDropdownOpen(false);
+      }, 5000); // 5 sekunt garaş
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      // Orta surat üçin ulaltmak
+      const newScale = Math.min(1 + scrollY / 600, 1.5);
+      setScale(newScale);
+
+      // Gapdalky suratlar üçin süýşme
+      const newOffset = Math.min(scrollY / 10, 50); // max 50px süýşme
+      setSideOffset(newOffset);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const menuLinks = [
+    "AI Suite",
+    "Stock",
+    "Enterprise",
+    "Pricing",
+    "Contribute",
+  ];
+
   return (
-    <Layout>
-      <div className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-red-500/10 py-16 md:py-20 px-4 md:px-6">
-          <div className="absolute inset-0 geometric-pattern opacity-20"></div>
-          <div className="max-w-7xl mx-auto text-center relative z-10">
-            <div className="flex items-center justify-center mb-6">
-              <div className="relative">
-                <div className="h-16 w-16 md:h-20 md:w-20 rounded-2xl bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 flex items-center justify-center shadow-2xl">
-                  <Star className="h-8 w-8 md:h-10 md:w-10 text-white fill-current" />
-                </div>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
-              </div>
-            </div>
+    <main className="min-h-screen bg-background text-white antialiased">
+      {/* Navbar */}
+      <header className="max-w-[1200px] mx-auto px-6 py-6 flex items-center justify-between">
+        <div className="flex items-center gap-8 mr-[-100px] relative">
+          <div className="text-3xl font-extrabold tracking-tight">
+            HazynaStock
+          </div>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-                HazynaStock
-              </span>
-              <br />
-              <span className="text-foreground text-2xl md:text-4xl lg:text-5xl">Central Asia Media Hub</span>
+          <nav className="hidden md:flex gap-8 text-sm text-gray-300">
+            {menuLinks.map((link) => (
+              <div
+                key={link}
+                className="relative group" // Added group class for better hover handling
+                onMouseEnter={() => handleMouseEnter(link)}
+                onMouseLeave={() => handleMouseLeave(link)}
+              >
+                <a className="hover:text-white cursor-pointer transition-colors duration-200 flex items-center"></a>
+                <button
+                  onClick={() => navigate("/Soon")} // ähli link NotFound sahypasyna geçirýär
+                  className="hover:text-white cursor-pointer transition-colors duration-200 flex items-center bg-transparent border-none outline-none"
+                >
+                  {link}
+                </button>
+
+                {/* Dropdown */}
+                {link === "Stock" && isDropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-64 bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-2xl z-50 border border-gray-600/50 overflow-hidden backdrop-blur-sm">
+                    <div className="p-2">
+                      <a
+                        href="/Images"
+                        className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                      >
+                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
+                          <svg
+                            className="w-5 h-5 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-4">
+                          <h3 className="font-semibold text-white group-hover:text-blue-300 transition-colors">
+                            Photos
+                          </h3>
+                          <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            High-quality stock images
+                          </p>
+                        </div>
+                        <svg
+                          className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </a>
+
+                      <a
+                        href="/Videos"
+                        className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-green-600/20 hover:to-emerald-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                      >
+                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-600 shadow-lg group-hover:shadow-green-500/25 transition-all duration-300">
+                          <svg
+                            className="w-5 h-5 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-4">
+                          <h3 className="font-semibold text-white group-hover:text-green-300 transition-colors">
+                            Videos
+                          </h3>
+                          <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            Premium video content
+                          </p>
+                        </div>
+                        <svg
+                          className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </a>
+
+                      <a
+                        href="/3d-models"
+                        className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                      >
+                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300">
+                          <svg
+                            className="w-5 h-5 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-4">
+                          <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors">
+                            3D Models
+                          </h3>
+                          <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            3D assets & graphics
+                          </p>
+                        </div>
+                        <svg
+                          className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </a>
+
+                      <a
+                        href="/Icons"
+                        className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-orange-600/20 hover:to-red-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                      >
+                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg group-hover:shadow-orange-500/25 transition-all duration-300">
+                          <svg
+                            className="w-5 h-5 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-4">
+                          <h3 className="font-semibold text-white group-hover:text-orange-300 transition-colors">
+                            Icons
+                          </h3>
+                          <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            Vector icons & symbols
+                          </p>
+                        </div>
+                        <svg
+                          className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+        <div className="flex items-center gap-4 w-full max-w-xl md:justify-end">
+          <div className="hidden md:block flex-1 relative max-w-sm">
+            <input
+              aria-label="Search"
+              className="w-full rounded-full bg-gray-800 px-4 py-3 placeholder-gray-500 outline-none focus:ring-2 focus:ring-gray-600"
+              placeholder="Search assets or start creating"
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+          {user ? (
+            <User />
+          ) : (
+            <button
+              onClick={() => setIsSignInModalOpen(true)}
+              className="px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition-colors"
+            >
+              Sign in
+            </button>
+          )}
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="px-6">
+        <div className="max-w-[1200px] mx-auto relative">
+          <div className="text-center pt-12 pb-8">
+            <h1 className="text-4xl md:text-6xl font-semibold leading-tight">
+              Creative work, reimagined with AI
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Discover authentic Central Asian content - from traditional bazaars to modern cityscapes.
-              High-quality images, videos, 3D models, and icons celebrating our rich cultural heritage.
+            <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              Top AI image, video, and audio models. Professional tools plus
+              stock content you'll love.
             </p>
-            
-            {/* Enhanced Search */}
-            <div className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-2xl border border-amber-500/20">
-              <div className="flex flex-col gap-4">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input
-                    type="search"
-                    placeholder="Search bazaars, landscapes, patterns..."
-                    className="pl-12 h-12 md:h-14 text-base md:text-lg bg-background border-amber-500/20 focus:border-amber-500/50"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Select value={selectedType} onValueChange={setSelectedType}>
-                    <SelectTrigger className="w-full sm:w-40 h-10 md:h-12 touch-friendly">
-                      <SelectValue placeholder="Media Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="image">Images</SelectItem>
-                      <SelectItem value="video">Videos</SelectItem>
-                      <SelectItem value="3d">3D Models</SelectItem>
-                      <SelectItem value="icon">Icons</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button size="lg" className="h-10 md:h-12 px-6 md:px-8 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 touch-friendly">
-                    <Search className="h-5 w-5 mr-2" />
-                    Search
-                  </Button>
-                </div>
+            <div className="mt-6">
+              <button
+                className="px-6 py-3 rounded-full bg-white text-black font-semibold shadow"
+                onClick={() => navigate("/Soon")}
+              >
+                Get started for free →
+              </button>
+            </div>
+          </div>
+
+          {/* Grid */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+            {/* Çep tarap */}
+            <div className="md:col-span-3  flex-col gap-6 hidden xl:flex">
+              <SideImageCard
+                src="./owadan2.jpg"
+                aspect="aspect-[16/9]"
+                style={{ transform: `translateX(-${sideOffset}px)` }}
+              />
+              <SideImageCard
+                src="./owadan1.jpg"
+                aspect="aspect-square"
+                style={{ transform: `translateX(-${sideOffset}px)` }}
+              />
+            </div>
+
+            {/* Orta surat */}
+            <div className="md:col-span-6 relative z-30">
+              <div
+                className="rounded-2xl overflow-hidden sticky top-20"
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              >
+                <img
+                  src="./owadan5.jpg"
+                  alt="Hero"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
-            {/* Cultural Quick Search Tags */}
-            <div className="max-w-4xl mx-auto mt-6">
-              <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-                {["Traditional Architecture", "Silk Road", "Nomadic Culture", "Carpets & Textiles", "Bazaars"].map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="outline"
-                    className="cursor-pointer hover:bg-amber-500/20 border-amber-500/30 text-amber-700 dark:text-amber-300 mobile-nav-item"
+            {/* Sag tarap */}
+            <div className="md:col-span-3 relative z-10 hidden xl:block">
+              <SideImageCard
+                src="./hs.jpg"
+                aspect="aspect-[9/16]"
+                style={{
+                  transform: `translateX(${sideOffset}px)`,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision Section */}
+      <section className="bg-background text-white py-16">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <h2 className="text-xl md:text-2xl font-medium">
+            You bring the vision.{" "}
+            <span className="font-semibold">We help you go further.</span>
+            <span className="text-gray-400">
+              {" "}
+              Join <span className="font-semibold">700,000</span> creative
+              teams, marketers, and designers worldwide.
+            </span>
+          </h2>
+
+          {/* Logos */}
+          <div className="flex flex-wrap justify-center items-center gap-18 mt-10 opacity-80">
+            <img src="./google.png" alt="Google" className="h-24" />
+            <img src="./bank.png" alt="Nubank" className="h-24" />
+            <img src="./fish.png" alt="HelloFresh" className="h-24" />
+            <img src="./google.png" alt="CocaCola" className="h-24" />
+            <img src="./bank.png" alt="Ogilvy" className="h-24" />
+          </div>
+
+          {/* Features */}
+          <div className="mt-16">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-10">
+              The features you need, the simplicity you want
+            </h3>
+
+            <div className="flex flex-col md:flex-row gap-10">
+              {/* Sidebar */}
+              <div className="flex gap-4 md:flex-col md:w-40 overflow-x-auto md:overflow-visible hide-scrollbar">
+                {[
+                  "Images",
+                  "Video",
+                  "Audio",
+                  "Illustrations",
+                  "Design",
+                  "All AI tools",
+                ].map((item, index) => (
+                  <button
+                    key={index}
+                    className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
+                      item === "Images"
+                        ? "bg-gray-800 text-white"
+                        : "text-gray-400 hover:text-white hover:bg-gray-800"
+                    }`}
                   >
-                    {tag}
-                  </Badge>
+                    {item}
+                  </button>
                 ))}
               </div>
+
+              {/* Feature Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
+                <FeatureCard img="./owadan5.jpg" title="Generate an AI image" />
+                <FeatureCard
+                  img="./owadan1.jpg"
+                  title="Chat with AI to transform images"
+                />
+                <FeatureCard
+                  img="./owadan4.jpg"
+                  title="Find high-quality images"
+                />
+                <FeatureCard
+                  img="./owadan2.jpg"
+                  title="Find high-quality images"
+                />
+                <FeatureCard
+                  img="./owadan3.jpg"
+                  title="Find high-quality images"
+                />
+                <FeatureCard
+                  img="./owadan5.jpg"
+                  title="Find high-quality images"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Why Choose Section */}
+        <section className="bg-background text-white py-20">
+          <div className="max-w-[1200px] mx-auto px-6">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-gray-300">
+              Why choose HazynaStock?
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Card 1 */}
+              <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 h-[220px] transition-colors relative">
+                <h3 className="text-lg font-semibold mb-2">
+                  The all-in-one suite for creatives
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Power your creativity with leading GenAI models, pro features,
+                  and a vast stock library — all in one platform. Stay
+                  consistent, adapt assets easily, and create confidently with
+                  powerful tools built for real workflows like yours.
+                </p>
+                <div className="absolute top-6 right-6 text-gray-500">🎨</div>
+              </div>
+
+              {/* Card 2 */}
+              <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px]relative">
+                <h3 className="text-lg font-semibold mb-2">
+                  AI you can trust: private and secure
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Your data is never used to train AI — ours or third-party.
+                  You're fully protected with advanced security and full rights.
+                  Stay consistent, adapt assets easily, and create confidently
+                  with powerful tools built for real workflows like yours.
+                </p>
+              </div>
+
+              {/* Card 3 */}
+              <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
+                <h3 className="text-lg font-semibold mb-2">
+                  Easy to use, with professional results
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Stay consistent, adapt assets easily, and create confidently
+                  with powerful tools built for real workflows like yours. Stay
+                  consistent, adapt assets easily, and create confidently with
+                  powerful tools built for real workflows like yours.
+                </p>
+                <div className="absolute top-6 right-6 text-gray-500">✏️</div>
+              </div>
+
+              {/* Card 4 */}
+              <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
+                <h3 className="text-lg font-semibold mb-2">
+                  Join the creators shaping AI's future
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Be part of a global community of top creatives. Get early
+                  access to new tools, share your work, and stay inspired. Stay
+                  consistent, adapt assets easily, and create confidently with
+                  powerful tools built for real workflows like yours.
+                </p>
+                <div className="absolute top-6 right-6 text-gray-500">💬</div>
+              </div>
             </div>
           </div>
         </section>
+      </section>
 
-        {/* Featured Content */}
-        <section className="py-12 md:py-16 px-4 md:px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+      <section className="bg-background text-white py-16 px-4 ">
+        <div className="max-w-6xl mx-auto mt-[-70px]">
+          {/* Title */}
+          <h2 className="text-center text-3xl md:text-4xl font-bold mb-12">
+            Plans that cover your needs
+          </h2>
+
+          {/* Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Individuals */}
+            <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Featured Content</h2>
-                <p className="text-muted-foreground">Handpicked content celebrating Central Asian heritage</p>
+                <h3 className="text-xl font-semibold mb-2">Individuals</h3>
+                <p className="text-sm text-zinc-400 mb-6">
+                  Create professional, on-brand visuals fast with AI-powered
+                  tools and high-quality stock assets.
+                </p>
+                <p className="text-2xl font-bold">
+                  Starting at{" "}
+                  <span className="text-4xl font-extrabold">5 EUR</span>
+                  <span className="text-base font-normal">/month</span>
+                </p>
+                <p className="text-sm text-zinc-400 mb-6">
+                  37% off billed annually
+                </p>
+                <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
+                  Show individual plans
+                </button>
+
+                <ul className="space-y-3 text-sm">
+                  {[
+                    "AI generation and editing of images, videos, icons, mockups, and music",
+                    "Train custom AI models for on-brand visuals: styles, objects, colors, and characters",
+                    "Upscale images up to 10K resolution with Magnific and videos up to 4K with Topaz",
+                    "Access to Premium stock content: 250M+ photos, vectors, templates, and more",
+                    "Priority speed for image and video generation with ChatGPT, Kling, and Veo 3",
+                    "Commercial AI license for professionals",
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="text-blue-400 mr-2">✓</span> {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <Button variant="outline" className="w-full sm:w-auto touch-friendly">
-                <Crown className="h-4 w-4 mr-2 text-amber-500" />
-                View All Featured
-              </Button>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {mediaItems.filter(item => item.featured).map((item) => (
-                <Card
-                  key={item.id}
-                  className="group overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-                  onClick={() => setPreviewItem(item)}
-                >
-                  <div className="relative aspect-video overflow-hidden">
-                    <img
-                      src={item.thumbnail}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    {item.type === "video" && (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="bg-black/50 rounded-full p-3">
-                          <Play className="h-8 w-8 text-white" />
-                        </div>
-                      </div>
-                    )}
-                    <div className="absolute top-3 left-3">
-                      <Badge variant="secondary" className="text-xs">
-                        {getTypeIcon(item.type)}
-                        <span className="ml-1 capitalize">{item.type}</span>
-                      </Badge>
-                    </div>
-                    <div className="absolute top-3 right-3">
-                      <Button size="sm" variant="ghost" className="bg-black/20 hover:bg-black/40 text-white">
-                        <Heart className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {item.title}
-                    </h3>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
-                      <span>by {item.contributor}</span>
-                      <div className="flex items-center">
-                        <Star className="h-3 w-3 fill-yellow-500 text-yellow-500 mr-1" />
-                        <span>{item.rating}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-primary">{item.price}</span>
-                      <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                        <div className="flex items-center">
-                          <Download className="h-3 w-3 mr-1" />
-                          {item.downloads}
-                        </div>
-                        <div className="flex items-center">
-                          <Eye className="h-3 w-3 mr-1" />
-                          {item.views}
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+
+            {/* Teams */}
+            <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-blue-500">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Teams</h3>
+                <p className="text-sm text-zinc-400 mb-6">
+                  Collaborate with your team on AI-driven projects and premium
+                  stock assets.
+                </p>
+                <p className="text-2xl font-bold">
+                  22.50 EUR
+                  <span className="text-base font-normal"> per user/month</span>
+                </p>
+                <p className="text-sm text-zinc-400 mb-6">
+                  37% off billed annually
+                </p>
+                <button className="bg-white text-black hover:bg-zinc-200 w-full py-2 rounded-lg font-medium mb-6">
+                  Get a plan
+                </button>
+
+                <ul className="space-y-3 text-sm">
+                  {[
+                    "Everything in individual plans, and:",
+                    "Unlimited image generation and editing",
+                    "Control team credit usage",
+                    "Unified admin and billing",
+                    "Secured asset storage",
+                    "Team collaboration and sharing",
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="text-blue-400 mr-2">✓</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Enterprise */}
+            <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
+                <p className="text-sm text-zinc-400 mb-6">
+                  Get the best for your organization with a dedicated account
+                  manager and priority support.
+                </p>
+                <p className="text-2xl font-bold">Custom</p>
+                <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
+                  Learn more
+                </button>
+
+                <ul className="space-y-3 text-sm">
+                  {[
+                    "Everything in team plans, and:",
+                    "Legal indemnification for AI-generated content",
+                    "Rights over your AI-generated content",
+                    "SSO and enterprise-level security & compliance",
+                    "Expert guidance, training, and technical support",
+                    "Unlimited users, flexible credits",
+                    "3-month evaluation period",
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="text-blue-400 mr-2">✓</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-        </section>
-
-        {/* Main Gallery */}
-        <section className="py-12 md:py-16 px-4 md:px-6 bg-dark-surface relative">
-          <div className="absolute inset-0 central-asian-pattern opacity-5"></div>
-          <div className="max-w-7xl mx-auto relative z-10">
-            {/* Filters */}
-            <div className="flex flex-col gap-6 mb-8">
-              <div className="text-center md:text-left">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Browse Collection</h2>
-                <p className="text-muted-foreground">Authentic content from across Central Asia</p>
-              </div>
-
-              {/* Category Tabs */}
-              <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
-                <div className="w-full overflow-x-auto scrollbar-hide">
-                  <TabsList className="flex min-w-max bg-dark-surface2 p-1 gap-1">
-                    {categories.map((category) => (
-                      <TabsTrigger
-                        key={category}
-                        value={category}
-                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white text-xs md:text-sm mobile-nav-item whitespace-nowrap px-3 py-2 flex-shrink-0"
-                      >
-                        {category}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </div>
-              </Tabs>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                <div className="flex-1">
-                  <label className="text-sm text-muted-foreground mb-2 block">Sort by</label>
-                  <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="w-full sm:w-48 touch-friendly">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {sortOptions.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="flex items-end">
-                  <Button variant="outline" size="sm" className="w-full sm:w-auto touch-friendly">
-                    <Filter className="h-4 w-4 mr-2" />
-                    More Filters
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Results */}
-            <div className="mb-6">
-              <p className="text-muted-foreground">
-                Showing {filteredItems.length} results
-              </p>
-            </div>
-
-            {/* Media Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {filteredItems.map((item) => (
-                <Card
-                  key={item.id}
-                  className="group overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer active:scale-95 border-amber-500/10 hover:border-amber-500/30 touch-friendly"
-                  onClick={() => setPreviewItem(item)}
+        </div>
+      </section>
+      <section className="bg-background text-white py-16 px-4 md:px-8 lg:px-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10">
+            Frequently asked questions
+          </h2>
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <div key={index} className="border-b border-gray-800 pb-4">
+                <button
+                  onClick={() =>
+                    setOpenIndex(openIndex === index ? null : index)
+                  }
+                  className="w-full flex items-center justify-between text-left"
                 >
-                  <div className="relative aspect-square overflow-hidden">
-                    <img
-                      src={item.thumbnail}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    {item.type === "video" && (
-                      <>
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="bg-black/50 rounded-full p-2">
-                            <Play className="h-6 w-6 text-white" />
-                          </div>
-                        </div>
-                        {item.duration && (
-                          <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                            {item.duration}
-                          </div>
-                        )}
-                      </>
-                    )}
-                    <div className="absolute top-2 left-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {getTypeIcon(item.type)}
-                        <span className="ml-1 capitalize">{item.type}</span>
-                      </Badge>
-                    </div>
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button size="sm" variant="ghost" className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0">
-                        <Heart className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  <CardContent className="p-3">
-                    <h3 className="font-medium text-foreground mb-1 text-sm line-clamp-2 group-hover:text-primary transition-colors">
-                      {item.title}
-                    </h3>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-                      <span>{item.contributor}</span>
-                      <div className="flex items-center">
-                        <Star className="h-3 w-3 fill-yellow-500 text-yellow-500 mr-1" />
-                        <span>{item.rating}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-primary text-sm">{item.price}</span>
-                      <div className="flex items-center space-x-3 text-xs text-muted-foreground">
-                        <div className="flex items-center">
-                          <Download className="h-3 w-3 mr-1" />
-                          {item.downloads}
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  <span className="text-lg font-medium hover:text-gray-300 transition">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
+                      openIndex === index ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <div
+                  className={`mt-3 text-gray-400 text-sm transition-all duration-300 overflow-hidden ${
+                    openIndex === index ? "max-h-40" : "max-h-0"
+                  }`}
+                >
+                  {faq.answer}
+                </div>
+              </div>
+            ))}
           </div>
-        </section>
-
-        {/* Preview Modal */}
-        {previewItem && (
-          <PreviewModal
-            isOpen={!!previewItem}
-            onClose={() => setPreviewItem(null)}
-            item={previewItem}
-          />
-        )}
+        </div>
+      </section>
+      <div className="text-center pt-12 pb-8">
+        <h1 className="text-4xl md:text-6xl font-semibold leading-tight">
+          Creative work, reimagined with AI
+        </h1>
+        <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+          Top AI image, video, and audio models. Professional tools plus stock
+          content you'll love.
+        </p>
+        <div className="mt-6">
+          <button
+            className="px-6 py-3 rounded-full bg-white text-black font-semibold shadow"
+            onClick={() => navigate("/Soon")}
+          >
+            Get started for free →
+          </button>
+        </div>
       </div>
-    </Layout>
+
+      <SignInModal
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+        onSignInSuccess={function (userData: any): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+
+      <Footer />
+    </main>
+  );
+}
+
+function ImageCard({
+  src,
+  aspect = "aspect-[16/9]",
+}: {
+  src: string;
+  aspect?: string;
+}) {
+  return (
+    <div className={`${aspect} rounded-2xl overflow-hidden`}>
+      <img src={src} alt="" className="w-full h-full object-cover" />
+    </div>
+  );
+}
+
+function FeatureCard({ img, title }: { img: string; title: string }) {
+  return (
+    <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
+      <img
+        src={img}
+        alt={title}
+        className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+      />
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent text-white font-medium">
+        {title}
+      </div>
+    </div>
   );
 }

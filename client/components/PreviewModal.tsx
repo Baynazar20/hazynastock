@@ -12,13 +12,10 @@ import {
   Download, 
   Heart, 
   Star,
-  Eye,
   Play,
-  X,
   Share,
   Flag,
   User,
-  Calendar,
   Package,
   Maximize2,
   Image as ImageIcon,
@@ -35,7 +32,7 @@ interface PreviewModalProps {
   onClose: () => void;
   item: {
     id: number;
-    type: "image" | "video" | "3d" | "icon";
+    type: string;
     title: string;
     category: string;
     tags: string[];
@@ -45,7 +42,6 @@ interface PreviewModalProps {
     rating: number;
     thumbnail: string;
     contributor: string;
-    // Optional fields for different types
     resolution?: string;
     duration?: string;
     fileSize?: string;
@@ -113,24 +109,6 @@ export default function PreviewModal({ isOpen, onClose, item }: PreviewModalProp
                 View in 3D
               </Button>
             </div>
-            <div className="absolute top-4 left-4 flex gap-2">
-              {item.complexity && (
-                <Badge className={cn(
-                  "text-xs",
-                  item.complexity === "Low" && "bg-green-600",
-                  item.complexity === "Medium" && "bg-yellow-600",
-                  item.complexity === "High" && "bg-red-600"
-                )}>
-                  {item.complexity}
-                </Badge>
-              )}
-              {item.rigged && (
-                <Badge className="text-xs bg-blue-600">Rigged</Badge>
-              )}
-              {item.animated && (
-                <Badge className="text-xs bg-purple-600">Animated</Badge>
-              )}
-            </div>
           </div>
         );
       
@@ -158,12 +136,6 @@ export default function PreviewModal({ isOpen, onClose, item }: PreviewModalProp
               alt={item.title}
               className="w-full h-full object-cover"
             />
-            {item.dominantColor && (
-              <div 
-                className="absolute top-4 left-4 w-6 h-6 rounded-full border-2 border-white shadow-lg"
-                style={{ backgroundColor: item.dominantColor }}
-              />
-            )}
           </div>
         );
     }

@@ -43,6 +43,7 @@ import {
   Truck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Footer from "./Footer";
 
 // Mock icon data with actual Lucide icons for demo
 const iconData = [
@@ -368,23 +369,6 @@ export default function Icons() {
                   ))}
                 </SelectContent>
               </Select>
-
-              <div className="flex gap-2 ml-auto">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("grid")}
-                >
-                  <Grid3X3 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("list")}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
 
             {/* Results Count */}
@@ -538,12 +522,13 @@ export default function Icons() {
             </div>
 
             {/* Load More */}
-            <div className="text-center">
+            <div className="text-center mb-[20px]">
               <Button variant="outline" size="lg">
                 Load More Icon Packs
               </Button>
             </div>
           </div>
+          <Footer />
         </section>
 
         {/* Preview Modal */}

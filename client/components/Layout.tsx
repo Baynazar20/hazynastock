@@ -42,7 +42,7 @@ const navigation = [
 ];
 
 const aiNavigation = [
-  { name: "Generate AI", href: "/generate-ai", icon: Zap, featured: true },
+  { name: "Image AI", href: "/generate-ai", icon: Zap, featured: true },
   { name: "Brand AI", href: "/brand-ai", icon: Target, featured: true },
 ];
 
@@ -76,17 +76,19 @@ export default function Layout({ children }: LayoutProps) {
     <div className="min-h-screen bg-background">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <div className={cn(
-        "fixed inset-y-0 left-0 z-50 w-[85vw] max-w-80 md:w-72 transform bg-sidebar border-r border-sidebar-border transition-transform duration-300 ease-in-out lg:translate-x-0 overflow-y-auto",
-        sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      )}>
+      <div
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 w-[85vw] max-w-80 md:w-72 transform bg-sidebar border-r border-sidebar-border transition-transform duration-300 ease-in-out lg:translate-x-0 overflow-y-auto",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
         <div className="flex h-full flex-col">
           {/* Logo */}
           <div className="flex h-16 items-center justify-between px-6 border-b border-sidebar-border">
@@ -96,10 +98,12 @@ export default function Layout({ children }: LayoutProps) {
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-sidebar-foreground bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                <span className="text-xl font-bold text-sidebar-foreground bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text">
                   HazynaStock
                 </span>
-                <span className="text-xs text-muted-foreground -mt-1">Central Asia Media</span>
+                <span className="text-xs text-muted-foreground -mt-1">
+                  Central Asia Media
+                </span>
               </div>
             </Link>
             <Button
@@ -111,7 +115,31 @@ export default function Layout({ children }: LayoutProps) {
               <X className="h-5 w-5" />
             </Button>
           </div>
-
+          {/* Navigation */}
+          <nav className="flex-1 px-4 py-3 space-y-1">
+            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
+              Browse
+            </div>
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={cn(
+                    "flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                    isActivePath(item.href)
+                      ? "bg-sidebar-accent text-sidebar-primary"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-primary",
+                  )}
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <Icon className="mr-3 h-5 w-5" />
+                  {item.name}
+                </Link>
+              );
+            })}
+          </nav>
           {/* AI Generation Section */}
           <div className="px-4 pt-6 pb-3">
             <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
@@ -128,7 +156,8 @@ export default function Layout({ children }: LayoutProps) {
                     "bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20",
                     "hover:from-amber-500/20 hover:to-orange-500/20 hover:border-amber-500/30",
                     "text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300",
-                    isActivePath(item.href) && "from-amber-500/25 to-orange-500/25 border-amber-500/40"
+                    isActivePath(item.href) &&
+                      "from-amber-500/25 to-orange-500/25 border-amber-500/40",
                   )}
                   onClick={() => setSidebarOpen(false)}
                 >
@@ -139,32 +168,6 @@ export default function Layout({ children }: LayoutProps) {
               );
             })}
           </div>
-
-          {/* Navigation */}
-          <nav className="flex-1 px-4 py-3 space-y-1">
-            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-              Browse
-            </div>
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={cn(
-                    "flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors",
-                    isActivePath(item.href)
-                      ? "bg-sidebar-accent text-sidebar-primary"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-primary"
-                  )}
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <Icon className="mr-3 h-5 w-5" />
-                  {item.name}
-                </Link>
-              );
-            })}
-          </nav>
 
           {/* User Navigation */}
           <div className="border-t border-sidebar-border px-4 py-4 space-y-1">
@@ -181,7 +184,7 @@ export default function Layout({ children }: LayoutProps) {
                     "flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors",
                     isActivePath(item.href)
                       ? "bg-sidebar-accent text-sidebar-primary"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-primary"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-primary",
                   )}
                   onClick={() => setSidebarOpen(false)}
                 >
@@ -240,22 +243,18 @@ export default function Layout({ children }: LayoutProps) {
             </div>
 
             {/* Notifications */}
-            <Button variant="ghost" size="sm" className="touch-friendly h-10 w-10 p-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="touch-friendly h-10 w-10 p-0"
+            >
               <Bell className="h-4 w-4 md:h-5 md:w-5" />
-            </Button>
-
-            {/* Upload Button */}
-            <Button size="sm" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 touch-friendly h-8 md:h-9 px-2 md:px-4">
-              <Upload className="h-3 w-3 md:h-4 md:w-4 md:mr-2" />
-              <span className="hidden md:inline">Upload</span>
             </Button>
           </div>
         </header>
 
         {/* Page content */}
-        <main className="flex-1">
-          {children}
-        </main>
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   );

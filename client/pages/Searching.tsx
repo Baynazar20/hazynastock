@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import PreviewModal from "@/components/PreviewModal";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -17,10 +18,12 @@ import {
   Search,
   Download,
   Heart,
+  Palette,
+  Maximize,
+  Grid3X3,
   SlidersHorizontal,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Footer from "./Footer";
 
 // Mock image data
 const imageData = [
@@ -164,13 +167,10 @@ const imageData = [
 
 const categories = [
   "All",
-  "Nature",
-  "Abstract",
-  "Urban",
-  "Business",
-  "Technology",
-  "Food",
-  "Lifestyle",
+  "Images",
+  "Videos",
+  "3D Models",
+  "Icons",
 ];
 const orientations = ["All", "Landscape", "Portrait", "Square"];
 const resolutions = ["All", "HD (1920x1080)", "4K (3840x2160)", "6K+"];
@@ -195,6 +195,7 @@ export default function Images() {
   const [previewItem, setPreviewItem] = useState<(typeof imageData)[0] | null>(
     null,
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     let filtered = imageData;
@@ -208,6 +209,12 @@ export default function Images() {
           ),
       );
     }
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        navigate("/searching"); // Searching.tsx sahypasyna ugrat
+      }
+    };
 
     // Filter by category
     if (selectedCategory !== "All") {
@@ -236,38 +243,6 @@ export default function Images() {
   return (
     <Layout>
       <div className="min-h-screen bg-background">
-        {/* Header Section */}
-        <section className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 py-16 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-                  HazynaStock
-                </span>{" "}
-                Images Gallery
-              </h1>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Discover authentic Central Asian imagery from traditional
-                bazaars to modern cityscapes
-              </p>
-            </div>
-
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto bg-card rounded-xl p-4 shadow-lg">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search images by keyword, style, or category..."
-                  className="pl-12 h-12 text-lg bg-background"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Filters and Content */}
         <section className="py-8 px-6">
           <div className="max-w-7xl mx-auto">
@@ -305,38 +280,6 @@ export default function Images() {
                   Filters:
                 </span>
               </div>
-
-              <Select
-                value={selectedOrientation}
-                onValueChange={setSelectedOrientation}
-              >
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="Orientation" />
-                </SelectTrigger>
-                <SelectContent>
-                  {orientations.map((orientation) => (
-                    <SelectItem key={orientation} value={orientation}>
-                      {orientation}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={selectedResolution}
-                onValueChange={setSelectedResolution}
-              >
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder="Resolution" />
-                </SelectTrigger>
-                <SelectContent>
-                  {resolutions.map((resolution) => (
-                    <SelectItem key={resolution} value={resolution}>
-                      {resolution}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
 
               <Select value={priceFilter} onValueChange={setPriceFilter}>
                 <SelectTrigger className="w-28">
@@ -432,13 +375,12 @@ export default function Images() {
             </div>
 
             {/* Load More */}
-            <div className="text-center mb-[20px]">
+            <div className="text-center">
               <Button variant="outline" size="lg">
                 Load More Images
               </Button>
             </div>
           </div>
-          <Footer />
         </section>
 
         {/* Preview Modal */}

@@ -17,6 +17,8 @@ import Profile from "./pages/Profile";
 import Contributor from "./pages/Contributor";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Searching from "./pages/Searching";
+import Soon from "./pages/Soon";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +40,8 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
             <Route path="/contributor" element={<Contributor />} />
             <Route path="/settings" element={<Settings />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="/Searching" element={<Searching />} />
+            <Route path="/Soon" element={<Soon />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

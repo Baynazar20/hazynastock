@@ -44,7 +44,6 @@ const userData = {
   totalLikes: 12340,
   rating: 4.8,
   following: 234,
-  followers: 1567
 };
 
 // Mock user's content
@@ -180,10 +179,6 @@ export default function Profile() {
                 <div className="text-center">
                   <div className="text-2xl font-bold text-foreground">{userData.totalViews.toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground">Views</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-foreground">{userData.followers.toLocaleString()}</div>
-                  <div className="text-sm text-muted-foreground">Followers</div>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-1">

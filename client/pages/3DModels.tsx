@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import Footer from "./Footer";
 import {
   Select,
   SelectContent,
@@ -13,11 +14,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Search, 
-  Filter, 
-  Download, 
-  Heart, 
+import {
+  Search,
+  Filter,
+  Download,
+  Heart,
   Box,
   Star,
   Eye,
@@ -26,7 +27,7 @@ import {
   SlidersHorizontal,
   Grid3X3,
   List,
-  Maximize2
+  Maximize2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -41,14 +42,15 @@ const modelData = [
     downloads: 890,
     views: 2340,
     rating: 4.8,
-    thumbnail: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
     contributor: "Design Studio",
     fileSize: "2.4 MB",
     polygons: "12,430",
     formats: ["OBJ", "FBX", "GLB"],
     complexity: "Medium",
     rigged: false,
-    animated: false
+    animated: false,
   },
   {
     id: 2,
@@ -59,14 +61,15 @@ const modelData = [
     downloads: 1560,
     views: 4320,
     rating: 4.9,
-    thumbnail: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=300&fit=crop",
     contributor: "3D Artist Pro",
     fileSize: "8.7 MB",
     polygons: "45,680",
     formats: ["OBJ", "FBX", "GLB", "BLEND"],
     complexity: "High",
     rigged: false,
-    animated: true
+    animated: true,
   },
   {
     id: 3,
@@ -77,14 +80,15 @@ const modelData = [
     downloads: 2100,
     views: 6540,
     rating: 4.7,
-    thumbnail: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=400&h=300&fit=crop",
     contributor: "Character Artist",
     fileSize: "5.2 MB",
     polygons: "8,920",
     formats: ["FBX", "GLB", "BLEND"],
     complexity: "Medium",
     rigged: true,
-    animated: true
+    animated: true,
   },
   {
     id: 4,
@@ -95,14 +99,15 @@ const modelData = [
     downloads: 3210,
     views: 9450,
     rating: 4.6,
-    thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
     contributor: "Arch Viz Studio",
     fileSize: "15.6 MB",
     polygons: "89,340",
     formats: ["OBJ", "FBX", "3DS"],
     complexity: "High",
     rigged: false,
-    animated: false
+    animated: false,
   },
   {
     id: 5,
@@ -113,14 +118,15 @@ const modelData = [
     downloads: 1890,
     views: 5210,
     rating: 4.5,
-    thumbnail: "https://images.unsplash.com/photo-1556909918-f9ae5ba8bf12?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
     contributor: "Interior Designer",
     fileSize: "6.8 MB",
     polygons: "23,560",
     formats: ["OBJ", "FBX", "GLB"],
     complexity: "Medium",
     rigged: false,
-    animated: false
+    animated: false,
   },
   {
     id: 6,
@@ -131,14 +137,15 @@ const modelData = [
     downloads: 2670,
     views: 7890,
     rating: 4.8,
-    thumbnail: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
     contributor: "Game Assets Co",
     fileSize: "1.9 MB",
     polygons: "5,340",
     formats: ["OBJ", "FBX", "GLB"],
     complexity: "Low",
     rigged: false,
-    animated: false
+    animated: false,
   },
   {
     id: 7,
@@ -149,14 +156,15 @@ const modelData = [
     downloads: 1450,
     views: 3980,
     rating: 4.9,
-    thumbnail: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop",
     contributor: "Nature 3D",
     fileSize: "4.3 MB",
     polygons: "18,760",
     formats: ["OBJ", "FBX", "GLB"],
     complexity: "Medium",
     rigged: false,
-    animated: false
+    animated: false,
   },
   {
     id: 8,
@@ -167,22 +175,39 @@ const modelData = [
     downloads: 980,
     views: 2890,
     rating: 4.9,
-    thumbnail: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=300&fit=crop",
     contributor: "Auto Modeler",
     fileSize: "12.4 MB",
     polygons: "67,890",
     formats: ["OBJ", "FBX", "GLB", "BLEND"],
     complexity: "High",
     rigged: false,
-    animated: false
-  }
+    animated: false,
+  },
 ];
 
-const categories = ["All", "Furniture", "Characters", "Vehicles", "Architecture", "Props", "Weapons", "Nature"];
+const categories = [
+  "All",
+  "Furniture",
+  "Characters",
+  "Vehicles",
+  "Architecture",
+  "Props",
+  "Weapons",
+  "Nature",
+];
 const complexities = ["All", "Low", "Medium", "High"];
 const formats = ["All", "OBJ", "FBX", "GLB", "BLEND", "3DS"];
 const features = ["All", "Rigged", "Animated", "Game Ready"];
-const sortOptions = ["Latest", "Popular", "Most Downloaded", "Highest Rated", "File Size: Small to Large", "Polygons: Low to High"];
+const sortOptions = [
+  "Latest",
+  "Popular",
+  "Most Downloaded",
+  "Highest Rated",
+  "File Size: Small to Large",
+  "Polygons: Low to High",
+];
 
 export default function ThreeDModels() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -194,55 +219,80 @@ export default function ThreeDModels() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [filteredModels, setFilteredModels] = useState(modelData);
-  const [previewItem, setPreviewItem] = useState<typeof modelData[0] | null>(null);
+  const [previewItem, setPreviewItem] = useState<(typeof modelData)[0] | null>(
+    null,
+  );
 
   useEffect(() => {
     let filtered = modelData;
 
     // Filter by search query
     if (searchQuery) {
-      filtered = filtered.filter(model =>
-        model.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        model.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      filtered = filtered.filter(
+        (model) =>
+          model.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          model.tags.some((tag) =>
+            tag.toLowerCase().includes(searchQuery.toLowerCase()),
+          ),
       );
     }
 
     // Filter by category
     if (selectedCategory !== "All") {
-      filtered = filtered.filter(model => model.category === selectedCategory);
+      filtered = filtered.filter(
+        (model) => model.category === selectedCategory,
+      );
     }
 
     // Filter by complexity
     if (selectedComplexity !== "All") {
-      filtered = filtered.filter(model => model.complexity === selectedComplexity);
+      filtered = filtered.filter(
+        (model) => model.complexity === selectedComplexity,
+      );
     }
 
     // Filter by format
     if (selectedFormat !== "All") {
-      filtered = filtered.filter(model => model.formats.includes(selectedFormat));
+      filtered = filtered.filter((model) =>
+        model.formats.includes(selectedFormat),
+      );
     }
 
     // Filter by features
     if (selectedFeature !== "All") {
-      filtered = filtered.filter(model => {
+      filtered = filtered.filter((model) => {
         switch (selectedFeature) {
-          case "Rigged": return model.rigged;
-          case "Animated": return model.animated;
-          case "Game Ready": return model.polygons && parseInt(model.polygons.replace(',', '')) < 20000;
-          default: return true;
+          case "Rigged":
+            return model.rigged;
+          case "Animated":
+            return model.animated;
+          case "Game Ready":
+            return (
+              model.polygons &&
+              parseInt(model.polygons.replace(",", "")) < 20000
+            );
+          default:
+            return true;
         }
       });
     }
 
     // Filter by price
     if (priceFilter === "Free") {
-      filtered = filtered.filter(model => model.price === "Free");
+      filtered = filtered.filter((model) => model.price === "Free");
     } else if (priceFilter === "Premium") {
-      filtered = filtered.filter(model => model.price !== "Free");
+      filtered = filtered.filter((model) => model.price !== "Free");
     }
 
     setFilteredModels(filtered);
-  }, [searchQuery, selectedCategory, selectedComplexity, selectedFormat, selectedFeature, priceFilter]);
+  }, [
+    searchQuery,
+    selectedCategory,
+    selectedComplexity,
+    selectedFormat,
+    selectedFeature,
+    priceFilter,
+  ]);
 
   return (
     <Layout>
@@ -254,13 +304,15 @@ export default function ThreeDModels() {
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
                   HazynaStock
-                </span> 3D Models
+                </span>{" "}
+                3D Models
               </h1>
               <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Traditional architecture, cultural artifacts, and Central Asian design elements in 3D
+                Traditional architecture, cultural artifacts, and Central Asian
+                design elements in 3D
               </p>
             </div>
-            
+
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto bg-card rounded-xl p-4 shadow-lg">
               <div className="relative">
@@ -282,7 +334,10 @@ export default function ThreeDModels() {
           <div className="max-w-7xl mx-auto">
             {/* Category Tabs */}
             <div className="mb-6">
-              <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Tabs
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              >
                 <div className="w-full overflow-x-auto scrollbar-hide">
                   <TabsList className="flex min-w-max bg-dark-surface2 p-1 gap-1">
                     {categories.map((category) => (
@@ -303,10 +358,15 @@ export default function ThreeDModels() {
             <div className="flex flex-wrap gap-4 mb-6 p-4 bg-dark-surface rounded-lg">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium text-foreground">3D Filters:</span>
+                <span className="text-sm font-medium text-foreground">
+                  3D Filters:
+                </span>
               </div>
-              
-              <Select value={selectedComplexity} onValueChange={setSelectedComplexity}>
+
+              <Select
+                value={selectedComplexity}
+                onValueChange={setSelectedComplexity}
+              >
                 <SelectTrigger className="w-32">
                   <Layers className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="Complexity" />
@@ -334,7 +394,10 @@ export default function ThreeDModels() {
                 </SelectContent>
               </Select>
 
-              <Select value={selectedFeature} onValueChange={setSelectedFeature}>
+              <Select
+                value={selectedFeature}
+                onValueChange={setSelectedFeature}
+              >
                 <SelectTrigger className="w-36">
                   <Box className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="Features" />
@@ -371,23 +434,6 @@ export default function ThreeDModels() {
                   ))}
                 </SelectContent>
               </Select>
-
-              <div className="flex gap-2 ml-auto">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("grid")}
-                >
-                  <Grid3X3 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("list")}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
 
             {/* Results Count */}
@@ -398,34 +444,40 @@ export default function ThreeDModels() {
             </div>
 
             {/* Models Grid/List */}
-            <div className={cn(
-              "gap-6 mb-12",
-              viewMode === "grid" 
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
-                : "space-y-4"
-            )}>
+            <div
+              className={cn(
+                "gap-6 mb-12",
+                viewMode === "grid"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  : "space-y-4",
+              )}
+            >
               {filteredModels.map((model) => (
                 <Card
                   key={model.id}
                   className={cn(
                     "group overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer",
-                    viewMode === "list" ? "flex" : "hover:scale-[1.02]"
+                    viewMode === "list" ? "flex" : "hover:scale-[1.02]",
                   )}
                   onClick={() => setPreviewItem(model)}
                 >
-                  <div className={cn(
-                    "relative overflow-hidden",
-                    viewMode === "list" ? "w-48 flex-shrink-0" : ""
-                  )}>
+                  <div
+                    className={cn(
+                      "relative overflow-hidden",
+                      viewMode === "list" ? "w-48 flex-shrink-0" : "",
+                    )}
+                  >
                     <img
                       src={model.thumbnail}
                       alt={model.title}
                       className={cn(
                         "object-cover group-hover:scale-105 transition-transform duration-300",
-                        viewMode === "grid" ? "w-full aspect-square" : "w-full h-full"
+                        viewMode === "grid"
+                          ? "w-full aspect-square"
+                          : "w-full h-full",
                       )}
                     />
-                    
+
                     {/* 3D Viewer Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
                       <div className="bg-primary/90 rounded-lg p-3">
@@ -433,30 +485,21 @@ export default function ThreeDModels() {
                       </div>
                     </div>
 
-                    {/* Complexity Badge */}
-                    <div className="absolute top-2 left-2">
-                      <Badge 
-                        variant="secondary" 
-                        className={cn(
-                          "text-xs bg-black/70 text-white",
-                          model.complexity === "Low" && "bg-green-600",
-                          model.complexity === "Medium" && "bg-yellow-600",
-                          model.complexity === "High" && "bg-red-600"
-                        )}
-                      >
-                        {model.complexity}
-                      </Badge>
-                    </div>
-
                     {/* Features Badges */}
                     <div className="absolute bottom-2 left-2 flex gap-1">
                       {model.rigged && (
-                        <Badge variant="secondary" className="text-xs bg-blue-600 text-white">
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-blue-600 text-white"
+                        >
                           Rigged
                         </Badge>
                       )}
                       {model.animated && (
-                        <Badge variant="secondary" className="text-xs bg-purple-600 text-white">
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-purple-600 text-white"
+                        >
                           Animated
                         </Badge>
                       )}
@@ -464,88 +507,34 @@ export default function ThreeDModels() {
 
                     {/* Action Buttons */}
                     <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button size="sm" variant="ghost" className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0"
+                      >
                         <Heart className="h-4 w-4" />
                       </Button>
-                      <Button size="sm" variant="ghost" className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0"
+                      >
                         <Download className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
-
-                  <CardContent className={cn(
-                    "p-4",
-                    viewMode === "list" ? "flex-1" : ""
-                  )}>
-                    <h3 className="font-medium text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                      {model.title}
-                    </h3>
-                    
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
-                      <span>by {model.contributor}</span>
-                      <div className="flex items-center">
-                        <Star className="h-3 w-3 fill-yellow-500 text-yellow-500 mr-1" />
-                        <span>{model.rating}</span>
-                      </div>
-                    </div>
-
-                    {/* Technical Details */}
-                    <div className="space-y-1 text-xs text-muted-foreground mb-3">
-                      <div className="flex justify-between">
-                        <span>Polygons:</span>
-                        <span>{model.polygons}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>File Size:</span>
-                        <span>{model.fileSize}</span>
-                      </div>
-                      {viewMode === "list" && (
-                        <div className="flex justify-between">
-                          <span>Formats:</span>
-                          <span>{model.formats.slice(0, 2).join(', ')}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-semibold text-primary">{model.price}</span>
-                      <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                        <div className="flex items-center">
-                          <Download className="h-3 w-3 mr-1" />
-                          {model.downloads.toLocaleString()}
-                        </div>
-                        <div className="flex items-center">
-                          <Eye className="h-3 w-3 mr-1" />
-                          {model.views.toLocaleString()}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Format Tags */}
-                    <div className="flex flex-wrap gap-1">
-                      {model.formats.slice(0, 3).map((format) => (
-                        <Badge key={format} variant="outline" className="text-xs">
-                          {format}
-                        </Badge>
-                      ))}
-                      {model.formats.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{model.formats.length - 3}
-                        </Badge>
-                      )}
-                    </div>
-                  </CardContent>
                 </Card>
               ))}
             </div>
 
             {/* Load More */}
-            <div className="text-center">
+            <div className="text-center mb-[20px]">
               <Button variant="outline" size="lg">
                 Load More Models
               </Button>
             </div>
           </div>
+          <Footer />
         </section>
 
         {/* Preview Modal */}

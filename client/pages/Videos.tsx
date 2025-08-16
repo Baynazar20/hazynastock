@@ -358,23 +358,6 @@ export default function Videos() {
                   ))}
                 </SelectContent>
               </Select>
-
-              <div className="flex gap-2 ml-auto">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("grid")}
-                >
-                  <Grid3X3 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("list")}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
 
             {/* Results Count */}
@@ -445,57 +428,6 @@ export default function Videos() {
                       </Button>
                     </div>
                   </div>
-
-                  <CardContent className={cn(
-                    "p-4",
-                    viewMode === "list" ? "flex-1" : ""
-                  )}>
-                    <h3 className="font-medium text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                      {video.title}
-                    </h3>
-                    
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
-                      <span>by {video.contributor}</span>
-                      <div className="flex items-center">
-                        <Star className="h-3 w-3 fill-yellow-500 text-yellow-500 mr-1" />
-                        <span>{video.rating}</span>
-                      </div>
-                    </div>
-
-                    {viewMode === "list" && (
-                      <p className="text-sm text-muted-foreground mb-3">
-                        {video.resolution} • {video.fps}fps • {video.format}
-                      </p>
-                    )}
-
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-semibold text-primary">{video.price}</span>
-                      <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                        <div className="flex items-center">
-                          <Download className="h-3 w-3 mr-1" />
-                          {video.downloads.toLocaleString()}
-                        </div>
-                        <div className="flex items-center">
-                          <Eye className="h-3 w-3 mr-1" />
-                          {video.views.toLocaleString()}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1">
-                      {video.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                      {video.tags.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{video.tags.length - 3}
-                        </Badge>
-                      )}
-                    </div>
-                  </CardContent>
                 </Card>
               ))}
             </div>
