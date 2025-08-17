@@ -32,7 +32,7 @@ interface PreviewModalProps {
   onClose: () => void;
   item: {
     id: number;
-    type: string;
+    type?: string;
     title: string;
     category: string;
     tags: string[];

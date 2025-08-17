@@ -19,7 +19,7 @@ import {
   Globe,
   Zap,
   Star,
-  Target
+  Target,
 } from "lucide-react";
 import {
   Select,
@@ -93,18 +93,7 @@ export default function Layout({ children }: LayoutProps) {
           {/* Logo */}
           <div className="flex h-16 items-center justify-between px-6 border-b border-sidebar-border">
             <Link to="/" className="flex items-center space-x-3">
-              <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 flex items-center justify-center shadow-lg">
-                <Star className="h-6 w-6 text-white fill-current" />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-transparent via-white/20 to-transparent"></div>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold text-sidebar-foreground bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text">
-                  HazynaStock
-                </span>
-                <span className="text-xs text-muted-foreground -mt-1">
-                  Central Asia Media
-                </span>
-              </div>
+              <img className="max-w-[85%]" src="/hazyna.png" alt="" />
             </Link>
             <Button
               variant="ghost"

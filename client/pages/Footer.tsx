@@ -98,7 +98,8 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">AI Assistant</h3>
             <p className="text-gray-300 mb-4">
-              Our AI assistant is available 24/7 to help you with any questions.
+              Our smart AI assistant is available 24/7 to guide you, answer
+              questions, and make your workflow easier.
             </p>
           </div>
 
@@ -106,7 +107,8 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Newsletter</h3>
             <p className="text-gray-300 mb-4">
-              Subscribe to our newsletter for the latest updates.
+              Stay updated with the latest news, features, and special offers.
+              Join our growing community today!
             </p>
           </div>
         </div>
@@ -114,8 +116,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>
-            &copy; {new Date().getFullYear()} HazynaStock. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} HazynaStock. All rights reserved.
           </p>
         </div>
       </div>

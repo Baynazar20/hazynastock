@@ -38,7 +38,7 @@ const imageData = [
     rating: 4.9,
     thumbnail:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-    contributor: "John Doe",
+    contributor: "Aman Kekilow",
     resolution: "6000x4000",
     orientation: "landscape",
     dominantColor: "#F59E0B",
@@ -56,7 +56,7 @@ const imageData = [
     rating: 4.7,
     thumbnail:
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
-    contributor: "Sarah Wilson",
+    contributor: "Bahar Saryyeva",
     resolution: "4000x6000",
     orientation: "portrait",
     dominantColor: "#3B82F6",
@@ -73,7 +73,7 @@ const imageData = [
     rating: 4.8,
     thumbnail:
       "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
-    contributor: "Mike Johnson",
+    contributor: "Dowlet Kakayew",
     resolution: "5000x3000",
     orientation: "landscape",
     dominantColor: "#6B7280",
@@ -90,7 +90,7 @@ const imageData = [
     rating: 4.6,
     thumbnail:
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
-    contributor: "Emma Davis",
+    contributor: "Muhammedov Jeyhun",
     resolution: "4500x3000",
     orientation: "landscape",
     dominantColor: "#F3F4F6",
@@ -107,7 +107,7 @@ const imageData = [
     rating: 4.9,
     thumbnail:
       "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&h=300&fit=crop",
-    contributor: "Alex Brown",
+    contributor: "Atayewa Jemal",
     resolution: "6000x4000",
     orientation: "landscape",
     dominantColor: "#06B6D4",
@@ -124,7 +124,7 @@ const imageData = [
     rating: 4.5,
     thumbnail:
       "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=300&fit=crop",
-    contributor: "Lisa Chen",
+    contributor: "Dowletjan Dowletow",
     resolution: "4000x4000",
     orientation: "square",
     dominantColor: "#8B5CF6",
@@ -141,7 +141,7 @@ const imageData = [
     rating: 4.7,
     thumbnail:
       "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
-    contributor: "Tom Wilson",
+    contributor: "Kerim Dowranov",
     resolution: "5000x3500",
     orientation: "landscape",
     dominantColor: "#10B981",
@@ -158,7 +158,7 @@ const imageData = [
     rating: 4.8,
     thumbnail:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
-    contributor: "Jane Smith",
+    contributor: "Bayramov Niyazmyrat",
     resolution: "3000x4500",
     orientation: "portrait",
     dominantColor: "#D97706",

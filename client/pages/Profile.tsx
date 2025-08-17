@@ -26,17 +26,16 @@ import {
   Box,
   Sparkles
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 // Mock user data
 const userData = {
-  name: "John Doe",
-  username: "johndoe",
-  email: "john.doe@example.com",
+  name: "Muhammedov Jeyhun",
+  username: "muhammedovjeyhun",
+  email: "jeyhun.doe@example.com",
   avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
   joinDate: "March 2023",
   location: "San Francisco, CA",
-  website: "https://johndoe.dev",
+  website: "https://baynazar.dev",
   bio: "Digital artist and 3D designer passionate about creating stunning visual experiences. Specializing in architectural visualization and game assets.",
   verified: true,
   totalDownloads: 45670,

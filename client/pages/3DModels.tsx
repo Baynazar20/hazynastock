@@ -393,47 +393,6 @@ export default function ThreeDModels() {
                   ))}
                 </SelectContent>
               </Select>
-
-              <Select
-                value={selectedFeature}
-                onValueChange={setSelectedFeature}
-              >
-                <SelectTrigger className="w-36">
-                  <Box className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="Features" />
-                </SelectTrigger>
-                <SelectContent>
-                  {features.map((feature) => (
-                    <SelectItem key={feature} value={feature}>
-                      {feature}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select value={priceFilter} onValueChange={setPriceFilter}>
-                <SelectTrigger className="w-28">
-                  <SelectValue placeholder="Price" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="Free">Free</SelectItem>
-                  <SelectItem value="Premium">Premium</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-52">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {sortOptions.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
 
             {/* Results Count */}

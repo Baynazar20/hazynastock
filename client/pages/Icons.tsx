@@ -13,11 +13,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Search, 
-  Filter, 
-  Download, 
-  Heart, 
+import {
+  Search,
+  Filter,
+  Download,
+  Heart,
   Sparkles,
   Star,
   Eye,
@@ -40,7 +40,7 @@ import {
   Zap,
   Globe,
   Package,
-  Truck
+  Truck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Footer from "./Footer";
@@ -61,7 +61,7 @@ const iconData = [
     style: "Outline",
     formats: ["SVG", "PNG", "ICO"],
     icons: [User, Settings, Mail, Calendar, ShoppingCart, Package],
-    colors: ["#000000", "#6B7280", "#3B82F6"]
+    colors: ["#000000", "#6B7280", "#3B82F6"],
   },
   {
     id: 2,
@@ -77,7 +77,7 @@ const iconData = [
     style: "Filled",
     formats: ["SVG", "PNG"],
     icons: [Home, Settings, Search, Heart, Download, Star],
-    colors: ["#000000", "#ffffff", "#10B981"]
+    colors: ["#000000", "#ffffff", "#10B981"],
   },
   {
     id: 3,
@@ -93,7 +93,7 @@ const iconData = [
     style: "Duotone",
     formats: ["SVG", "PNG", "PDF"],
     icons: [Mail, Phone, Globe, Camera, Music, Map],
-    colors: ["#3B82F6", "#8B5CF6", "#EC4899"]
+    colors: ["#3B82F6", "#8B5CF6", "#EC4899"],
   },
   {
     id: 4,
@@ -109,7 +109,7 @@ const iconData = [
     style: "Outline",
     formats: ["SVG", "PNG", "ICO", "PDF"],
     icons: [ShoppingCart, Package, Truck, Calendar, Shield, Zap],
-    colors: ["#000000", "#F59E0B", "#EF4444"]
+    colors: ["#000000", "#F59E0B", "#EF4444"],
   },
   {
     id: 5,
@@ -125,7 +125,7 @@ const iconData = [
     style: "Filled",
     formats: ["SVG", "PNG"],
     icons: [Shield, Zap, Settings, Globe, Search, Clock],
-    colors: ["#1F2937", "#6366F1", "#06B6D4"]
+    colors: ["#1F2937", "#6366F1", "#06B6D4"],
   },
   {
     id: 6,
@@ -141,7 +141,7 @@ const iconData = [
     style: "Outline",
     formats: ["SVG", "PNG"],
     icons: [Home, User, Heart, Star, Calendar, Map],
-    colors: ["#000000", "#6B7280"]
+    colors: ["#000000", "#6B7280"],
   },
   {
     id: 7,
@@ -157,7 +157,7 @@ const iconData = [
     style: "Filled",
     formats: ["SVG", "PNG", "ICO"],
     icons: [Heart, Star, User, Globe, Camera, Music],
-    colors: ["#1DA1F2", "#E4405F", "#0A66C2", "#25D366"]
+    colors: ["#1DA1F2", "#E4405F", "#0A66C2", "#25D366"],
   },
   {
     id: 8,
@@ -173,15 +173,32 @@ const iconData = [
     style: "Duotone",
     formats: ["SVG", "PNG", "PDF"],
     icons: [Clock, Calendar, Globe, Zap, Shield, Star],
-    colors: ["#3B82F6", "#10B981", "#F59E0B", "#EF4444"]
-  }
+    colors: ["#3B82F6", "#10B981", "#F59E0B", "#EF4444"],
+  },
 ];
 
-const categories = ["All", "Business", "Interface", "Communication", "E-commerce", "Technology", "Minimalist", "Social", "Weather"];
+const categories = [
+  "All",
+  "Business",
+  "Interface",
+  "Communication",
+  "E-commerce",
+  "Technology",
+  "Minimalist",
+  "Social",
+  "Weather",
+];
 const styles = ["All", "Outline", "Filled", "Duotone"];
 const formats = ["All", "SVG", "PNG", "ICO", "PDF"];
 const iconCounts = ["All", "1-20", "21-40", "40+"];
-const sortOptions = ["Latest", "Popular", "Most Downloaded", "Highest Rated", "Price: Low to High", "Icon Count: Low to High"];
+const sortOptions = [
+  "Latest",
+  "Popular",
+  "Most Downloaded",
+  "Highest Rated",
+  "Price: Low to High",
+  "Icon Count: Low to High",
+];
 
 export default function Icons() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -193,56 +210,74 @@ export default function Icons() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [filteredIcons, setFilteredIcons] = useState(iconData);
-  const [previewItem, setPreviewItem] = useState<typeof iconData[0] | null>(null);
+  const [previewItem, setPreviewItem] = useState<(typeof iconData)[0] | null>(
+    null,
+  );
 
   useEffect(() => {
     let filtered = iconData;
 
     // Filter by search query
     if (searchQuery) {
-      filtered = filtered.filter(pack =>
-        pack.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pack.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      filtered = filtered.filter(
+        (pack) =>
+          pack.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          pack.tags.some((tag) =>
+            tag.toLowerCase().includes(searchQuery.toLowerCase()),
+          ),
       );
     }
 
     // Filter by category
     if (selectedCategory !== "All") {
-      filtered = filtered.filter(pack => pack.category === selectedCategory);
+      filtered = filtered.filter((pack) => pack.category === selectedCategory);
     }
 
     // Filter by style
     if (selectedStyle !== "All") {
-      filtered = filtered.filter(pack => pack.style === selectedStyle);
+      filtered = filtered.filter((pack) => pack.style === selectedStyle);
     }
 
     // Filter by format
     if (selectedFormat !== "All") {
-      filtered = filtered.filter(pack => pack.formats.includes(selectedFormat));
+      filtered = filtered.filter((pack) =>
+        pack.formats.includes(selectedFormat),
+      );
     }
 
     // Filter by icon count
     if (selectedIconCount !== "All") {
-      filtered = filtered.filter(pack => {
+      filtered = filtered.filter((pack) => {
         const count = pack.iconCount;
         switch (selectedIconCount) {
-          case "1-20": return count <= 20;
-          case "21-40": return count > 20 && count <= 40;
-          case "40+": return count > 40;
-          default: return true;
+          case "1-20":
+            return count <= 20;
+          case "21-40":
+            return count > 20 && count <= 40;
+          case "40+":
+            return count > 40;
+          default:
+            return true;
         }
       });
     }
 
     // Filter by price
     if (priceFilter === "Free") {
-      filtered = filtered.filter(pack => pack.price === "Free");
+      filtered = filtered.filter((pack) => pack.price === "Free");
     } else if (priceFilter === "Premium") {
-      filtered = filtered.filter(pack => pack.price !== "Free");
+      filtered = filtered.filter((pack) => pack.price !== "Free");
     }
 
     setFilteredIcons(filtered);
-  }, [searchQuery, selectedCategory, selectedStyle, selectedFormat, selectedIconCount, priceFilter]);
+  }, [
+    searchQuery,
+    selectedCategory,
+    selectedStyle,
+    selectedFormat,
+    selectedIconCount,
+    priceFilter,
+  ]);
 
   return (
     <Layout>
@@ -254,13 +289,15 @@ export default function Icons() {
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
                   HazynaStock
-                </span> Icons Library
+                </span>{" "}
+                Icons Library
               </h1>
               <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Traditional patterns, cultural symbols, and modern icons inspired by Central Asian heritage
+                Traditional patterns, cultural symbols, and modern icons
+                inspired by Central Asian heritage
               </p>
             </div>
-            
+
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto bg-card rounded-xl p-4 shadow-lg">
               <div className="relative">
@@ -282,7 +319,10 @@ export default function Icons() {
           <div className="max-w-7xl mx-auto">
             {/* Category Tabs */}
             <div className="mb-6">
-              <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Tabs
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              >
                 <div className="w-full overflow-x-auto scrollbar-hide">
                   <TabsList className="flex min-w-max bg-dark-surface2 p-1 gap-1">
                     {categories.map((category) => (
@@ -303,9 +343,11 @@ export default function Icons() {
             <div className="flex flex-wrap gap-4 mb-6 p-4 bg-dark-surface rounded-lg">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium text-foreground">Icon Filters:</span>
+                <span className="text-sm font-medium text-foreground">
+                  Icon Filters:
+                </span>
               </div>
-              
+
               <Select value={selectedStyle} onValueChange={setSelectedStyle}>
                 <SelectTrigger className="w-28">
                   <Sparkles className="h-4 w-4 mr-2" />
@@ -333,7 +375,10 @@ export default function Icons() {
                 </SelectContent>
               </Select>
 
-              <Select value={selectedIconCount} onValueChange={setSelectedIconCount}>
+              <Select
+                value={selectedIconCount}
+                onValueChange={setSelectedIconCount}
+              >
                 <SelectTrigger className="w-32">
                   <SelectValue placeholder="Icon Count" />
                 </SelectTrigger>
@@ -379,35 +424,41 @@ export default function Icons() {
             </div>
 
             {/* Icons Grid/List */}
-            <div className={cn(
-              "gap-6 mb-12",
-              viewMode === "grid" 
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
-                : "space-y-4"
-            )}>
+            <div
+              className={cn(
+                "gap-6 mb-12",
+                viewMode === "grid"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  : "space-y-4",
+              )}
+            >
               {filteredIcons.map((pack) => (
                 <Card
                   key={pack.id}
                   className={cn(
                     "group overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer",
-                    viewMode === "list" ? "flex" : "hover:scale-[1.02]"
+                    viewMode === "list" ? "flex" : "hover:scale-[1.02]",
                   )}
                   onClick={() => setPreviewItem(pack)}
                 >
-                  <div className={cn(
-                    "relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900",
-                    viewMode === "list" ? "w-48 flex-shrink-0" : "aspect-square"
-                  )}>
+                  <div
+                    className={cn(
+                      "relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900",
+                      viewMode === "list"
+                        ? "w-48 flex-shrink-0"
+                        : "aspect-square",
+                    )}
+                  >
                     {/* Icon Preview Grid */}
                     <div className="absolute inset-0 p-6">
                       <div className="grid grid-cols-3 gap-3 h-full">
                         {pack.icons.slice(0, 6).map((Icon, index) => (
-                          <div 
-                            key={index} 
+                          <div
+                            key={index}
                             className="flex items-center justify-center bg-white dark:bg-gray-700 rounded-lg shadow-sm group-hover:scale-110 transition-transform duration-200"
-                            style={{ 
+                            style={{
                               transitionDelay: `${index * 50}ms`,
-                              color: pack.colors[index % pack.colors.length] 
+                              color: pack.colors[index % pack.colors.length],
                             }}
                           >
                             <Icon className="h-6 w-6" />
@@ -418,13 +469,16 @@ export default function Icons() {
 
                     {/* Style Badge */}
                     <div className="absolute top-2 left-2">
-                      <Badge 
-                        variant="secondary" 
+                      <Badge
+                        variant="secondary"
                         className={cn(
                           "text-xs",
-                          pack.style === "Outline" && "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-                          pack.style === "Filled" && "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-                          pack.style === "Duotone" && "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200"
+                          pack.style === "Outline" &&
+                            "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+                          pack.style === "Filled" &&
+                            "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+                          pack.style === "Duotone" &&
+                            "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
                         )}
                       >
                         {pack.style}
@@ -433,17 +487,28 @@ export default function Icons() {
 
                     {/* Icon Count */}
                     <div className="absolute top-2 right-2">
-                      <Badge variant="secondary" className="text-xs bg-black/70 text-white">
+                      <Badge
+                        variant="secondary"
+                        className="text-xs bg-black/70 text-white"
+                      >
                         {pack.iconCount} icons
                       </Badge>
                     </div>
 
                     {/* Action Buttons */}
                     <div className="absolute bottom-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button size="sm" variant="ghost" className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0"
+                      >
                         <Heart className="h-4 w-4" />
                       </Button>
-                      <Button size="sm" variant="ghost" className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0"
+                      >
                         <Download className="h-4 w-4" />
                       </Button>
                     </div>
@@ -451,7 +516,7 @@ export default function Icons() {
                     {/* Color Palette */}
                     <div className="absolute bottom-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {pack.colors.slice(0, 3).map((color, index) => (
-                        <div 
+                        <div
                           key={index}
                           className="w-4 h-4 rounded-full border-2 border-white shadow-sm"
                           style={{ backgroundColor: color }}
@@ -460,14 +525,13 @@ export default function Icons() {
                     </div>
                   </div>
 
-                  <CardContent className={cn(
-                    "p-4",
-                    viewMode === "list" ? "flex-1" : ""
-                  )}>
+                  <CardContent
+                    className={cn("p-4", viewMode === "list" ? "flex-1" : "")}
+                  >
                     <h3 className="font-medium text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                       {pack.title}
                     </h3>
-                    
+
                     <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
                       <span>by {pack.contributor}</span>
                       <div className="flex items-center">
@@ -484,13 +548,15 @@ export default function Icons() {
                         </div>
                         <div className="flex justify-between">
                           <span>Formats:</span>
-                          <span>{pack.formats.slice(0, 2).join(', ')}</span>
+                          <span>{pack.formats.slice(0, 2).join(", ")}</span>
                         </div>
                       </div>
                     )}
 
                     <div className="flex items-center justify-between mb-3">
-                      <span className="font-semibold text-primary">{pack.price}</span>
+                      <span className="font-semibold text-primary">
+                        {pack.price}
+                      </span>
                       <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                         <div className="flex items-center">
                           <Download className="h-3 w-3 mr-1" />
@@ -506,7 +572,11 @@ export default function Icons() {
                     {/* Format Tags */}
                     <div className="flex flex-wrap gap-1">
                       {pack.formats.slice(0, 3).map((format) => (
-                        <Badge key={format} variant="outline" className="text-xs">
+                        <Badge
+                          key={format}
+                          variant="outline"
+                          className="text-xs"
+                        >
                           {format}
                         </Badge>
                       ))}
