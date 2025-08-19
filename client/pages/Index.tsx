@@ -580,11 +580,10 @@ export default function Page() {
         <div className="max-w-[1200px] mx-auto relative">
           <div className="text-center pt-12 pb-8">
             <h1 className="text-4xl md:text-6xl font-semibold leading-tight">
-              Creative work, reimagined with AI
+              HazynaStock
             </h1>
             <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Top AI image, video, and audio models. Professional tools plus
-              stock content you'll love.
+              Professional AI tools to create branded posters — plus stock images, video, icons and 3D models — tailored for Central Asia.
             </p>
             <div className="mt-6">
               <button
@@ -651,18 +650,16 @@ export default function Page() {
             <span className="font-semibold">We help you go further.</span>
             <span className="text-gray-400">
               {" "}
-              Join <span className="font-semibold">700,000</span> creative
-              teams, marketers, and designers worldwide.
+              Join creative teams, marketers and designers in Central Asia.
             </span>
           </h2>
 
           {/* Logos */}
           <div className="flex flex-wrap justify-center items-center gap-18 mt-10 opacity-80">
-            <img src="./google.png" alt="Google" className="h-24" />
-            <img src="./bank.png" alt="Nubank" className="h-24" />
-            <img src="./fish.png" alt="HelloFresh" className="h-24" />
-            <img src="./google.png" alt="CocaCola" className="h-24" />
-            <img src="./bank.png" alt="Ogilvy" className="h-24" />
+            <img src="./1.png" alt="Wabrum" className="h-24" />
+            <img src="./2.png" alt="Bezen" className="h-24" />
+            <img src="./3.png" alt="Harman Consulting" className="h-24" />
+            <img src="./4.png" alt="Maslahat Cozgut" className="h-24" />
           </div>
 
           {/* Features */}
@@ -677,9 +674,8 @@ export default function Page() {
                 {[
                   "Images",
                   "Video",
-                  "Audio",
-                  "Illustrations",
-                  "Design",
+                  "Icons",
+                  "3D Models",
                   "All AI tools",
                 ].map((item, index) => (
                   <button
@@ -801,31 +797,24 @@ export default function Page() {
             {/* Individuals */}
             <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
               <div>
-                <h3 className="text-xl font-semibold mb-2">Individuals</h3>
-                <p className="text-sm text-zinc-400 mb-6">
-                  Create professional, on-brand visuals fast with AI-powered
-                  tools and high-quality stock assets.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">Standart</h3>
                 <p className="text-2xl font-bold">
                   Starting at{" "}
-                  <span className="text-4xl font-extrabold">5 EUR</span>
+                  <span className="text-4xl font-extrabold">7.5 USD</span>
                   <span className="text-base font-normal">/month</span>
                 </p>
                 <p className="text-sm text-zinc-400 mb-6">
-                  37% off billed annually
+                  40% off billed annually
                 </p>
                 <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
-                  Show individual plans
+                  Show Standart plans
                 </button>
 
                 <ul className="space-y-3 text-sm">
                   {[
-                    "AI generation and editing of images, videos, icons, mockups, and music",
-                    "Train custom AI models for on-brand visuals: styles, objects, colors, and characters",
-                    "Upscale images up to 10K resolution with Magnific and videos up to 4K with Topaz",
-                    "Access to Premium stock content: 250M+ photos, vectors, templates, and more",
-                    "Priority speed for image and video generation with ChatGPT, Kling, and Veo 3",
-                    "Commercial AI license for professionals",
+                    "360 stock assets",
+                    "50 AI generation images tokens",
+                    "Free image editing tools",
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-blue-400 mr-2">✓</span> {item}
@@ -836,32 +825,26 @@ export default function Page() {
             </div>
 
             {/* Teams */}
-            <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-blue-500">
+            <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
               <div>
-                <h3 className="text-xl font-semibold mb-2">Teams</h3>
-                <p className="text-sm text-zinc-400 mb-6">
-                  Collaborate with your team on AI-driven projects and premium
-                  stock assets.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">Premium</h3>
                 <p className="text-2xl font-bold">
-                  22.50 EUR
-                  <span className="text-base font-normal"> per user/month</span>
+                  Starting at{" "}
+                  <span className="text-4xl font-extrabold">12 USD</span>
+                  <span className="text-base font-normal">/month</span>
                 </p>
                 <p className="text-sm text-zinc-400 mb-6">
-                  37% off billed annually
+                  40% off billed annually
                 </p>
-                <button className="bg-white text-black hover:bg-zinc-200 w-full py-2 rounded-lg font-medium mb-6">
-                  Get a plan
+                <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
+                  Show Premium plans
                 </button>
 
                 <ul className="space-y-3 text-sm">
                   {[
-                    "Everything in individual plans, and:",
-                    "Unlimited image generation and editing",
-                    "Control team credit usage",
-                    "Unified admin and billing",
-                    "Secured asset storage",
-                    "Team collaboration and sharing",
+                    "360 stock assets",
+                    "100 AI generation images tokens",
+                    "Free image editing tools",
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-blue-400 mr-2">✓</span> {item}
@@ -874,25 +857,24 @@ export default function Page() {
             {/* Enterprise */}
             <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
               <div>
-                <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-                <p className="text-sm text-zinc-400 mb-6">
-                  Get the best for your organization with a dedicated account
-                  manager and priority support.
+                <h3 className="text-xl font-semibold mb-2">Premium+</h3>
+                <p className="text-2xl font-bold">
+                  Starting at{" "}
+                  <span className="text-4xl font-extrabold">15 USD</span>
+                  <span className="text-base font-normal">/month</span>
                 </p>
-                <p className="text-2xl font-bold">Custom</p>
+                <p className="text-sm text-zinc-400 mb-6">
+                  40% off billed annually
+                </p>
                 <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
-                  Learn more
+                  Show Premium+ plans
                 </button>
 
                 <ul className="space-y-3 text-sm">
                   {[
-                    "Everything in team plans, and:",
-                    "Legal indemnification for AI-generated content",
-                    "Rights over your AI-generated content",
-                    "SSO and enterprise-level security & compliance",
-                    "Expert guidance, training, and technical support",
-                    "Unlimited users, flexible credits",
-                    "3-month evaluation period",
+                    "900 stock assets",
+                    "200 AI generation images tokens",
+                    "Free image editing tools",
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-blue-400 mr-2">✓</span> {item}

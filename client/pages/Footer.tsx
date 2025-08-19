@@ -19,33 +19,22 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://instagram.com/yourusername"
+                  href="https://instagram.com/hazynastock"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center hover:text-rose-500 transition-colors"
                 >
                   <Instagram className="w-5 h-5 mr-2" />
-                  @hazynaStock
+                  @hazynastock
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center hover:text-gray-400 transition-colors"
-                >
-                  <Github className="w-5 h-5 mr-2" />
-                  github.com
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:youremail@gmail.com"
+                  href="mailto:info@hazynastock.com"
                   className="flex items-center hover:text-blue-400 transition-colors"
                 >
                   <Mail className="w-5 h-5 mr-2" />
-                  hazyaStock@gmail.com
+                  info@hazynastock.com
                 </a>
               </li>
             </ul>
