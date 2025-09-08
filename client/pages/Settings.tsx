@@ -4,8 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
+import TwoFactorSetupModal from "./Settings/FactorAuth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -33,7 +32,7 @@ import {
   Mail,
   Lock,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import Delete from "./Settings/Delete";
 
 // Mock user settings
 const userSettings = {
@@ -76,6 +75,8 @@ export default function Settings() {
   const [activeTab, setActiveTab] = useState("profile");
   const [settings, setSettings] = useState(userSettings);
   const [showPassword, setShowPassword] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [method, setMethod] = useState<"sms" | "email" | null>(null);
 
   const updateSetting = (
     section: keyof typeof settings,
@@ -110,27 +111,13 @@ export default function Settings() {
         <section className="py-8 px-6">
           <div className="max-w-4xl mx-auto">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-5 mb-8 bg-dark-surface2">
+              <TabsList className="w-full flex  grid-cols-5 mb-8 bg-dark-surface2">
                 <TabsTrigger
                   value="profile"
                   className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
                   <User className="h-4 w-4 mr-2" />
                   Profile
-                </TabsTrigger>
-                <TabsTrigger
-                  value="notifications"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                >
-                  <Bell className="h-4 w-4 mr-2" />
-                  Notifications
-                </TabsTrigger>
-                <TabsTrigger
-                  value="privacy"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                >
-                  <Shield className="h-4 w-4 mr-2" />
-                  Privacy
                 </TabsTrigger>
                 <TabsTrigger
                   value="security"
@@ -193,7 +180,7 @@ export default function Settings() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="username">Username</Label>
+                        <Label htmlFor="username">Surname</Label>
                         <Input
                           id="username"
                           value={settings.profile.username}
@@ -204,7 +191,19 @@ export default function Settings() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
+                        <Label htmlFor="email">Username</Label>
+                        <Input
+                          id="username"
+                          type="email"
+                          value="Muhammet"
+                          onChange={(e) =>
+                            updateSetting("profile", "email", e.target.value)
+                          }
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="location">Email</Label>
                         <Input
                           id="email"
                           type="email"
@@ -215,8 +214,8 @@ export default function Settings() {
                         />
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="location">Location</Label>
+                      <div className="space-y-2 ">
+                        <Label htmlFor="website">Country</Label>
                         <Input
                           id="location"
                           value={settings.profile.location}
@@ -225,32 +224,17 @@ export default function Settings() {
                           }
                         />
                       </div>
-
-                      <div className="space-y-2 md:col-span-2">
-                        <Label htmlFor="website">Website</Label>
+                      <div className="space-y-2 ">
+                        <Label htmlFor="website">Phone Number</Label>
                         <Input
-                          id="website"
-                          type="url"
-                          value={settings.profile.website}
+                          id="location"
+                          value="+99363446677"
                           onChange={(e) =>
-                            updateSetting("profile", "website", e.target.value)
+                            updateSetting("profile", "location", e.target.value)
                           }
                         />
                       </div>
                     </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="bio">Bio</Label>
-                      <Textarea
-                        id="bio"
-                        value={settings.profile.bio}
-                        onChange={(e) =>
-                          updateSetting("profile", "bio", e.target.value)
-                        }
-                        className="min-h-[100px]"
-                      />
-                    </div>
-
                     <div className="flex justify-end">
                       <Button>
                         <Save className="h-4 w-4 mr-2" />
@@ -260,242 +244,6 @@ export default function Settings() {
                   </CardContent>
                 </Card>
               </TabsContent>
-
-              <TabsContent value="notifications" className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Email Notifications</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Download Notifications</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Get notified when someone downloads your content
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.notifications.emailDownloads}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "notifications",
-                            "emailDownloads",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Comments & Reviews</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Get notified about comments and reviews on your
-                          content
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.notifications.emailComments}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "notifications",
-                            "emailComments",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>New Followers</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Get notified when someone follows you
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.notifications.emailFollowers}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "notifications",
-                            "emailFollowers",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Marketing Emails</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Receive updates about new features and promotions
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.notifications.emailMarketing}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "notifications",
-                            "emailMarketing",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Push Notifications</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Download Alerts</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Real-time notifications for downloads
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.notifications.pushDownloads}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "notifications",
-                            "pushDownloads",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Comments & Reviews</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Instant notifications for new comments
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.notifications.pushComments}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "notifications",
-                            "pushComments",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Followers</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Notifications for new followers
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.notifications.pushFollowers}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "notifications",
-                            "pushFollowers",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="privacy" className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Profile Visibility</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Public Profile</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Make your profile visible to other users
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.privacy.profileVisible}
-                        onCheckedChange={(checked) =>
-                          updateSetting("privacy", "profileVisible", checked)
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Show Download Count</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Display how many times your content has been
-                          downloaded
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.privacy.showDownloads}
-                        onCheckedChange={(checked) =>
-                          updateSetting("privacy", "showDownloads", checked)
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Show Favorites</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Let others see your favorite content
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.privacy.showFavorites}
-                        onCheckedChange={(checked) =>
-                          updateSetting("privacy", "showFavorites", checked)
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Allow Messages</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Let other users send you direct messages
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.privacy.allowMessages}
-                        onCheckedChange={(checked) =>
-                          updateSetting("privacy", "allowMessages", checked)
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Show Online Status</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Display when you're online
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.privacy.showOnline}
-                        onCheckedChange={(checked) =>
-                          updateSetting("privacy", "showOnline", checked)
-                        }
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
               <TabsContent value="security" className="space-y-6">
                 <Card>
                   <CardHeader>
@@ -530,23 +278,53 @@ export default function Settings() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="new-password">New Password</Label>
-                        <Input
-                          id="new-password"
-                          type="password"
-                          placeholder="Enter new password"
-                        />
+                        <Label htmlFor="current-password">New Password</Label>
+                        <div className="relative">
+                          <Input
+                            id="current-password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Enter current password"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-2 top-1/2 -translate-y-1/2"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="confirm-password">
+                        <Label htmlFor="current-password">
                           Confirm New Password
                         </Label>
-                        <Input
-                          id="confirm-password"
-                          type="password"
-                          placeholder="Confirm new password"
-                        />
+                        <div className="relative">
+                          <Input
+                            id="current-password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Enter current password"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-2 top-1/2 -translate-y-1/2"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
                     </div>
 
@@ -557,71 +335,74 @@ export default function Settings() {
                   </CardContent>
                 </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Two-Factor Authentication</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>SMS Authentication</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Receive verification codes via SMS
-                        </p>
+                <>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Two-Factor Authentication</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label>SMS Authentication</Label>
+                          <p className="text-sm text-muted-foreground">
+                            Receive verification codes via SMS
+                          </p>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setMethod("sms");
+                            setModalOpen(true);
+                          }}
+                        >
+                          <Smartphone className="h-4 w-4 mr-2" />
+                          Setup
+                        </Button>
                       </div>
-                      <Button variant="outline" size="sm">
-                        <Smartphone className="h-4 w-4 mr-2" />
-                        Setup
-                      </Button>
-                    </div>
 
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Email Authentication</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Receive verification codes via email
-                        </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label>Email Authentication</Label>
+                          <p className="text-sm text-muted-foreground">
+                            Receive verification codes via email
+                          </p>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setMethod("email");
+                            setModalOpen(true);
+                          }}
+                        >
+                          <Mail className="h-4 w-4 mr-2" />
+                          Setup
+                        </Button>
                       </div>
-                      <Button variant="outline" size="sm">
-                        <Mail className="h-4 w-4 mr-2" />
-                        Setup
-                      </Button>
-                    </div>
 
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Authenticator App</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Use Google Authenticator or similar apps
-                        </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label>Authenticator App</Label>
+                          <p className="text-sm text-muted-foreground">
+                            Use Google Authenticator or similar apps
+                          </p>
+                        </div>
+                        <Button variant="outline" size="sm">
+                          <Key className="h-4 w-4 mr-2" />
+                          Setup
+                        </Button>
                       </div>
-                      <Button variant="outline" size="sm">
-                        <Key className="h-4 w-4 mr-2" />
-                        Setup
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-red-600">Danger Zone</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between p-4 border border-red-200 dark:border-red-800 rounded-lg">
-                      <div>
-                        <Label className="text-red-600">Delete Account</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Permanently delete your account and all data
-                        </p>
-                      </div>
-                      <Button variant="destructive" size="sm">
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        Delete Account
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                  <TwoFactorSetupModal
+                    open={modalOpen}
+                    onClose={() => setModalOpen(false)}
+                    method={method}
+                  />
+                </>
+                <Delete />
               </TabsContent>
 
               <TabsContent value="preferences" className="space-y-6">
@@ -653,7 +434,7 @@ export default function Settings() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label>Theme</Label>
+                        <Label>Region</Label>
                         <Select
                           value={settings.preferences.theme}
                           onValueChange={(value) =>
@@ -664,79 +445,17 @@ export default function Settings() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="dark">Dark</SelectItem>
-                            <SelectItem value="light">Light</SelectItem>
-                            <SelectItem value="system">System</SelectItem>
+                            <SelectItem value="dark">Asia</SelectItem>
+                            <SelectItem value="light">Europe</SelectItem>
+                            <SelectItem value="system">
+                              Americas (North America, South America)
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Download Preferences</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label>Default Download Quality</Label>
-                      <Select
-                        value={settings.preferences.downloadQuality}
-                        onValueChange={(value) =>
-                          updateSetting("preferences", "downloadQuality", value)
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="low">Low Quality</SelectItem>
-                          <SelectItem value="medium">Medium Quality</SelectItem>
-                          <SelectItem value="high">High Quality</SelectItem>
-                          <SelectItem value="original">
-                            Original Quality
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Auto-download after purchase</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Automatically start downloads after purchase
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.preferences.autoDownload}
-                        onCheckedChange={(checked) =>
-                          updateSetting("preferences", "autoDownload", checked)
-                        }
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label>Show watermarks in previews</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Display watermarks on preview images
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.preferences.showWatermarks}
-                        onCheckedChange={(checked) =>
-                          updateSetting(
-                            "preferences",
-                            "showWatermarks",
-                            checked,
-                          )
-                        }
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-
                 <div className="flex justify-end">
                   <Button>
                     <Save className="h-4 w-4 mr-2" />

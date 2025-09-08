@@ -222,6 +222,12 @@ export default function ThreeDModels() {
   const [previewItem, setPreviewItem] = useState<(typeof modelData)[0] | null>(
     null,
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [imagesPerPage] = useState(6);
+  const totalPages = Math.ceil(Image.length / imagesPerPage);
+  const indexOfLastImage = currentPage * imagesPerPage;
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+  const [likedItems, setLikedItems] = useState(new Set());
 
   useEffect(() => {
     let filtered = modelData;
@@ -294,42 +300,21 @@ export default function ThreeDModels() {
     priceFilter,
   ]);
 
+  const toggleLike = (id) => {
+    setLikedItems((prev) => {
+      const newLiked = new Set(prev);
+      if (newLiked.has(id)) {
+        newLiked.delete(id);
+      } else {
+        newLiked.add(id);
+      }
+      return newLiked;
+    });
+  };
+
   return (
     <Layout>
       <div className="min-h-screen bg-background">
-        {/* Header Section */}
-        <section className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 py-16 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-                  HazynaStock
-                </span>{" "}
-                3D Models
-              </h1>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Traditional architecture, cultural artifacts, and Central Asian
-                design elements in 3D
-              </p>
-            </div>
-
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto bg-card rounded-xl p-4 shadow-lg">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search 3D models by name, category, or style..."
-                  className="pl-12 h-12 text-lg bg-background"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Filters and Content */}
         <section className="py-8 px-6">
           <div className="max-w-7xl mx-auto">
             {/* Category Tabs */}
@@ -469,9 +454,21 @@ export default function ThreeDModels() {
                       <Button
                         size="sm"
                         variant="ghost"
-                        className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0"
+                        className={cn(
+                          "bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0",
+                          likedItems.has(model.id) && "text-red-500", // Like edilende reňk üýtger
+                        )}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Modal açylmagyň öňüni al
+                          toggleLike(model.id);
+                        }}
                       >
-                        <Heart className="h-4 w-4" />
+                        <Heart
+                          className="h-4 w-4"
+                          fill={
+                            likedItems.has(model.id) ? "currentColor" : "none"
+                          }
+                        />
                       </Button>
                       <Button
                         size="sm"
@@ -486,16 +483,87 @@ export default function ThreeDModels() {
               ))}
             </div>
 
-            {/* Load More */}
-            <div className="text-center mb-[20px]">
-              <Button variant="outline" size="lg">
-                Load More Models
+            <div className="flex justify-center mb-[20px] space-x-2">
+              {/* Previous */}
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                Previous
+              </Button>
+
+              {/* First page */}
+              {currentPage > 2 && (
+                <>
+                  <Button
+                    variant={currentPage === 1 ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentPage(1)}
+                  >
+                    1
+                  </Button>
+                  {currentPage > 3 && <span className="px-2">...</span>}
+                </>
+              )}
+
+              {/* Current -1 */}
+              {currentPage > 1 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  {currentPage - 1}
+                </Button>
+              )}
+
+              {/* Current */}
+              <Button variant="default" size="sm">
+                {currentPage}
+              </Button>
+
+              {/* Current +1 */}
+              {currentPage < totalPages && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  {currentPage + 1}
+                </Button>
+              )}
+
+              {/* Last page */}
+              {currentPage < totalPages - 1 && (
+                <>
+                  {currentPage < totalPages - 2 && (
+                    <span className="px-2">...</span>
+                  )}
+                  <Button
+                    variant={currentPage === totalPages ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentPage(totalPages)}
+                  >
+                    {totalPages}
+                  </Button>
+                </>
+              )}
+
+              {/* Next */}
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                Next
               </Button>
             </div>
           </div>
           <Footer />
         </section>
-
         {/* Preview Modal */}
         {previewItem && (
           <PreviewModal

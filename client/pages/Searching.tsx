@@ -36,8 +36,7 @@ const imageData = [
     downloads: 2340,
     views: 8750,
     rating: 4.9,
-    thumbnail:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/1.jpg",
     contributor: "Aman Kekilow",
     resolution: "6000x4000",
     orientation: "landscape",
@@ -54,8 +53,7 @@ const imageData = [
     views: 5670,
     type: "image",
     rating: 4.7,
-    thumbnail:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/2.jpg",
     contributor: "Bahar Saryyeva",
     resolution: "4000x6000",
     orientation: "portrait",
@@ -71,8 +69,7 @@ const imageData = [
     downloads: 1456,
     views: 4320,
     rating: 4.8,
-    thumbnail:
-      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/3.jpg",
     contributor: "Dowlet Kakayew",
     resolution: "5000x3000",
     orientation: "landscape",
@@ -88,8 +85,7 @@ const imageData = [
     type: "image",
     views: 9450,
     rating: 4.6,
-    thumbnail:
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/9.jpg",
     contributor: "Muhammedov Jeyhun",
     resolution: "4500x3000",
     orientation: "landscape",
@@ -105,8 +101,7 @@ const imageData = [
     views: 7800,
     type: "image",
     rating: 4.9,
-    thumbnail:
-      "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/5.jpg",
     contributor: "Atayewa Jemal",
     resolution: "6000x4000",
     orientation: "landscape",
@@ -122,8 +117,7 @@ const imageData = [
     type: "image",
     views: 3980,
     rating: 4.5,
-    thumbnail:
-      "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/10.jpg",
     contributor: "Dowletjan Dowletow",
     resolution: "4000x4000",
     orientation: "square",
@@ -139,8 +133,7 @@ const imageData = [
     type: "image",
     views: 6540,
     rating: 4.7,
-    thumbnail:
-      "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/7.jpg",
     contributor: "Kerim Dowranov",
     resolution: "5000x3500",
     orientation: "landscape",
@@ -156,8 +149,135 @@ const imageData = [
     views: 4210,
     type: "image",
     rating: 4.8,
-    thumbnail:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+    thumbnail: "./image_cat/8.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 9,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/11.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 10,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/12.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 11,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/13.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 12,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/14.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 13,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/15.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 14,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/16.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 15,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/17.jpg",
+    contributor: "Bayramov Niyazmyrat",
+    resolution: "3000x4500",
+    orientation: "portrait",
+    dominantColor: "#D97706",
+  },
+  {
+    id: 16,
+    title: "Cozy Reading Corner",
+    category: "Lifestyle",
+    tags: ["reading", "cozy", "books", "interior", "home"],
+    price: "$2",
+    downloads: 1340,
+    views: 4210,
+    type: "image",
+    rating: 4.8,
+    thumbnail: "./image_cat/18.jpg",
     contributor: "Bayramov Niyazmyrat",
     resolution: "3000x4500",
     orientation: "portrait",
@@ -165,13 +285,7 @@ const imageData = [
   },
 ];
 
-const categories = [
-  "All",
-  "Images",
-  "Videos",
-  "3D Models",
-  "Icons",
-];
+const categories = ["All", "Images", "Videos", "3D Models", "Icons"];
 const orientations = ["All", "Landscape", "Portrait", "Square"];
 const resolutions = ["All", "HD (1920x1080)", "4K (3840x2160)", "6K+"];
 const sortOptions = [
@@ -196,6 +310,12 @@ export default function Images() {
     null,
   );
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [imagesPerPage] = useState(6);
+  const totalPages = Math.ceil(Image.length / imagesPerPage);
+  const indexOfLastImage = currentPage * imagesPerPage;
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+  const [likedItems, setLikedItems] = useState(new Set());
 
   useEffect(() => {
     let filtered = imageData;
@@ -239,6 +359,18 @@ export default function Images() {
 
     setFilteredImages(filtered);
   }, [searchQuery, selectedCategory, selectedOrientation, priceFilter]);
+
+  const toggleLike = (id) => {
+    setLikedItems((prev) => {
+      const newLiked = new Set(prev);
+      if (newLiked.has(id)) {
+        newLiked.delete(id);
+      } else {
+        newLiked.add(id);
+      }
+      return newLiked;
+    });
+  };
 
   return (
     <Layout>
@@ -347,9 +479,21 @@ export default function Images() {
                       <Button
                         size="sm"
                         variant="ghost"
-                        className="bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0"
+                        className={cn(
+                          "bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0",
+                          likedItems.has(image.id) && "text-red-500", // Like edilende reňk üýtger
+                        )}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Modal açylmagyň öňüni al
+                          toggleLike(image.id);
+                        }}
                       >
-                        <Heart className="h-4 w-4" />
+                        <Heart
+                          className="h-4 w-4"
+                          fill={
+                            likedItems.has(image.id) ? "currentColor" : "none"
+                          }
+                        />
                       </Button>
                       <Button
                         size="sm"
@@ -374,10 +518,82 @@ export default function Images() {
               ))}
             </div>
 
-            {/* Load More */}
-            <div className="text-center">
-              <Button variant="outline" size="lg">
-                Load More Images
+            <div className="flex justify-center mb-[20px] space-x-2">
+              {/* Previous */}
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                Previous
+              </Button>
+
+              {/* First page */}
+              {currentPage > 2 && (
+                <>
+                  <Button
+                    variant={currentPage === 1 ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentPage(1)}
+                  >
+                    1
+                  </Button>
+                  {currentPage > 3 && <span className="px-2">...</span>}
+                </>
+              )}
+
+              {/* Current -1 */}
+              {currentPage > 1 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                  {currentPage - 1}
+                </Button>
+              )}
+
+              {/* Current */}
+              <Button variant="default" size="sm">
+                {currentPage}
+              </Button>
+
+              {/* Current +1 */}
+              {currentPage < totalPages && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  {currentPage + 1}
+                </Button>
+              )}
+
+              {/* Last page */}
+              {currentPage < totalPages - 1 && (
+                <>
+                  {currentPage < totalPages - 2 && (
+                    <span className="px-2">...</span>
+                  )}
+                  <Button
+                    variant={currentPage === totalPages ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentPage(totalPages)}
+                  >
+                    {totalPages}
+                  </Button>
+                </>
+              )}
+
+              {/* Next */}
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                Next
               </Button>
             </div>
           </div>

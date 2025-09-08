@@ -15,11 +15,12 @@ import {
   Settings,
   Menu,
   X,
-  Bell,
   Globe,
   Zap,
   Star,
   Target,
+  ArrowRightFromLine,
+  ArrowLeftToLine,
 } from "lucide-react";
 import {
   Select,
@@ -38,12 +39,12 @@ const navigation = [
   { name: "Images", href: "/images", icon: Image },
   { name: "Videos", href: "/videos", icon: Video },
   { name: "3D Models", href: "/3d-models", icon: Box },
-  { name: "Icons", href: "/icons", icon: Sparkles },
+  { name: "Illustrations", href: "/icons", icon: Sparkles },
 ];
 
 const aiNavigation = [
-  { name: "Image AI", href: "/generate-ai", icon: Zap, featured: true },
-  { name: "Brand AI", href: "/brand-ai", icon: Target, featured: true },
+  { name: "AI Tools", href: "/generate-ai", icon: Zap, featured: true },
+  { name: "Hazyna AI", href: "/brand-ai", icon: Target, featured: true },
 ];
 
 const userNavigation = [
@@ -54,14 +55,17 @@ const userNavigation = [
 
 const languages = [
   { code: "en", name: "English" },
-  { code: "ru", name: "Рус����ий" },
+  { code: "ru", name: "Русский" },
   { code: "tk", name: "Türkmen" },
-  { code: "kk", name: "Қазақ" },
+  { code: "kk", name: "Қazakh" },
   { code: "uz", name: "O'zbek" },
+  { code: "uz", name: "Tajik" },
+  { code: "uz", name: "Kyrgyz" },
 ];
 
 export default function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
 
@@ -70,6 +74,10 @@ export default function Layout({ children }: LayoutProps) {
       return location.pathname === "/";
     }
     return location.pathname.startsWith(path);
+  };
+
+  const toggleDesktopSidebar = () => {
+    setCollapsed(!collapsed);
   };
 
   return (
@@ -85,30 +93,58 @@ export default function Layout({ children }: LayoutProps) {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-[85vw] max-w-80 md:w-72 transform bg-sidebar border-r border-sidebar-border transition-transform duration-300 ease-in-out lg:translate-x-0 overflow-y-auto",
+          "fixed inset-y-0 left-0 z-50 transform bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out overflow-y-auto",
+          "w-[85vw] max-w-80 md:w-72",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
+          "lg:translate-x-0",
+          collapsed ? "lg:w-20" : "lg:w-72",
         )}
       >
         <div className="flex h-full flex-col">
-          {/* Logo */}
-          <div className="flex h-16 items-center justify-between px-6 border-b border-sidebar-border">
+          <div
+            className={cn(
+              "flex h-16 items-center border-b border-sidebar-border transition-all duration-300",
+              collapsed ? "justify-center px-2" : "justify-between px-6",
+            )}
+          >
             <Link to="/" className="flex items-center space-x-3">
-              <img className="max-w-[85%]" src="/hazyna.png" alt="" />
+              {!collapsed ? (
+                <img
+                  className="max-w-[85%] transition-all duration-300"
+                  src="/hazyna.png"
+                  alt=""
+                />
+              ) : (
+                <img
+                  className="w-10 h-10 my-[10px]  transition-all duration-300"
+                  src="/hazynaLogo.png"
+                  alt=""
+                />
+              )}
             </Link>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="lg:hidden text-sidebar-foreground"
-              onClick={() => setSidebarOpen(false)}
-            >
-              <X className="h-5 w-5" />
-            </Button>
+
+            {!collapsed && (
+              <div className="flex items-center">
+                {/* Mobile kapatma düğmesi */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="lg:hidden text-sidebar-foreground"
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+            )}
           </div>
+
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-3 space-y-1">
-            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-              Browse
-            </div>
+          <nav
+            className={cn(
+              "flex-1 py-4 space-y-2 transition-all duration-300",
+              collapsed ? "px-2" : "px-4",
+            )}
+          >
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -116,24 +152,54 @@ export default function Layout({ children }: LayoutProps) {
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                    "group flex items-center text-sm font-medium rounded-xl transition-all duration-200",
+                    "hover:scale-105 hover:shadow-lg",
                     isActivePath(item.href)
-                      ? "bg-sidebar-accent text-sidebar-primary"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-primary",
+                      ? "bg-sidebar-accent text-sidebar-primary shadow-md"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent/50",
+                    collapsed
+                      ? "justify-center pb-[1rem] pt-[0.5rem]py-4 px-2 mx-1"
+                      : "px-4 py-3 mx-2",
                   )}
                   onClick={() => setSidebarOpen(false)}
+                  title={collapsed ? item.name : ""}
                 >
-                  <Icon className="mr-3 h-5 w-5" />
-                  {item.name}
+                  <Icon
+                    className={cn(
+                      "transition-all duration-200",
+                      collapsed ? "h-7 w-7" : "h-5 w-5 mr-3",
+                    )}
+                  />
+                  {!collapsed && (
+                    <span className="transition-all duration-300 opacity-100">
+                      {item.name}
+                    </span>
+                  )}
+
+                  {/* Hover tooltip for collapsed state */}
+                  {collapsed && (
+                    <div className="absolute left-full ml-2 px-3 py-2 bg-popover text-popover-foreground text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 whitespace-nowrap">
+                      {item.name}
+                    </div>
+                  )}
                 </Link>
               );
             })}
           </nav>
+
           {/* AI Generation Section */}
-          <div className="px-4 pt-6 pb-3">
-            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-              AI Tools
-            </div>
+          <div
+            className={cn(
+              "pt-4 pb-3 transition-all duration-300",
+              collapsed ? "px-2" : "px-4",
+            )}
+          >
+            {!collapsed && (
+              <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 px-3">
+                AI Tools
+              </div>
+            )}
+
             {aiNavigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -141,28 +207,64 @@ export default function Layout({ children }: LayoutProps) {
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 mb-2",
-                    "bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20",
-                    "hover:from-amber-500/20 hover:to-orange-500/20 hover:border-amber-500/30",
-                    "text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300",
+                    "group relative flex items-center text-sm font-medium rounded-xl transition-all duration-200 mb-3",
+                    "bg-gradient-to-r from-amber-500/15 to-orange-500/15 border-2 border-amber-500/25",
+                    "hover:from-amber-500/25 hover:to-orange-500/25 hover:border-amber-500/40 hover:scale-105 hover:shadow-xl",
+                    "text-amber-600 dark:text-amber-400",
                     isActivePath(item.href) &&
-                      "from-amber-500/25 to-orange-500/25 border-amber-500/40",
+                      "from-amber-500/30 to-orange-500/30 border-amber-500/50 shadow-lg",
+                    collapsed
+                      ? "justify-center py-4 px-2 mx-1"
+                      : "px-4 py-4 mx-2",
                   )}
                   onClick={() => setSidebarOpen(false)}
+                  title={collapsed ? item.name : ""}
                 >
-                  <Icon className="mr-3 h-5 w-5" />
-                  {item.name}
-                  <Star className="ml-auto h-4 w-4 text-amber-500 fill-current animate-pulse" />
+                  <div className="flex items-center w-full">
+                    <Icon
+                      className={cn(
+                        "transition-all duration-200",
+                        collapsed ? "h-7 w-7" : "h-5 w-5 mr-3",
+                      )}
+                    />
+
+                    {!collapsed && (
+                      <>
+                        <span className="flex-1">{item.name}</span>
+                        <Star className="h-4 w-4 text-amber-500 fill-current animate-pulse" />
+                      </>
+                    )}
+                  </div>
+
+                  {/* Premium badge for collapsed state */}
+                  {collapsed && (
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full animate-pulse" />
+                  )}
+
+                  {/* Hover tooltip for collapsed state */}
+                  {collapsed && (
+                    <div className="absolute left-full ml-2 px-3 py-2 bg-popover text-popover-foreground text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 whitespace-nowrap">
+                      {item.name} ⭐
+                    </div>
+                  )}
                 </Link>
               );
             })}
           </div>
 
           {/* User Navigation */}
-          <div className="border-t border-sidebar-border px-4 py-4 space-y-1">
-            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-              Account
-            </div>
+          <div
+            className={cn(
+              "border-t border-sidebar-border py-4 space-y-2 transition-all duration-300",
+              collapsed ? "px-2" : "px-4",
+            )}
+          >
+            {!collapsed && (
+              <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4 px-3">
+                Account
+              </div>
+            )}
+
             {userNavigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -170,15 +272,37 @@ export default function Layout({ children }: LayoutProps) {
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                    "group flex items-center text-sm font-medium rounded-xl transition-all duration-200",
+                    "hover:scale-105 hover:shadow-lg",
                     isActivePath(item.href)
-                      ? "bg-sidebar-accent text-sidebar-primary"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-primary",
+                      ? "bg-sidebar-accent text-sidebar-primary shadow-md"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent/50",
+                    collapsed
+                      ? "justify-center py-4 px-2 mx-1"
+                      : "px-4 py-3 mx-2",
                   )}
                   onClick={() => setSidebarOpen(false)}
+                  title={collapsed ? item.name : ""}
                 >
-                  <Icon className="mr-3 h-5 w-5" />
-                  {item.name}
+                  <Icon
+                    className={cn(
+                      "transition-all duration-200",
+                      collapsed ? "h-7 w-7" : "h-5 w-5 mr-3",
+                    )}
+                  />
+
+                  {!collapsed && (
+                    <span className="transition-all duration-300">
+                      {item.name}
+                    </span>
+                  )}
+
+                  {/* Hover tooltip for collapsed state */}
+                  {collapsed && (
+                    <div className="absolute left-full ml-2 px-3 py-2 bg-popover text-popover-foreground text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 whitespace-nowrap">
+                      {item.name}
+                    </div>
+                  )}
                 </Link>
               );
             })}
@@ -187,7 +311,13 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       {/* Main content */}
-      <div className="lg:ml-72 min-h-screen">
+      <div
+        className={cn(
+          "min-h-screen transition-all duration-300 ease-in-out",
+          "lg:ml-72",
+          collapsed && "lg:ml-20",
+        )}
+      >
         {/* Top header */}
         <header className="sticky top-0 z-30 flex h-14 md:h-16 items-center justify-between border-b border-border bg-card/80 backdrop-blur-sm px-3 md:px-4 lg:px-6">
           <div className="flex items-center space-x-2 md:space-x-4 flex-1">
@@ -201,29 +331,51 @@ export default function Layout({ children }: LayoutProps) {
             </Button>
 
             {/* Search */}
-            <div className="relative flex-1 max-w-sm md:max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search content..."
-                className="pl-10 bg-background h-9 md:h-10 text-sm md:text-base"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+            <div className="flex items-center relative flex-1 max-w-sm md:max-w-md">
+              {/* Sidebar toggle button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-sidebar-foreground mr-3 hidden lg:flex hover:bg-sidebar-accent/20 transition-all duration-200"
+                onClick={toggleDesktopSidebar}
+                title={collapsed ? "Sidebar aç" : "Sidebar gizle"}
+              >
+                {collapsed ? (
+                  <ArrowRightFromLine className="h-5 w-5" />
+                ) : (
+                  <ArrowLeftToLine className="h-5 w-5" />
+                )}
+              </Button>
+
+              {/* Search input with icon */}
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search content..."
+                  className="pl-10 pr-3 bg-background h-9 md:h-10 text-sm md:text-base w-full rounded-xl border-2 focus:border-primary/30 transition-all duration-200"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
             </div>
           </div>
 
           <div className="flex items-center space-x-1 md:space-x-3">
-            {/* Language Selector - Hidden on mobile */}
+            {/* Language Selector */}
             <div className="hidden md:block">
               <Select defaultValue="en">
-                <SelectTrigger className="w-auto border-none bg-transparent">
+                <SelectTrigger className="w-auto border-none bg-transparent hover:bg-accent/50 rounded-xl transition-all duration-200">
                   <Globe className="h-4 w-4 mr-2" />
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="rounded-xl">
                   {languages.map((lang) => (
-                    <SelectItem key={lang.code} value={lang.code}>
+                    <SelectItem
+                      key={lang.code}
+                      value={lang.code}
+                      className="rounded-lg"
+                    >
                       {lang.name}
                     </SelectItem>
                   ))}
@@ -235,10 +387,8 @@ export default function Layout({ children }: LayoutProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="touch-friendly h-10 w-10 p-0"
-            >
-              <Bell className="h-4 w-4 md:h-5 md:w-5" />
-            </Button>
+              className="touch-friendly h-10 w-10 p-0 rounded-xl hover:bg-accent/50 transition-all duration-200"
+            ></Button>
           </div>
         </header>
 

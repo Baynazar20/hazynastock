@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SignInModal from "./SignIn";
 import { ChevronDown, User } from "lucide-react";
 import Footer from "./Footer";
+import Features from "./Features";
 
 function SideImageCard({
   src,
@@ -72,6 +73,7 @@ export default function Page() {
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   let closeTimeout: NodeJS.Timeout;
+  const pricingRef = React.useRef<HTMLDivElement | null>(null);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -102,6 +104,10 @@ export default function Page() {
     }
   };
 
+  const handleScrollToPricing = () => {
+    pricingRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -122,13 +128,13 @@ export default function Page() {
   const menuLinks = [
     "AI Suite",
     "Stock",
-    "Enterprise",
     "Pricing",
-    "Contribute",
+    "Contributors",
+    "About Us",
   ];
 
   return (
-    <main className="min-h-screen bg-background text-white antialiased">
+    <main className="min-h-screen bg-background text-white antialiased overflow-y-auto">
       {/* Navbar */}
       <header className="max-w-[1200px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
         {/* Mobile Header */}
@@ -196,21 +202,25 @@ export default function Page() {
                   onMouseLeave={() => handleMouseLeave(link)}
                 >
                   <button
-                    onClick={() => navigate("/Soon")}
+                    onClick={() => {
+                      if (link === "Pricing") {
+                        handleScrollToPricing();
+                      } else {
+                        navigate("/Soon");
+                      }
+                    }}
                     className="hover:text-white cursor-pointer transition-colors duration-200 flex items-center bg-transparent border-none outline-none"
                   >
                     {link}
                   </button>
-
-                  {/* Desktop Dropdown */}
                   {link === "Stock" && isDropdownOpen && (
-                    <div className="absolute left-0 mt-2 w-64 bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-2xl z-50 border border-gray-600/50 overflow-hidden backdrop-blur-sm">
+                    <div className="absolute left-0 mt-2 w-64 bg-white text-black rounded-xl shadow-2xl z-50 border border-gray-200 overflow-hidden backdrop-blur-sm">
                       <div className="p-2">
                         <a
                           href="/Images"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
+                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500 shadow-md group-hover:shadow-blue-500/25 transition-all duration-300">
                             <svg
                               className="w-5 h-5 text-white"
                               fill="none"
@@ -226,15 +236,15 @@ export default function Page() {
                             </svg>
                           </div>
                           <div className="ml-4">
-                            <h3 className="font-semibold text-white group-hover:text-blue-300 transition-colors">
+                            <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                               Photos
                             </h3>
-                            <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
                               High-quality stock images
                             </p>
                           </div>
                           <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -250,9 +260,9 @@ export default function Page() {
 
                         <a
                           href="/Videos"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-green-600/20 hover:to-emerald-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-600 shadow-lg group-hover:shadow-green-500/25 transition-all duration-300">
+                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-green-500 shadow-md group-hover:shadow-green-500/25 transition-all duration-300">
                             <svg
                               className="w-5 h-5 text-white"
                               fill="none"
@@ -268,15 +278,15 @@ export default function Page() {
                             </svg>
                           </div>
                           <div className="ml-4">
-                            <h3 className="font-semibold text-white group-hover:text-green-300 transition-colors">
+                            <h3 className="font-semibold text-gray-900 group-hover:text-green-600 transition-colors">
                               Videos
                             </h3>
-                            <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
                               Premium video content
                             </p>
                           </div>
                           <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -292,9 +302,9 @@ export default function Page() {
 
                         <a
                           href="/3d-models"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300">
+                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-purple-500 shadow-md group-hover:shadow-purple-500/25 transition-all duration-300">
                             <svg
                               className="w-5 h-5 text-white"
                               fill="none"
@@ -310,15 +320,15 @@ export default function Page() {
                             </svg>
                           </div>
                           <div className="ml-4">
-                            <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors">
+                            <h3 className="font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">
                               3D Models
                             </h3>
-                            <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
                               3D assets & graphics
                             </p>
                           </div>
                           <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -334,9 +344,9 @@ export default function Page() {
 
                         <a
                           href="/Icons"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-orange-600/20 hover:to-red-600/20 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg group-hover:shadow-orange-500/25 transition-all duration-300">
+                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-500 shadow-md group-hover:shadow-orange-500/25 transition-all duration-300">
                             <svg
                               className="w-5 h-5 text-white"
                               fill="none"
@@ -352,15 +362,15 @@ export default function Page() {
                             </svg>
                           </div>
                           <div className="ml-4">
-                            <h3 className="font-semibold text-white group-hover:text-orange-300 transition-colors">
-                              Icons
+                            <h3 className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors">
+                              Illustrations
                             </h3>
-                            <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
                               Vector icons & symbols
                             </p>
                           </div>
                           <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1"
+                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -583,7 +593,8 @@ export default function Page() {
               HazynaStock
             </h1>
             <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Professional AI tools to create branded posters — plus stock images, video, icons and 3D models — tailored for Central Asia.
+              Professional AI tools to create branded posters — plus stock
+              images, video, icons and 3D models — tailored for Central Asia.
             </p>
             <div className="mt-6">
               <button
@@ -655,68 +666,22 @@ export default function Page() {
           </h2>
 
           {/* Logos */}
-          <div className="flex flex-wrap justify-center items-center gap-18 mt-10 opacity-80">
-            <img src="./1.png" alt="Wabrum" className="h-24" />
-            <img src="./2.png" alt="Bezen" className="h-24" />
-            <img src="./3.png" alt="Harman Consulting" className="h-24" />
-            <img src="./4.png" alt="Maslahat Cozgut" className="h-24" />
-          </div>
+          <div className="relative w-full overflow-hidden mt-[35px] opacity-80">
+            <div className="flex animate-marquee space-x-20">
+              <img src="./1.png" alt="Wabrum" className="h-24" />
+              <img src="./2.png" alt="Bezen" className="h-24" />
+              <img src="./3.png" alt="Harman Consulting" className="h-24" />
+              <img src="./4.png" alt="Maslahat Cozgut" className="h-24" />
 
-          {/* Features */}
-          <div className="mt-16">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-10">
-              The features you need, the simplicity you want
-            </h3>
-
-            <div className="flex flex-col md:flex-row gap-10">
-              {/* Sidebar */}
-              <div className="flex gap-4 md:flex-col md:w-40 overflow-x-auto md:overflow-visible hide-scrollbar">
-                {[
-                  "Images",
-                  "Video",
-                  "Icons",
-                  "3D Models",
-                  "All AI tools",
-                ].map((item, index) => (
-                  <button
-                    key={index}
-                    className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
-                      item === "Images"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:text-white hover:bg-gray-800"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-
-              {/* Feature Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
-                <FeatureCard img="./owadan5.jpg" title="Generate an AI image" />
-                <FeatureCard
-                  img="./owadan1.jpg"
-                  title="Chat with AI to transform images"
-                />
-                <FeatureCard
-                  img="./owadan4.jpg"
-                  title="Find high-quality images"
-                />
-                <FeatureCard
-                  img="./owadan2.jpg"
-                  title="Find high-quality images"
-                />
-                <FeatureCard
-                  img="./owadan3.jpg"
-                  title="Find high-quality images"
-                />
-                <FeatureCard
-                  img="./owadan5.jpg"
-                  title="Find high-quality images"
-                />
-              </div>
+              {/* Duplicate logolar */}
+              <img src="./1.png" alt="Wabrum" className="h-24" />
+              <img src="./2.png" alt="Bezen" className="h-24" />
+              <img src="./3.png" alt="Harman Consulting" className="h-24" />
+              <img src="./4.png" alt="Maslahat Cozgut" className="h-24" />
             </div>
           </div>
+
+          <Features />
         </div>
         {/* Why Choose Section */}
         <section className="bg-background text-white py-20">
@@ -728,24 +693,23 @@ export default function Page() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Card 1 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 h-[220px] transition-colors relative">
-                <h3 className="text-lg font-semibold mb-2">
+                <h3 className="text-xl font-semibold mb-2">
                   The all-in-one suite for creatives
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-400 text-md leading-relaxed">
                   Power your creativity with leading GenAI models, pro features,
                   and a vast stock library — all in one platform. Stay
                   consistent, adapt assets easily, and create confidently with
                   powerful tools built for real workflows like yours.
                 </p>
-                <div className="absolute top-6 right-6 text-gray-500">🎨</div>
               </div>
 
               {/* Card 2 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px]relative">
-                <h3 className="text-lg font-semibold mb-2">
+                <h3 className="text-xl font-semibold mb-2">
                   AI you can trust: private and secure
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-400 text-md leading-relaxed">
                   Your data is never used to train AI — ours or third-party.
                   You're fully protected with advanced security and full rights.
                   Stay consistent, adapt assets easily, and create confidently
@@ -755,37 +719,38 @@ export default function Page() {
 
               {/* Card 3 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
-                <h3 className="text-lg font-semibold mb-2">
+                <h3 className="text-xl font-semibold mb-2">
                   Easy to use, with professional results
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-400 text-md leading-relaxed">
                   Stay consistent, adapt assets easily, and create confidently
                   with powerful tools built for real workflows like yours. Stay
                   consistent, adapt assets easily, and create confidently with
                   powerful tools built for real workflows like yours.
                 </p>
-                <div className="absolute top-6 right-6 text-gray-500">✏️</div>
               </div>
 
               {/* Card 4 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
-                <h3 className="text-lg font-semibold mb-2">
+                <h3 className="text-xl font-semibold mb-2">
                   Join the creators shaping AI's future
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-400 text-md leading-relaxed">
                   Be part of a global community of top creatives. Get early
                   access to new tools, share your work, and stay inspired. Stay
                   consistent, adapt assets easily, and create confidently with
                   powerful tools built for real workflows like yours.
                 </p>
-                <div className="absolute top-6 right-6 text-gray-500">💬</div>
               </div>
             </div>
           </div>
         </section>
       </section>
 
-      <section className="bg-background text-white py-16 px-4 ">
+      <section
+        className="bg-background text-white py-16 px-4 "
+        ref={pricingRef}
+      >
         <div className="max-w-6xl mx-auto mt-[-70px]">
           {/* Title */}
           <h2 className="text-center text-3xl md:text-4xl font-bold mb-12">
@@ -800,7 +765,7 @@ export default function Page() {
                 <h3 className="text-xl font-semibold mb-2">Standart</h3>
                 <p className="text-2xl font-bold">
                   Starting at{" "}
-                  <span className="text-4xl font-extrabold">7.5 USD</span>
+                  <span className="text-[1.25rem] font-extrabold">7.5 USD</span>
                   <span className="text-base font-normal">/month</span>
                 </p>
                 <p className="text-sm text-zinc-400 mb-6">
@@ -830,7 +795,7 @@ export default function Page() {
                 <h3 className="text-xl font-semibold mb-2">Premium</h3>
                 <p className="text-2xl font-bold">
                   Starting at{" "}
-                  <span className="text-4xl font-extrabold">12 USD</span>
+                  <span className="text-[1.25rem] font-extrabold">12 USD</span>
                   <span className="text-base font-normal">/month</span>
                 </p>
                 <p className="text-sm text-zinc-400 mb-6">
@@ -860,7 +825,7 @@ export default function Page() {
                 <h3 className="text-xl font-semibold mb-2">Premium+</h3>
                 <p className="text-2xl font-bold">
                   Starting at{" "}
-                  <span className="text-4xl font-extrabold">15 USD</span>
+                  <span className="text-[1.25rem] font-extrabold">15 USD</span>
                   <span className="text-base font-normal">/month</span>
                 </p>
                 <p className="text-sm text-zinc-400 mb-6">
@@ -921,23 +886,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <div className="text-center pt-12 pb-8">
-        <h1 className="text-4xl md:text-6xl font-semibold leading-tight">
-          Creative work, reimagined with AI
-        </h1>
-        <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-          Top AI image, video, and audio models. Professional tools plus stock
-          content you'll love.
-        </p>
-        <div className="mt-6">
-          <button
-            className="px-6 py-3 rounded-full bg-white text-black font-semibold shadow"
-            onClick={() => navigate("/Soon")}
-          >
-            Get started for free →
-          </button>
-        </div>
-      </div>
 
       <SignInModal
         isOpen={isSignInModalOpen}
