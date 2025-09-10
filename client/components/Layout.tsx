@@ -287,7 +287,7 @@ export default function Layout({ children }: LayoutProps) {
                   <Icon
                     className={cn(
                       "transition-all duration-200",
-                      collapsed ? "h-7 w-7" : "h-5 w-5 mr-3",
+                      collapsed ? "h-6 w-6" : "h-5 w-5 mr-3",
                     )}
                   />
 
