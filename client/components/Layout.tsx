@@ -93,7 +93,7 @@ export default function Layout({ children }: LayoutProps) {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 transform bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out overflow-y-auto",
+          "fixed inset-y-0 left-0 z-50 transform bg-sidebar border-r border-sidebar-border transition-all duration-300 ease-in-out overflow-y-hidden",
           "w-[85vw] max-w-80 md:w-72",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
           "lg:translate-x-0",
@@ -167,9 +167,10 @@ export default function Layout({ children }: LayoutProps) {
                   <Icon
                     className={cn(
                       "transition-all duration-200",
-                      collapsed ? "h-7 w-7" : "h-5 w-5 mr-3",
+                      collapsed ? "h-6 w-6" : "h-5 w-5 mr-3",
                     )}
                   />
+
                   {!collapsed && (
                     <span className="transition-all duration-300 opacity-100">
                       {item.name}
@@ -220,11 +221,16 @@ export default function Layout({ children }: LayoutProps) {
                   onClick={() => setSidebarOpen(false)}
                   title={collapsed ? item.name : ""}
                 >
-                  <div className="flex items-center w-full">
+                  <div
+                    className={cn(
+                      "flex items-center",
+                      collapsed ? "justify-center" : "w-full",
+                    )}
+                  >
                     <Icon
                       className={cn(
                         "transition-all duration-200",
-                        collapsed ? "h-7 w-7" : "h-5 w-5 mr-3",
+                        collapsed ? "h-5 w-5" : "h-5 w-5 mr-3",
                       )}
                     />
 
@@ -278,7 +284,7 @@ export default function Layout({ children }: LayoutProps) {
                       ? "bg-sidebar-accent text-sidebar-primary shadow-md"
                       : "text-sidebar-foreground hover:bg-sidebar-accent/50",
                     collapsed
-                      ? "justify-center py-4 px-2 mx-1"
+                      ? "justify-center py-3 px-2 mx-1"
                       : "px-4 py-3 mx-2",
                   )}
                   onClick={() => setSidebarOpen(false)}
