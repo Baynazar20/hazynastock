@@ -150,7 +150,7 @@ export default function Features() {
               onClick={() => setActiveCategory(item)}
               className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
                 item === activeCategory
-                  ? "bg-blue-600 text-white shadow-lg"
+                  ? "bg-gray-700 text-white shadow-lg"
                   : "text-gray-400 hover:text-white hover:bg-gray-700"
               }`}
             >

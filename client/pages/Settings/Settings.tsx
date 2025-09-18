@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import TwoFactorSetupModal from "./Settings/FactorAuth";
+import TwoFactorSetupModal from "./FactorAuth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -32,7 +32,7 @@ import {
   Mail,
   Lock,
 } from "lucide-react";
-import Delete from "./Settings/Delete";
+import Delete from "./Delete";
 
 // Mock user settings
 const userSettings = {

@@ -19,8 +19,8 @@ import {
   Zap,
   Star,
   Target,
-  ArrowRightFromLine,
-  ArrowLeftToLine,
+  PanelLeftClose,
+  PanelRightClose,
 } from "lucide-react";
 import {
   Select,
@@ -59,8 +59,8 @@ const languages = [
   { code: "tk", name: "Türkmen" },
   { code: "kk", name: "Қazakh" },
   { code: "uz", name: "O'zbek" },
-  { code: "uz", name: "Tajik" },
-  { code: "uz", name: "Kyrgyz" },
+  { code: "Tj", name: "Tajik" },
+  { code: "Kg", name: "Kyrgyz" },
 ];
 
 export default function Layout({ children }: LayoutProps) {
@@ -107,34 +107,45 @@ export default function Layout({ children }: LayoutProps) {
               collapsed ? "justify-center px-2" : "justify-between px-6",
             )}
           >
-            <Link to="/" className="flex items-center space-x-3">
-              {!collapsed ? (
+            {!collapsed ? (
+              <Link to="/" className="flex items-center space-x-3">
                 <img
                   className="max-w-[85%] transition-all duration-300"
                   src="/hazyna.png"
-                  alt=""
+                  alt="Hazyna"
                 />
-              ) : (
-                <img
-                  className="w-10 h-10 my-[10px]  transition-all duration-300"
-                  src="/hazynaLogo.png"
-                  alt=""
-                />
-              )}
-            </Link>
+              </Link>
+            ) : (
+              <button
+                onClick={toggleDesktopSidebar}
+                className="flex items-center justify-center w-10 h-10 my-[10px]"
+              >
+                <PanelRightClose className="h-6 w-6 text-sidebar-foreground transition-all duration-300" />
+              </button>
+            )}
 
+            {/* Sidebar açyk wagtynda sag tarapda ýapmak button */}
             {!collapsed && (
-              <div className="flex items-center">
-                {/* Mobile kapatma düğmesi */}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="lg:hidden text-sidebar-foreground"
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <X className="h-5 w-5" />
-                </Button>
-              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-sidebar-foreground lg:flex hidden" // diňe desktopda görkezilýär
+                onClick={toggleDesktopSidebar} // sidebar ýapýar
+              >
+                <PanelLeftClose className="h-5 w-5" />
+              </Button>
+            )}
+
+            {/* Mobile üçin ýapmak düwmesi */}
+            {!collapsed && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="lg:hidden text-sidebar-foreground"
+                onClick={() => setSidebarOpen(false)}
+              >
+                <X className="h-5 w-5" />
+              </Button>
             )}
           </div>
 
@@ -303,7 +314,6 @@ export default function Layout({ children }: LayoutProps) {
                     </span>
                   )}
 
-                  {/* Hover tooltip for collapsed state */}
                   {collapsed && (
                     <div className="absolute left-full ml-2 px-3 py-2 bg-popover text-popover-foreground text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 whitespace-nowrap">
                       {item.name}
@@ -316,7 +326,6 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </div>
 
-      {/* Main content */}
       <div
         className={cn(
           "min-h-screen transition-all duration-300 ease-in-out",
@@ -324,7 +333,6 @@ export default function Layout({ children }: LayoutProps) {
           collapsed && "lg:ml-20",
         )}
       >
-        {/* Top header */}
         <header className="sticky top-0 z-30 flex h-14 md:h-16 items-center justify-between border-b border-border bg-card/80 backdrop-blur-sm px-3 md:px-4 lg:px-6">
           <div className="flex items-center space-x-2 md:space-x-4 flex-1">
             <Button
@@ -336,30 +344,28 @@ export default function Layout({ children }: LayoutProps) {
               <Menu className="h-5 w-5" />
             </Button>
 
-            {/* Search */}
             <div className="flex items-center relative flex-1 max-w-sm md:max-w-md">
-              {/* Sidebar toggle button */}
               <Button
                 variant="ghost"
                 size="sm"
                 className="text-sidebar-foreground mr-3 hidden lg:flex hover:bg-sidebar-accent/20 transition-all duration-200"
                 onClick={toggleDesktopSidebar}
                 title={collapsed ? "Sidebar aç" : "Sidebar gizle"}
-              >
-                {collapsed ? (
-                  <ArrowRightFromLine className="h-5 w-5" />
-                ) : (
-                  <ArrowLeftToLine className="h-5 w-5" />
-                )}
-              </Button>
+              ></Button>
+              {collapsed && (
+                <img
+                  src="/hazyna.png"
+                  alt="Hazyna"
+                  className="h-9 w-auto ml-[-3rem]"
+                />
+              )}
 
-              {/* Search input with icon */}
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <div className="relative ml-[100px] flex-1  ">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-8 text-muted-foreground" />
                 <Input
                   type="search"
                   placeholder="Search content..."
-                  className="pl-10 pr-3 bg-background h-9 md:h-10 text-sm md:text-base w-full rounded-xl border-2 focus:border-primary/30 transition-all duration-200"
+                  className="pl-10 pr-3 bg-background w-[700px] h-9 md:h-10 text-sm md:text-base rounded-xl border-2 focus:border-primary/30 transition-all duration-200"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -368,10 +374,9 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="flex items-center space-x-1 md:space-x-3">
-            {/* Language Selector */}
             <div className="hidden md:block">
               <Select defaultValue="en">
-                <SelectTrigger className="w-auto border-none bg-transparent hover:bg-accent/50 rounded-xl transition-all duration-200">
+                <SelectTrigger className="w-auto border-none bg-transparent rounded-xl transition-all duration-200">
                   <Globe className="h-4 w-4 mr-2" />
                   <SelectValue />
                 </SelectTrigger>
@@ -388,17 +393,8 @@ export default function Layout({ children }: LayoutProps) {
                 </SelectContent>
               </Select>
             </div>
-
-            {/* Notifications */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="touch-friendly h-10 w-10 p-0 rounded-xl hover:bg-accent/50 transition-all duration-200"
-            ></Button>
           </div>
         </header>
-
-        {/* Page content */}
         <main className="flex-1">{children}</main>
       </div>
     </div>

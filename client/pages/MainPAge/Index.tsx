@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SignInModal from "./SignIn";
+import SignInModal from "../SignIn";
 import { ChevronDown, User } from "lucide-react";
-import Footer from "./Footer";
+import Footer from "../../components/Footer";
 import Features from "./Features";
+import { Palette, Lock, SquarePen, MessageSquareText } from "lucide-react";
 
 function SideImageCard({
   src,
@@ -81,18 +82,16 @@ export default function Page() {
     }
   };
 
-  const handleSignInSuccess = (userData: any) => {
-    setUser(userData);
-  };
-
   const handleSignOut = () => {
     setUser(null);
   };
 
   const handleMouseEnter = (link: string) => {
     if (link === "Stock") {
-      clearTimeout(closeTimeout);
       setIsDropdownOpen(true);
+      if (closeTimeout) {
+        clearTimeout(closeTimeout);
+      }
     }
   };
 
@@ -100,8 +99,21 @@ export default function Page() {
     if (link === "Stock") {
       closeTimeout = setTimeout(() => {
         setIsDropdownOpen(false);
-      }, 5000); // 5 sekunt garaş
+      }, 300);
     }
+  };
+
+  const handleDropdownMouseEnter = () => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+    }
+    setIsDropdownOpen(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    closeTimeout = setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 300);
   };
 
   const handleScrollToPricing = () => {
@@ -112,12 +124,10 @@ export default function Page() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
-      // Orta surat üçin ulaltmak
       const newScale = Math.min(1 + scrollY / 600, 1.5);
       setScale(newScale);
 
-      // Gapdalky suratlar üçin süýşme
-      const newOffset = Math.min(scrollY / 10, 50); // max 50px süýşme
+      const newOffset = Math.min(scrollY / 10, 50);
       setSideOffset(newOffset);
     };
 
@@ -140,7 +150,7 @@ export default function Page() {
         {/* Mobile Header */}
         <div className="flex items-center justify-between sm:hidden">
           <div className="text-2xl font-extrabold tracking-tight">
-            <img src="./hazyna.png" className="max-w-[130px]" alt="" />
+            <img src="./hazyna.png" className="max-w-[200px]" alt="" />
           </div>
 
           <div className="flex items-center gap-3">
@@ -190,7 +200,7 @@ export default function Page() {
         <div className="hidden sm:flex items-center justify-between">
           <div className="flex items-center gap-8 mr-[-100px] relative">
             <div className="text-3xl font-extrabold tracking-tight">
-              <img src="./hazyna.png" className="max-w-[130px]" alt="" />
+              <img src="./hazyna.png" className="max-w-[200px]" alt="" />
             </div>
 
             <nav className="hidden md:flex gap-8 text-sm text-gray-300">
@@ -214,174 +224,54 @@ export default function Page() {
                     {link}
                   </button>
                   {link === "Stock" && isDropdownOpen && (
-                    <div className="absolute left-0 mt-2 w-64 bg-white text-black rounded-xl shadow-2xl z-50 border border-gray-200 overflow-hidden backdrop-blur-sm">
-                      <div className="p-2">
+                    <div className="absolute left-0 mt-2 w-[400px] bg-black text-white rounded-2xl shadow-2xl z-50 border border-gray-800 p-6">
+                      <div className="flex flex-col gap-3">
+                        {/* Photos */}
                         <a
                           href="/Images"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
+                          className="group flex items-center gap-4 rounded-xl p-1 transition-colors"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500 shadow-md group-hover:shadow-blue-500/25 transition-all duration-300">
-                            <svg
-                              className="w-5 h-5 text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                          </div>
-                          <div className="ml-4">
-                            <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                          <div>
+                            <h3 className="font-semibold text-gray-300 text-md hover:text-white">
                               Photos
                             </h3>
-                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
-                              High-quality stock images
-                            </p>
                           </div>
-                          <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
                         </a>
 
+                        {/* Videos */}
                         <a
                           href="/Videos"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
+                          className="group flex items-center gap-4 rounded-xl p-1 transition-colors"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-green-500 shadow-md group-hover:shadow-green-500/25 transition-all duration-300">
-                            <svg
-                              className="w-5 h-5 text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                              />
-                            </svg>
-                          </div>
-                          <div className="ml-4">
-                            <h3 className="font-semibold text-gray-900 group-hover:text-green-600 transition-colors">
+                          <div>
+                            <h3 className="font-semibold text-gray-300 text-md hover:text-white">
                               Videos
                             </h3>
-                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
-                              Premium video content
-                            </p>
                           </div>
-                          <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
                         </a>
 
+                        {/* 3D Models */}
                         <a
                           href="/3d-models"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
+                          className="group flex items-center gap-4 rounded-xl p-1 transition-colors"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-purple-500 shadow-md group-hover:shadow-purple-500/25 transition-all duration-300">
-                            <svg
-                              className="w-5 h-5 text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                              />
-                            </svg>
-                          </div>
-                          <div className="ml-4">
-                            <h3 className="font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">
+                          <div>
+                            <h3 className="font-semibold text-gray-300 text-md hover:text-white">
                               3D Models
                             </h3>
-                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
-                              3D assets & graphics
-                            </p>
                           </div>
-                          <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
                         </a>
 
+                        {/* Illustrations */}
                         <a
                           href="/Icons"
-                          className="group flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01]"
+                          className="group flex items-center gap-4 rounded-xl p-1  transition-colors"
                         >
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-500 shadow-md group-hover:shadow-orange-500/25 transition-all duration-300">
-                            <svg
-                              className="w-5 h-5 text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                              />
-                            </svg>
-                          </div>
-                          <div className="ml-4">
-                            <h3 className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors">
+                          <div>
+                            <h3 className="font-semibold text-gray-300 text-md hover:text-white">
                               Illustrations
                             </h3>
-                            <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
-                              Vector icons & symbols
-                            </p>
                           </div>
-                          <svg
-                            className="w-4 h-4 ml-auto text-gray-400 group-hover:text-gray-600 transition-all duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
                         </a>
                       </div>
                     </div>
@@ -464,32 +354,18 @@ export default function Page() {
 
                   {/* Mobile Stock Dropdown */}
                   {link === "Stock" && isDropdownOpen && (
-                    <div className="ml-4 mt-2 space-y-2">
+                    <div
+                      className="ml-4 mt-2 space-y-2"
+                      onMouseEnter={() => setIsDropdownOpen(true)} // içine gireniňde açyk sakla
+                      onMouseLeave={() => setIsDropdownOpen(false)}
+                    >
                       <a
                         href="/Images"
                         className="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 mr-3">
-                          <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            />
-                          </svg>
-                        </div>
                         <div>
                           <h3 className="font-medium text-white">Photos</h3>
-                          <p className="text-xs text-gray-400">
-                            High-quality stock images
-                          </p>
                         </div>
                       </a>
 
@@ -498,26 +374,8 @@ export default function Page() {
                         className="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-600 mr-3">
-                          <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                            />
-                          </svg>
-                        </div>
                         <div>
                           <h3 className="font-medium text-white">Videos</h3>
-                          <p className="text-xs text-gray-400">
-                            Premium video content
-                          </p>
                         </div>
                       </a>
 
@@ -526,26 +384,8 @@ export default function Page() {
                         className="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 mr-3">
-                          <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                            />
-                          </svg>
-                        </div>
                         <div>
                           <h3 className="font-medium text-white">3D Models</h3>
-                          <p className="text-xs text-gray-400">
-                            3D assets & graphics
-                          </p>
                         </div>
                       </a>
 
@@ -554,26 +394,10 @@ export default function Page() {
                         className="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 mr-3">
-                          <svg
-                            className="w-4 h-4 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                            />
-                          </svg>
-                        </div>
                         <div>
-                          <h3 className="font-medium text-white">Icons</h3>
-                          <p className="text-xs text-gray-400">
-                            Vector icons & symbols
-                          </p>
+                          <h3 className="font-medium text-white">
+                            Illustrations
+                          </h3>
                         </div>
                       </a>
                     </div>
@@ -693,53 +517,58 @@ export default function Page() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Card 1 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 h-[220px] transition-colors relative">
-                <h3 className="text-xl font-semibold mb-2">
-                  The all-in-one suite for creatives
-                </h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-xl font-semibold">
+                    The all-in-one suite for creatives
+                  </h3>
+                  <Palette className="text-gray" />
+                </div>
+
                 <p className="text-gray-400 text-md leading-relaxed">
                   Power your creativity with leading GenAI models, pro features,
-                  and a vast stock library — all in one platform. Stay
-                  consistent, adapt assets easily, and create confidently with
-                  powerful tools built for real workflows like yours.
+                  and a vast stock library — all in one platform.
                 </p>
               </div>
 
               {/* Card 2 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px]relative">
-                <h3 className="text-xl font-semibold mb-2">
-                  AI you can trust: private and secure
-                </h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-xl font-semibold mb-2">
+                    AI you can trust: private and secure
+                  </h3>
+                  <Lock />
+                </div>
                 <p className="text-gray-400 text-md leading-relaxed">
                   Your data is never used to train AI — ours or third-party.
                   You're fully protected with advanced security and full rights.
-                  Stay consistent, adapt assets easily, and create confidently
-                  with powerful tools built for real workflows like yours.
                 </p>
               </div>
 
               {/* Card 3 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
-                <h3 className="text-xl font-semibold mb-2">
-                  Easy to use, with professional results
-                </h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-xl font-semibold mb-2">
+                    Easy to use, with professional results
+                  </h3>
+                  <SquarePen />
+                </div>
                 <p className="text-gray-400 text-md leading-relaxed">
                   Stay consistent, adapt assets easily, and create confidently
-                  with powerful tools built for real workflows like yours. Stay
-                  consistent, adapt assets easily, and create confidently with
-                  powerful tools built for real workflows like yours.
+                  with powerful tools built for real workflows like yours.
                 </p>
               </div>
 
               {/* Card 4 */}
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
-                <h3 className="text-xl font-semibold mb-2">
-                  Join the creators shaping AI's future
-                </h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-xl font-semibold mb-2">
+                    Join the creators shaping AI's future
+                  </h3>
+                  <MessageSquareText />
+                </div>
                 <p className="text-gray-400 text-md leading-relaxed">
                   Be part of a global community of top creatives. Get early
-                  access to new tools, share your work, and stay inspired. Stay
-                  consistent, adapt assets easily, and create confidently with
-                  powerful tools built for real workflows like yours.
+                  access to new tools, share your work, and stay inspired.
                 </p>
               </div>
             </div>

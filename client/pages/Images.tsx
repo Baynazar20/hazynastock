@@ -15,7 +15,8 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Download, Heart, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
+import Pagination from "@/components/Pagination";
 
 // Mock image data
 const imageData = [
@@ -306,15 +307,13 @@ export default function Images() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "masonry">("grid");
   const [filteredImages, setFilteredImages] = useState(imageData);
+  const [imagesPerPage] = useState(6);
+  const [likedItems, setLikedItems] = useState(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 100;
   const [previewItem, setPreviewItem] = useState<(typeof imageData)[0] | null>(
     null,
   );
-  const [currentPage, setCurrentPage] = useState(1);
-  const [imagesPerPage] = useState(6);
-  const totalPages = Math.ceil(Image.length / imagesPerPage);
-  const indexOfLastImage = currentPage * imagesPerPage;
-  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
-  const [likedItems, setLikedItems] = useState(new Set());
 
   useEffect(() => {
     let filtered = imageData;
@@ -552,84 +551,11 @@ export default function Images() {
                 </Card>
               ))}
             </div>
-            <div className="flex justify-center mb-[20px] space-x-2">
-              {/* Previous */}
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Previous
-              </Button>
-
-              {/* First page */}
-              {currentPage > 2 && (
-                <>
-                  <Button
-                    variant={currentPage === 1 ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentPage(1)}
-                  >
-                    1
-                  </Button>
-                  {currentPage > 3 && <span className="px-2">...</span>}
-                </>
-              )}
-
-              {/* Current -1 */}
-              {currentPage > 1 && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  {currentPage - 1}
-                </Button>
-              )}
-
-              {/* Current */}
-              <Button variant="default" size="sm">
-                {currentPage}
-              </Button>
-
-              {/* Current +1 */}
-              {currentPage < totalPages && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  {currentPage + 1}
-                </Button>
-              )}
-
-              {/* Last page */}
-              {currentPage < totalPages - 1 && (
-                <>
-                  {currentPage < totalPages - 2 && (
-                    <span className="px-2">...</span>
-                  )}
-                  <Button
-                    variant={currentPage === totalPages ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentPage(totalPages)}
-                  >
-                    {totalPages}
-                  </Button>
-                </>
-              )}
-
-              {/* Next */}
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                Next
-              </Button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
           <Footer />
         </section>

@@ -6,19 +6,19 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import Index from "./pages/MainPAge/Index";
 import Images from "./pages/Images";
 import Videos from "./pages/Videos";
 import ThreeDModels from "./pages/3DModels";
 import Icons from "./pages/Icons";
-import GenerateAI from "./pages/GenerateAI";
-import BrandAI from "./pages/BrandAI";
-import Profile from "./pages/Profile";
+import GenerateAI from "./pages/AIPage/GenerateAI";
+import BrandAI from "./pages/AIPage/BrandAI";
+import Profile from "./pages/Settings/Profile";
 import Contributor from "./pages/Contributor";
-import Settings from "./pages/Settings";
-import NotFound from "./pages/NotFound";
-import Searching from "./pages/Searching";
-import Soon from "./pages/Soon";
+import Settings from "./pages/Settings/Settings";
+import NotFound from "./components/NotFound";
+import Searching from "./pages/MainPAge/Searching";
+import Soon from "./components/Soon";
 
 const queryClient = new QueryClient();
 

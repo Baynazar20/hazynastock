@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import PreviewModal from "@/components/PreviewModal";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import {
   Select,
@@ -14,18 +13,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Search,
-  Download,
-  Heart,
-  Palette,
-  Maximize,
-  Grid3X3,
-  SlidersHorizontal,
-} from "lucide-react";
+import { Download, Heart, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Footer from "../../components/Footer";
+import Pagination from "@/components/Pagination";
 
-// Mock image data
 const imageData = [
   {
     id: 1,
@@ -285,9 +277,7 @@ const imageData = [
   },
 ];
 
-const categories = ["All", "Images", "Videos", "3D Models", "Icons"];
-const orientations = ["All", "Landscape", "Portrait", "Square"];
-const resolutions = ["All", "HD (1920x1080)", "4K (3840x2160)", "6K+"];
+const categories = ["All", "Images", "Videos", "3D Models", "Illustrations"];
 const sortOptions = [
   "Latest",
   "Popular",
@@ -310,12 +300,9 @@ export default function Images() {
     null,
   );
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [imagesPerPage] = useState(6);
-  const totalPages = Math.ceil(Image.length / imagesPerPage);
-  const indexOfLastImage = currentPage * imagesPerPage;
-  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
   const [likedItems, setLikedItems] = useState(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 100;
 
   useEffect(() => {
     let filtered = imageData;
@@ -375,19 +362,16 @@ export default function Images() {
   return (
     <Layout>
       <div className="min-h-screen bg-background">
-        {/* Filters and Content */}
         <section className="py-8 px-6">
           <div className="max-w-7xl mx-auto">
-            {/* Filter Bar */}
             <div className="flex flex-col lg:flex-row gap-6 mb-8">
               <div className="flex-1">
-                {/* Category Tabs */}
                 <Tabs
                   value={selectedCategory}
                   onValueChange={setSelectedCategory}
                   className="mb-6"
                 >
-                  <div className="w-full overflow-x-auto scrollbar-hide">
+                  <div className="w-full mt-[20px] overflow-x-auto scrollbar-hide">
                     <TabsList className="flex min-w-max bg-dark-surface2 p-1 gap-1">
                       {categories.map((category) => (
                         <TabsTrigger
@@ -404,7 +388,6 @@ export default function Images() {
               </div>
             </div>
 
-            {/* Advanced Filters */}
             <div className="flex flex-wrap gap-4 mb-6 p-4 bg-dark-surface rounded-lg">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
@@ -438,14 +421,12 @@ export default function Images() {
               </Select>
             </div>
 
-            {/* Results Count */}
             <div className="flex items-center justify-between mb-6">
               <p className="text-muted-foreground">
                 Showing {filteredImages.length} images
               </p>
             </div>
 
-            {/* Images Grid */}
             <div
               className={cn(
                 "gap-6 mb-12",
@@ -474,17 +455,16 @@ export default function Images() {
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
 
-                    {/* Overlay Actions */}
                     <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <Button
                         size="sm"
                         variant="ghost"
                         className={cn(
                           "bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0",
-                          likedItems.has(image.id) && "text-red-500", // Like edilende reňk üýtger
+                          likedItems.has(image.id) && "text-red-500",
                         )}
                         onClick={(e) => {
-                          e.stopPropagation(); // Modal açylmagyň öňüni al
+                          e.stopPropagation();
                           toggleLike(image.id);
                         }}
                       >
@@ -517,85 +497,11 @@ export default function Images() {
                 </Card>
               ))}
             </div>
-
-            <div className="flex justify-center mb-[20px] space-x-2">
-              {/* Previous */}
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Previous
-              </Button>
-
-              {/* First page */}
-              {currentPage > 2 && (
-                <>
-                  <Button
-                    variant={currentPage === 1 ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentPage(1)}
-                  >
-                    1
-                  </Button>
-                  {currentPage > 3 && <span className="px-2">...</span>}
-                </>
-              )}
-
-              {/* Current -1 */}
-              {currentPage > 1 && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  {currentPage - 1}
-                </Button>
-              )}
-
-              {/* Current */}
-              <Button variant="default" size="sm">
-                {currentPage}
-              </Button>
-
-              {/* Current +1 */}
-              {currentPage < totalPages && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  {currentPage + 1}
-                </Button>
-              )}
-
-              {/* Last page */}
-              {currentPage < totalPages - 1 && (
-                <>
-                  {currentPage < totalPages - 2 && (
-                    <span className="px-2">...</span>
-                  )}
-                  <Button
-                    variant={currentPage === totalPages ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentPage(totalPages)}
-                  >
-                    {totalPages}
-                  </Button>
-                </>
-              )}
-
-              {/* Next */}
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                Next
-              </Button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </section>
 
@@ -608,6 +514,7 @@ export default function Images() {
           />
         )}
       </div>
+      <Footer />
     </Layout>
   );
 }

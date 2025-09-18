@@ -113,7 +113,11 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family:
+      "Inter",
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 
   html {
@@ -122,16 +126,16 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    height: 6px;
+    width: 10px;
   }
 
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
-    border-radius: 3px;
+    border-radius: 1px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--accent));
+    background: gray;
   }
 
   /* Line clamp utility */
@@ -159,22 +163,37 @@
   /* Central Asian inspired patterns */
   .central-asian-pattern {
     background-image:
-      radial-gradient(circle at 25% 25%, hsl(var(--pattern-primary)) 2px, transparent 2px),
-      radial-gradient(circle at 75% 75%, hsl(var(--pattern-secondary)) 1px, transparent 1px);
-    background-size: 50px 50px, 30px 30px;
-    background-position: 0 0, 25px 25px;
+      radial-gradient(
+        circle at 25% 25%,
+        hsl(var(--pattern-primary)) 2px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at 75% 75%,
+        hsl(var(--pattern-secondary)) 1px,
+        transparent 1px
+      );
+    background-size:
+      50px 50px,
+      30px 30px;
+    background-position:
+      0 0,
+      25px 25px;
   }
 
   .central-asian-border {
-    border-image: linear-gradient(45deg,
-      hsl(var(--pattern-primary)),
-      hsl(var(--pattern-secondary)),
-      hsl(var(--pattern-accent))
-    ) 1;
+    border-image: linear-gradient(
+        45deg,
+        hsl(var(--pattern-primary)),
+        hsl(var(--pattern-secondary)),
+        hsl(var(--pattern-accent))
+      )
+      1;
   }
 
   .central-asian-gradient {
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+      135deg,
       hsl(var(--pattern-primary)) 0%,
       hsl(var(--pattern-secondary)) 50%,
       hsl(var(--pattern-accent)) 100%
@@ -183,15 +202,27 @@
 
   /* Traditional Central Asian geometric patterns */
   .geometric-pattern::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-image:
-      linear-gradient(45deg, transparent 35%, hsl(var(--pattern-primary) / 0.1) 35%, hsl(var(--pattern-primary) / 0.1) 65%, transparent 65%),
-      linear-gradient(-45deg, transparent 35%, hsl(var(--pattern-secondary) / 0.1) 35%, hsl(var(--pattern-secondary) / 0.1) 65%, transparent 65%);
+      linear-gradient(
+        45deg,
+        transparent 35%,
+        hsl(var(--pattern-primary) / 0.1) 35%,
+        hsl(var(--pattern-primary) / 0.1) 65%,
+        transparent 65%
+      ),
+      linear-gradient(
+        -45deg,
+        transparent 35%,
+        hsl(var(--pattern-secondary) / 0.1) 35%,
+        hsl(var(--pattern-secondary) / 0.1) 65%,
+        transparent 65%
+      );
     background-size: 20px 20px;
     pointer-events: none;
   }

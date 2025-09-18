@@ -1,4 +1,15 @@
-import { Instagram, Github, Mail, Home, Video, Image, Box } from "lucide-react";
+import {
+  Instagram,
+  Github,
+  Mail,
+  Home,
+  Video,
+  Image,
+  Box,
+  Sparkles,
+  Zap,
+  Target,
+} from "lucide-react";
 import { useState } from "react";
 
 const Footer = () => {
@@ -32,7 +43,7 @@ const Footer = () => {
                   href="https://instagram.com/hazynastock"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center transition-colors"
+                  className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Instagram className="w-5 h-5 mr-2" />
                   @hazynastock
@@ -41,7 +52,7 @@ const Footer = () => {
               <li>
                 <a
                   href="mailto:info@hazynastock.com"
-                  className="flex items-center  transition-colors"
+                  className="flex items-center  transition-colors hover:text-gray-300"
                 >
                   <Mail className="w-5 h-5 mr-2" />
                   info@hazynastock.com
@@ -57,7 +68,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center transition-colors"
+                  className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Home className="w-5 h-5 mr-2" />
                   Home
@@ -66,16 +77,16 @@ const Footer = () => {
               <li>
                 <a
                   href="/Images"
-                  className="flex items-center transition-colors"
+                  className="flex items-center transition-colors hover:text-gray-300"
                 >
-                  <Image className="w-5 h-5 mr-2" />
+                  <Image className="w-5 h-5 mr-2 " />
                   Images
                 </a>
               </li>
               <li>
                 <a
                   href="/Videos"
-                  className="flex items-center transition-colors"
+                  className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Video className="w-5 h-5 mr-2" />
                   Videos
@@ -84,10 +95,19 @@ const Footer = () => {
               <li>
                 <a
                   href="/3DModels"
-                  className="flex items-center transition-colors"
+                  className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Box className="w-5 h-5 mr-2" />
                   3D Models
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/3DModels"
+                  className="flex items-center transition-colors hover:text-gray-300"
+                >
+                  <Sparkles className="w-5 h-5 mr-2" />
+                  Illustrations
                 </a>
               </li>
             </ul>
@@ -100,6 +120,25 @@ const Footer = () => {
               Our smart AI assistant is available 24/7 to guide you, answer
               questions, and make your workflow easier.
             </p>
+            <ul className="space-y-3">
+              <a
+                href="/brand-ai"
+                className="flex items-center transition-colors hover:text-gray-300"
+              >
+                <Zap className="w-5 h-5 mr-2" />
+                AI Tools
+              </a>
+
+              <li>
+                <a
+                  href="/generate-ai"
+                  className="flex items-center transition-colors hover:text-gray-300"
+                >
+                  <Target className="w-5 h-5 mr-2" />
+                  HazynaAI
+                </a>
+              </li>
+            </ul>
           </div>
 
           {/* E-poçta Agzalyk Bölümi */}

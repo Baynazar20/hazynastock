@@ -16,7 +16,6 @@ import {
   Play,
   Share,
   Flag,
-  User,
   Package,
   Maximize2,
   Image as ImageIcon,
@@ -24,8 +23,6 @@ import {
   Box,
   Sparkles,
   FileText,
-  Palette,
-  Check,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -86,30 +83,17 @@ export default function PreviewModal({
     }
   };
 
-  // Function to handle download
   const handleDownload = async () => {
     setIsDownloading(true);
 
     try {
-      // Create a temporary anchor element
       const link = document.createElement("a");
       link.href = item.thumbnail;
-
-      // Set the download attribute with a filename
       link.download = `${item.title.replace(/\s+/g, "_")}.${getFileExtension(item.thumbnail)}`;
-
-      // Append to the document, trigger click, then remove
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      // Simulate a small delay to show loading state
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Here you would typically:
-      // 1. Send analytics about the download
-      // 2. Update download count in your database
-      // 3. Handle any payment processing if needed
 
       console.log(`Downloaded: ${item.title}`);
     } catch (error) {
@@ -118,8 +102,6 @@ export default function PreviewModal({
       setIsDownloading(false);
     }
   };
-
-  // Helper function to extract file extension from URL
   const getFileExtension = (url: string) => {
     return url.split(".").pop()?.toLowerCase() || "jpg";
   };
@@ -223,7 +205,6 @@ export default function PreviewModal({
   ];
 
   const handleReportSubmit = () => {
-    // Burada raporlama işlemini gerçekleştirebilirsiniz
     console.log("Report reason:", selectedReportReason);
     setIsReportModalOpen(false);
     setSelectedReportReason("");
@@ -282,8 +263,6 @@ export default function PreviewModal({
                   <Flag className="h-4 w-4" />
                 </Button>
               </div>
-
-              {/* Technical Details and Tags moved here */}
               {renderTechnicalDetails().length > 0 && (
                 <div>
                   <h4 className="font-medium text-foreground mb-3">
@@ -303,8 +282,6 @@ export default function PreviewModal({
                   </div>
                 </div>
               )}
-
-              {/* Tags */}
               <div>
                 <h4 className="font-medium text-foreground mb-3">Tags</h4>
                 <div className="flex flex-wrap gap-2">
@@ -316,10 +293,7 @@ export default function PreviewModal({
                 </div>
               </div>
             </div>
-
-            {/* Details Section */}
             <div className="space-y-6">
-              {/* Type and Category */}
               <div className="flex items-center gap-2">
                 <Badge variant="secondary">
                   {getTypeIcon(item.type || "other")}
@@ -327,8 +301,6 @@ export default function PreviewModal({
                 </Badge>
                 <Badge variant="outline">{item.category}</Badge>
               </div>
-
-              {/* Stats */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <div className="text-lg font-semibold text-foreground">
@@ -395,59 +367,74 @@ export default function PreviewModal({
           </div>
         </DialogContent>
       </Dialog>
-
       {/* Report Modal */}
       <Dialog open={isReportModalOpen} onOpenChange={setIsReportModalOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Report Content</DialogTitle>
+        <DialogContent className="max-w-[800px] bg-gray-900 border-gray-800">
+          <DialogHeader className="pb-4">
+            <DialogTitle className="text-white text-xl font-semibold text-center">
+              Report content
+            </DialogTitle>
           </DialogHeader>
+
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Please select the reason for reporting this content:
+            <p className="text-gray-300 text-center text-sm">
+              Send your feedback and we'll use this information to improve.
             </p>
 
-            <div className="space-y-2">
-              {reportReasons.map((reason) => (
-                <div
-                  key={reason}
-                  className={cn(
-                    "flex items-center p-3 border rounded-md cursor-pointer transition-colors",
-                    selectedReportReason === reason
-                      ? "border-primary bg-primary/10"
-                      : "hover:bg-muted",
-                  )}
-                  onClick={() => setSelectedReportReason(reason)}
+            <div className="space-y-1">
+              <label className="text-white text-sm font-medium block mb-3">
+                Why are you reporting this?
+              </label>
+
+              <div className="relative">
+                <select
+                  value={selectedReportReason}
+                  onChange={(e) => setSelectedReportReason(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-3 py-2 text-sm appearance-none cursor-pointer hover:bg-gray-750 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <div
-                    className={cn(
-                      "flex items-center justify-center w-5 h-5 rounded-full border mr-3",
-                      selectedReportReason === reason
-                        ? "bg-primary border-primary text-primary-foreground"
-                        : "border-muted-foreground/30",
-                    )}
+                  <option value="">Select an option</option>
+                  {reportReasons.map((reason) => (
+                    <option key={reason} value={reason} className="bg-gray-800">
+                      {reason}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                  <svg
+                    className="w-4 h-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    {selectedReportReason === reason && (
-                      <Check className="h-3 w-3" />
-                    )}
-                  </div>
-                  <span>{reason}</span>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </div>
-              ))}
+              </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4">
-              <Button
-                variant="outline"
-                onClick={() => setIsReportModalOpen(false)}
-              >
-                Cancel
-              </Button>
+            {/* Name/Email Input Field */}
+            <div className="space-y-2">
+              <label className="text-white text-sm font-medium block">
+                Name (optional)
+              </label>
+              <textarea
+                placeholder="Which issue have you found?"
+                className="w-full bg-gray-800 border h-[300px] border-gray-700 text-white rounded-md px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            <div className="flex justify-end pt-4">
               <Button
                 onClick={handleReportSubmit}
                 disabled={!selectedReportReason}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Submit Report
+                Report
               </Button>
             </div>
           </div>
