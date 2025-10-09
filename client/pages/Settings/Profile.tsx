@@ -362,12 +362,8 @@ export default function Profile() {
               <TabsContent value="downloads" className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-semibold text-foreground">
-                    Downloads
+                    Total: 638
                   </h3>
-                  <Button>
-                    <Package className="h-4 w-4 mr-2" />
-                    Upload New
-                  </Button>
                 </div>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -29,17 +29,17 @@ import Pagination from "@/components/Pagination";
 const videoData = [
   {
     id: 1,
-    title: "City Traffic Time Lapse 4K",
-    category: "Urban",
-    tags: ["city", "traffic", "timelapse", "urban", "4k"],
+    title: "Future Technology 2025",
+    category: "Technology",
+    tags: ["future", "technology", "innovation"],
     price: "$8",
     downloads: 1890,
     views: 5670,
     rating: 4.8,
-    thumbnail:
-      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
+    thumbnail: "https://img.youtube.com/vi/eGc14QIEF2o/maxresdefault.jpg",
+    video: "https://www.youtube.com/watch?v=eGc14QIEF2o",
     contributor: "Aman Kekilow",
-    duration: "0:45",
+    duration: "9:56",
     resolution: "4K (3840x2160)",
     fps: "30",
     format: "MP4",
@@ -54,9 +54,11 @@ const videoData = [
     views: 7890,
     rating: 4.9,
     thumbnail:
-      "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&h=300&fit=crop",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     contributor: "Bahar Saryyeva",
-    duration: "1:30",
+    duration: "10:53",
     resolution: "4K (3840x2160)",
     fps: "60",
     format: "MP4",
@@ -71,9 +73,11 @@ const videoData = [
     views: 4320,
     rating: 4.7,
     thumbnail:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     contributor: "Dowlet Kakayew",
-    duration: "0:10",
+    duration: "0:15",
     resolution: "4K (3840x2160)",
     fps: "30",
     format: "MP4",
@@ -88,9 +92,11 @@ const videoData = [
     views: 9450,
     rating: 4.6,
     thumbnail:
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
     contributor: "Muhammedov Jeyhun",
-    duration: "2:15",
+    duration: "0:15",
     resolution: "HD (1920x1080)",
     fps: "24",
     format: "MP4",
@@ -105,9 +111,11 @@ const videoData = [
     views: 6540,
     rating: 4.8,
     thumbnail:
-      "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
     contributor: "Atayewa Jemal",
-    duration: "1:45",
+    duration: "0:60",
     resolution: "4K (3840x2160)",
     fps: "24",
     format: "MP4",
@@ -122,9 +130,11 @@ const videoData = [
     views: 3980,
     rating: 4.5,
     thumbnail:
-      "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=300&fit=crop",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     contributor: "Dowletjan Dowletow",
-    duration: "0:30",
+    duration: "0:15",
     resolution: "4K (3840x2160)",
     fps: "30",
     format: "MP4",
@@ -139,9 +149,11 @@ const videoData = [
     views: 5210,
     rating: 4.7,
     thumbnail:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerMeltdowns.jpg",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
     contributor: "Kerim Dowranov",
-    duration: "3:20",
+    duration: "0:15",
     resolution: "HD (1920x1080)",
     fps: "30",
     format: "MP4",
@@ -156,9 +168,11 @@ const videoData = [
     views: 2890,
     rating: 4.9,
     thumbnail:
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=300&fit=crop",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/Sintel.jpg",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
     contributor: "Bayramov Niyazmyrat",
-    duration: "1:15",
+    duration: "12:18",
     resolution: "4K (3840x2160)",
     fps: "24",
     format: "MP4",
@@ -178,15 +192,6 @@ const categories = [
 ];
 const durations = ["All", "Under 30s", "30s - 1min", "1-2min", "2min+"];
 const resolutions = ["All", "HD (1920x1080)", "4K (3840x2160)", "8K+"];
-const frameRates = ["All", "24fps", "30fps", "60fps"];
-const sortOptions = [
-  "Latest",
-  "Popular",
-  "Most Downloaded",
-  "Highest Rated",
-  "Duration: Short to Long",
-  "Duration: Long to Short",
-];
 
 export default function Videos() {
   const [selectedCategory, setSelectedCategory] = useState("All");

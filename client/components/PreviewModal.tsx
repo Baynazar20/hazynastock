@@ -106,11 +106,18 @@ export default function PreviewModal({
     return url.split(".").pop()?.toLowerCase() || "jpg";
   };
 
+  const handleImageClick = () => {
+    window.open(item.thumbnail, "_blank");
+  };
+
   const renderPreviewContent = () => {
     switch (item.type) {
       case "video":
         return (
-          <div className="relative aspect-video bg-black rounded-lg overflow-hidden group">
+          <div
+            onClick={() => window.open(item.video, "_blank")}
+            className="relative aspect-video rounded-lg overflow-hidden cursor-pointer"
+          >
             <img
               src={item.thumbnail}
               alt={item.title}
@@ -135,6 +142,7 @@ export default function PreviewModal({
             <img
               src={item.thumbnail}
               alt={item.title}
+              onClick={() => window.open(item.thumbnail, "_blank")}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/20">
@@ -154,6 +162,7 @@ export default function PreviewModal({
                 <div
                   key={index}
                   className="bg-white dark:bg-gray-700 rounded-lg shadow-sm flex items-center justify-center hover:scale-110 transition-transform"
+                  onClick={() => window.open(item.thumbnail, "_blank")}
                 >
                   {getTypeIcon("icon")}
                 </div>
@@ -169,6 +178,7 @@ export default function PreviewModal({
               src={item.thumbnail}
               alt={item.title}
               className="w-full h-full object-cover"
+              onClick={() => window.open(item.thumbnail, "_blank")}
             />
           </div>
         );
