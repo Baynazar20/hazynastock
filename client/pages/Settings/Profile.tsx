@@ -187,7 +187,7 @@ export default function Profile() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 mb-[210px]">
+              <div className="flex gap-3 mb-[2px]">
                 <Button size="sm" onClick={() => navigate("/Settings")}>
                   <Edit className="h-4 w-4 mr-2" />
                   Edit Profile

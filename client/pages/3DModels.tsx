@@ -331,7 +331,7 @@ export default function ThreeDModels() {
             </div>
 
             {/* Advanced Filters */}
-            <div className="flex flex-wrap gap-4 mb-6 p-4 bg-dark-surface rounded-lg">
+            <div className="flex flex-col md:flex-row flex-wrap items-center gap-3 md:gap-4 mb-4 p-3 bg-muted/5 rounded-md">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium text-foreground">
@@ -343,8 +343,8 @@ export default function ThreeDModels() {
                 value={selectedComplexity}
                 onValueChange={setSelectedComplexity}
               >
-                <SelectTrigger className="w-32">
-                  <Layers className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full md:w-32 h-8 text-sm">
+                  <Layers className="h-4 w-4 mr-2 text-muted-foreground" />
                   <SelectValue placeholder="Complexity" />
                 </SelectTrigger>
                 <SelectContent>
@@ -357,8 +357,8 @@ export default function ThreeDModels() {
               </Select>
 
               <Select value={selectedFormat} onValueChange={setSelectedFormat}>
-                <SelectTrigger className="w-32">
-                  <FileIcon className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full md:w-32 h-8 text-sm">
+                  <FileIcon className="h-4 w-4 mr-2 text-muted-foreground" />
                   <SelectValue placeholder="Format" />
                 </SelectTrigger>
                 <SelectContent>
@@ -371,14 +371,6 @@ export default function ThreeDModels() {
               </Select>
             </div>
 
-            {/* Results Count */}
-            <div className="mb-6">
-              <p className="text-muted-foreground">
-                Showing {filteredModels.length} 3D models
-              </p>
-            </div>
-
-            {/* Models Grid/List */}
             <div
               className={cn(
                 "gap-6 mb-12",
@@ -413,31 +405,10 @@ export default function ThreeDModels() {
                       )}
                     />
 
-                    {/* 3D Viewer Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
                       <div className="bg-primary/90 rounded-lg p-3">
                         <Maximize2 className="h-6 w-6 text-primary-foreground" />
                       </div>
-                    </div>
-
-                    {/* Features Badges */}
-                    <div className="absolute bottom-2 left-2 flex gap-1">
-                      {model.rigged && (
-                        <Badge
-                          variant="secondary"
-                          className="text-xs bg-blue-600 text-white"
-                        >
-                          Rigged
-                        </Badge>
-                      )}
-                      {model.animated && (
-                        <Badge
-                          variant="secondary"
-                          className="text-xs bg-purple-600 text-white"
-                        >
-                          Animated
-                        </Badge>
-                      )}
                     </div>
 
                     {/* Action Buttons */}

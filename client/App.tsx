@@ -19,6 +19,7 @@ import Settings from "./pages/Settings/Settings";
 import NotFound from "./components/NotFound";
 import Searching from "./pages/MainPAge/Searching";
 import Soon from "./components/Soon";
+import Admin from "./pages/admin";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/Searching" element={<Searching />} />
             <Route path="/Soon" element={<Soon />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/Admin" element={<Admin />} />
           </Routes>
         </BrowserRouter>
       </div>

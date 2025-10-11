@@ -124,13 +124,12 @@ export default function Layout({ children }: LayoutProps) {
               </button>
             )}
 
-            {/* Sidebar açyk wagtynda sag tarapda ýapmak button */}
             {!collapsed && (
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-sidebar-foreground lg:flex hidden" // diňe desktopda görkezilýär
-                onClick={toggleDesktopSidebar} // sidebar ýapýar
+                className="text-sidebar-foreground lg:flex hidden"
+                onClick={toggleDesktopSidebar}
               >
                 <PanelLeftClose className="h-5 w-5" />
               </Button>
@@ -365,8 +364,7 @@ export default function Layout({ children }: LayoutProps) {
                 <Input
                   type="search"
                   placeholder="Search content..."
-                  className="pl-10 pr-3 bg-background w-[230px] md:w-[300px] xl:w-[700px] 2xl:w-[700px] h-9 md:h-10 text-sm md:text-base rounded-xl border-2 focus:border-primary/30 transition-all duration-200
-"
+                  className="pl-10 pr-3 bg-background w-[205px] md:w-[300px] xl:w-[700px] 2xl:w-[700px] h-9 md:h-10 text-sm md:text-base rounded-xl border-2 focus:border-primary/30 transition-all duration-200"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />

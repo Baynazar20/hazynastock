@@ -4,7 +4,6 @@ import PreviewModal from "@/components/PreviewModal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -18,7 +17,6 @@ import { cn } from "@/lib/utils";
 import Footer from "../components/Footer";
 import Pagination from "@/components/Pagination";
 
-// Mock image data
 const imageData = [
   {
     id: 1,
@@ -419,7 +417,7 @@ export default function Images() {
             </div>
 
             {/* Advanced Filters */}
-            <div className="flex flex-wrap gap-4 mb-6 p-4 bg-dark-surface rounded-lg">
+            <div className="flex flex-col md:flex-row flex-wrap items-center gap-3 md:gap-4 mb-4 p-3 bg-muted/5 rounded-md">
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium text-foreground">
@@ -427,11 +425,12 @@ export default function Images() {
                 </span>
               </div>
 
+              {/* Orientation */}
               <Select
                 value={selectedOrientation}
                 onValueChange={setSelectedOrientation}
               >
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full md:w-32 h-8 text-sm">
                   <SelectValue placeholder="Orientation" />
                 </SelectTrigger>
                 <SelectContent>
@@ -443,8 +442,9 @@ export default function Images() {
                 </SelectContent>
               </Select>
 
+              {/* Price Filter */}
               <Select value={priceFilter} onValueChange={setPriceFilter}>
-                <SelectTrigger className="w-28">
+                <SelectTrigger className="w-full md:w-28 h-8 text-sm">
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
                 <SelectContent>
@@ -454,9 +454,10 @@ export default function Images() {
                 </SelectContent>
               </Select>
 
+              {/* Sort By */}
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48">
-                  <SelectValue />
+                <SelectTrigger className="w-full md:w-44 h-8 text-sm">
+                  <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
                   {sortOptions.map((option) => (
