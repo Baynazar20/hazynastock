@@ -25,6 +25,7 @@ import {
   FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { t } from "i18next";
 
 interface PreviewModalProps {
   isOpen: boolean;
@@ -113,7 +114,7 @@ export default function PreviewModal({
 
   const renderPreviewContent = () => {
     switch (item.type) {
-      case "video":
+      case t("video"):
         return (
           <div
             onClick={() => window.open(item.video, "_blank")}
@@ -197,29 +198,29 @@ export default function PreviewModal({
     const details = [];
 
     if (item.resolution)
-      details.push({ label: "Resolution", value: item.resolution });
+      details.push({ label: t("resolution"), value: item.resolution });
     if (item.fileSize)
-      details.push({ label: "File Size", value: item.fileSize });
+      details.push({ label: t("fileSize"), value: item.fileSize });
     if (item.duration)
-      details.push({ label: "Duration", value: item.duration });
+      details.push({ label: t("duration"), value: item.duration });
     if (item.fps)
-      details.push({ label: "Frame Rate", value: `${item.fps}fps` });
+      details.push({ label: t("frameRate"), value: `${item.fps}fps` });
     if (item.polygons)
-      details.push({ label: "Polygons", value: item.polygons });
+      details.push({ label: t("polygons"), value: item.polygons });
     if (item.iconCount)
-      details.push({ label: "Icon Count", value: `${item.iconCount} icons` });
+      details.push({ label: t("iconCount"), value: `${item.iconCount} icons` });
     if (item.style) details.push({ label: "Style", value: item.style });
     if (item.orientation)
-      details.push({ label: "Orientation", value: item.orientation });
+      details.push({ label: t("orientation"), value: item.orientation });
 
     return details;
   };
 
   const reportReasons = [
-    "Low quality image",
-    "Image contains errors",
-    "Image won't open",
-    "Other reason",
+    t("reportReasons.lowQuality"),
+    t("reportReasons.errors"),
+    t("reportReasons.notOpening"),
+    t("reportReasons.other"),
   ];
 
   const handleReportSubmit = () => {
@@ -253,12 +254,12 @@ export default function PreviewModal({
                   {isDownloading ? (
                     <>
                       <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-solid border-current border-r-transparent" />
-                      Downloading...
+                      {t("downloading")}
                     </>
                   ) : (
                     <>
                       <Download className="h-4 w-4 mr-2" />
-                      Download
+                      {t("download")}
                     </>
                   )}
                 </Button>
@@ -290,7 +291,7 @@ export default function PreviewModal({
               {renderTechnicalDetails().length > 0 && (
                 <div className="bg-muted/50 sm:bg-transparent p-3 sm:p-0 rounded-lg sm:rounded-none">
                   <h4 className="font-semibold text-foreground mb-2 sm:mb-3 text-sm sm:text-base">
-                    Technical Details
+                    {t("technicalDetails")}
                   </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-1 gap-2 sm:gap-2">
                     {renderTechnicalDetails().map((detail, index) => (
@@ -312,7 +313,7 @@ export default function PreviewModal({
 
               <div>
                 <h4 className="font-semibold text-foreground mb-2 sm:mb-3 text-sm sm:text-base">
-                  Tags
+                  {t("tags")}
                 </h4>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {item.tags.map((tag) => (
@@ -347,7 +348,7 @@ export default function PreviewModal({
                     {item.downloads.toLocaleString()}
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                    Downloads
+                    {t("downloads")}
                   </div>
                 </div>
                 <div className="text-center bg-muted/50 sm:bg-transparent p-2 sm:p-0 rounded-lg sm:rounded-none">
@@ -355,7 +356,7 @@ export default function PreviewModal({
                     {item.views.toLocaleString()}
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                    Views
+                    {t("views")}
                   </div>
                 </div>
                 <div className="text-center bg-muted/50 sm:bg-transparent p-2 sm:p-0 rounded-lg sm:rounded-none">
@@ -366,7 +367,7 @@ export default function PreviewModal({
                     </span>
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                    Rating
+                    {t("rating")}
                   </div>
                 </div>
                 <div className="text-center bg-muted/50 sm:bg-transparent p-2 sm:p-0 rounded-lg sm:rounded-none">
@@ -374,7 +375,7 @@ export default function PreviewModal({
                     {item.price}
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                    Price
+                    {t("price")}
                   </div>
                 </div>
               </div>
@@ -395,7 +396,7 @@ export default function PreviewModal({
                     {item.contributor}
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground">
-                    Creator
+                    {t("creator")}
                   </div>
                 </div>
                 <Button
@@ -413,11 +414,11 @@ export default function PreviewModal({
                 <div className="flex items-center gap-2 mb-2">
                   <FileText className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
                   <span className="font-medium text-foreground text-sm sm:text-base">
-                    License
+                    {t("license")}
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Standard license included. Commercial use allowed.
+                  {t("licenseText")}
                 </p>
               </div>
             </div>
@@ -430,18 +431,18 @@ export default function PreviewModal({
         <DialogContent className="max-w-[95vw] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[800px] bg-gray-900 border-gray-800 p-4 sm:p-6">
           <DialogHeader className="pb-3 sm:pb-4">
             <DialogTitle className="text-white text-lg sm:text-xl font-semibold text-center">
-              Report content
+              {t("reportContent")}
             </DialogTitle>
           </DialogHeader>
 
           <div className="space-y-3 sm:space-y-4">
             <p className="text-gray-300 text-center text-xs sm:text-sm">
-              Send your feedback and we'll use this information to improve.
+              {t("reportFeedbackText")}
             </p>
 
             <div className="space-y-2">
               <label className="text-white text-xs sm:text-sm font-medium block">
-                Why are you reporting this?
+                {t("reportReasonLabel")}
               </label>
 
               <div className="relative">
@@ -450,7 +451,7 @@ export default function PreviewModal({
                   onChange={(e) => setSelectedReportReason(e.target.value)}
                   className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-3 py-2.5 sm:py-2 text-xs sm:text-sm appearance-none cursor-pointer hover:bg-gray-750 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                 >
-                  <option value="">Select an option</option>
+                  <option value="">{t("reportPlaceholder")}</option>
                   {reportReasons.map((reason) => (
                     <option key={reason} value={reason} className="bg-gray-800">
                       {reason}
@@ -478,10 +479,10 @@ export default function PreviewModal({
             {/* Description Field */}
             <div className="space-y-2">
               <label className="text-white text-xs sm:text-sm font-medium block">
-                Description (optional)
+                {t("reportDescriptionLabel")}
               </label>
               <textarea
-                placeholder="Which issue have you found?"
+                placeholder={t("reportDescriptionPlaceholder")}
                 className="w-full bg-gray-800 border h-[200px] sm:h-[250px] md:h-[300px] border-gray-700 text-white rounded-md px-3 py-2 text-xs sm:text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all"
               />
             </div>
@@ -492,14 +493,14 @@ export default function PreviewModal({
                 variant="outline"
                 className="h-10 sm:h-10 text-xs sm:text-sm text-white border-gray-700 hover:bg-gray-800"
               >
-                Cancel
+                {t("cancel")}
               </Button>
               <Button
                 onClick={handleReportSubmit}
                 disabled={!selectedReportReason}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 h-10 sm:h-10 text-xs sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                Submit Report
+                {t("submitReport")}
               </Button>
             </div>
           </div>

@@ -23,8 +23,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Pagination from "@/components/Pagination";
+import { t } from "i18next";
 
-// Mock 3D model data
 const modelData = [
   {
     id: 1,
@@ -181,26 +181,23 @@ const modelData = [
 ];
 
 const categories = [
-  "All",
-  "Furniture",
-  "Characters",
-  "Vehicles",
-  "Architecture",
-  "Props",
-  "Weapons",
-  "Nature",
+  t("all"),
+  t("furniture"),
+  t("characters"),
+  t("vehicles"),
+  t("architecture"),
+  t("props"),
+  t("weapons"),
+  t("nature"),
 ];
-const complexities = ["All", "Low", "Medium", "High"];
-const formats = ["All", "OBJ", "FBX", "GLB", "BLEND", "3DS"];
-const features = ["All", "Rigged", "Animated", "Game Ready"];
-const sortOptions = [
-  "Latest",
-  "Popular",
-  "Most Downloaded",
-  "Highest Rated",
-  "File Size: Small to Large",
-  "Polygons: Low to High",
+const complexities = [
+  t("all"),
+  t("low"),
+  t("medium"),
+  t("high"),
 ];
+const formats = [t("all"), "OBJ", "FBX", "GLB", "BLEND", "3DS"];
+const features = [t("all"), t("rigged"), t("animated"), t("gameReady")];
 
 export default function ThreeDModels() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -335,7 +332,7 @@ export default function ThreeDModels() {
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium text-foreground">
-                  3D Filters:
+                  3D {t("filters")}:
                 </span>
               </div>
 

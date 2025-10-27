@@ -32,9 +32,11 @@ import {
   CreditCard,
   Plus,
   Wallet,
-  TrendingUp
+  TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Footer from "@/components/Footer";
+import { t } from "i18next";
 
 // Mock generated content
 const generatedSamples = [
@@ -43,38 +45,90 @@ const generatedSamples = [
     type: "image",
     prompt: "Traditional Central Asian bazaar with silk road merchants",
     style: "Photorealistic",
-    thumbnail: "https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=300&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=300&h=300&fit=crop",
     resolution: "1024x1024",
-    downloadCount: 234
+    downloadCount: 234,
   },
   {
     id: 2,
-    type: "image", 
+    type: "image",
     prompt: "Kazakh yurt in vast steppe landscape at golden hour",
     style: "Artistic",
-    thumbnail: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=300&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=300&h=300&fit=crop",
     resolution: "1024x1024",
-    downloadCount: 189
+    downloadCount: 189,
   },
   {
     id: 3,
     type: "video",
     prompt: "Uzbek traditional dance performance",
     style: "Cinematic",
-    thumbnail: "https://images.unsplash.com/photo-1594736797933-d0b22e5c4376?w=300&h=300&fit=crop",
+    thumbnail:
+      "https://images.unsplash.com/photo-1594736797933-d0b22e5c4376?w=300&h=300&fit=crop",
     resolution: "1920x1080",
-    downloadCount: 156
-  }
+    downloadCount: 156,
+  },
 ];
 
 const aiModels = [
-  { id: "dall-e-3", name: "DALL-E 3", type: "image", premium: true, tokens: 15, quality: "Ultra High" },
-  { id: "midjourney", name: "Midjourney", type: "image", premium: true, tokens: 12, quality: "High" },
-  { id: "stable-diffusion", name: "Stable Diffusion", type: "image", premium: false, tokens: 3, quality: "Good" },
-  { id: "firefly", name: "Adobe Firefly", type: "image", premium: true, tokens: 8, quality: "High" },
-  { id: "sora", name: "Sora", type: "video", premium: true, tokens: 50, quality: "Ultra High" },
-  { id: "runway", name: "Runway Gen-3", type: "video", premium: true, tokens: 35, quality: "High" },
-  { id: "pika", name: "Pika Labs", type: "video", premium: false, tokens: 20, quality: "Good" },
+  {
+    id: "dall-e-3",
+    name: "DALL-E 3",
+    type: "image",
+    premium: true,
+    tokens: 15,
+    quality: "Ultra High",
+  },
+  {
+    id: "midjourney",
+    name: "Midjourney",
+    type: "image",
+    premium: true,
+    tokens: 12,
+    quality: "High",
+  },
+  {
+    id: "stable-diffusion",
+    name: "Stable Diffusion",
+    type: "image",
+    premium: false,
+    tokens: 3,
+    quality: "Good",
+  },
+  {
+    id: "firefly",
+    name: "Adobe Firefly",
+    type: "image",
+    premium: true,
+    tokens: 8,
+    quality: "High",
+  },
+  {
+    id: "sora",
+    name: "Sora",
+    type: "video",
+    premium: true,
+    tokens: 50,
+    quality: "Ultra High",
+  },
+  {
+    id: "runway",
+    name: "Runway Gen-3",
+    type: "video",
+    premium: true,
+    tokens: 35,
+    quality: "High",
+  },
+  {
+    id: "pika",
+    name: "Pika Labs",
+    type: "video",
+    premium: false,
+    tokens: 20,
+    quality: "Good",
+  },
 ];
 
 // Token pricing plans
@@ -86,7 +140,7 @@ const tokenPackages = [
     price: 9.99,
     bonus: 0,
     popular: false,
-    description: "Perfect for trying out AI generation"
+    description: "Perfect for trying out AI generation",
   },
   {
     id: "creator",
@@ -95,7 +149,7 @@ const tokenPackages = [
     price: 39.99,
     bonus: 50,
     popular: true,
-    description: "Best value for regular creators"
+    description: "Best value for regular creators",
   },
   {
     id: "professional",
@@ -104,7 +158,7 @@ const tokenPackages = [
     price: 69.99,
     bonus: 150,
     popular: false,
-    description: "For professional content creators"
+    description: "For professional content creators",
   },
   {
     id: "enterprise",
@@ -113,13 +167,21 @@ const tokenPackages = [
     price: 299.99,
     bonus: 1000,
     popular: false,
-    description: "Unlimited creativity for teams"
-  }
+    description: "Unlimited creativity for teams",
+  },
 ];
 
 const styles = [
-  "Photorealistic", "Artistic", "Traditional", "Modern", "Minimalist", 
-  "Vintage", "Cinematic", "Abstract", "Watercolor", "Oil Painting"
+  t("photorealistic"),
+  t("artistic"),
+  t("traditional"),
+  t("modern"),
+  t("minimalist"),
+  t("vintage"),
+  t("cinematic"),
+  t("abstract"),
+  t("watercolor"),
+  t("oil_painting"),
 ];
 
 export default function GenerateAI() {
@@ -131,7 +193,7 @@ export default function GenerateAI() {
   const [userTokens, setUserTokens] = useState(47); // Mock user token balance
 
   const handleGenerate = () => {
-    const model = aiModels.find(m => m.id === selectedModel);
+    const model = aiModels.find((m) => m.id === selectedModel);
     const requiredTokens = model?.tokens || 0;
 
     if (userTokens >= requiredTokens) {
@@ -139,23 +201,26 @@ export default function GenerateAI() {
       // Simulate generation and token deduction
       setTimeout(() => {
         setIsGenerating(false);
-        setUserTokens(prev => prev - requiredTokens);
+        setUserTokens((prev) => prev - requiredTokens);
       }, 3000);
     } else {
       // Show insufficient tokens message (in real app, would show modal)
-      alert(`Insufficient tokens! You need ${requiredTokens} tokens but only have ${userTokens}.`);
+      alert(
+        `Insufficient tokens! You need ${requiredTokens} tokens but only have ${userTokens}.`,
+      );
     }
   };
 
-  const selectedModelData = aiModels.find(m => m.id === selectedModel);
-  const canGenerate = prompt.trim() && userTokens >= (selectedModelData?.tokens || 0);
+  const selectedModelData = aiModels.find((m) => m.id === selectedModel);
+  const canGenerate =
+    prompt.trim() && userTokens >= (selectedModelData?.tokens || 0);
 
   return (
     <Layout>
       <div className="min-h-screen bg-background relative">
         {/* Central Asian Pattern Background */}
         <div className="absolute inset-0 central-asian-pattern opacity-5 pointer-events-none"></div>
-        
+
         {/* Hero Section with Central Asian Inspiration */}
         <section className="relative bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-red-500/10 py-16 px-4 md:px-6">
           <div className="absolute inset-0 geometric-pattern opacity-30"></div>
@@ -166,38 +231,57 @@ export default function GenerateAI() {
                   <Zap className="h-8 w-8 text-white" />
                 </div>
                 <div className="absolute -top-1 -right-1">
-                  <Star className="h-6 w-6 text-amber-400 fill-current animate-spin" style={{ animationDuration: '3s' }} />
+                  <Star
+                    className="h-6 w-6 text-amber-400 fill-current animate-spin"
+                    style={{ animationDuration: "3s" }}
+                  />
                 </div>
               </div>
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-                AI Generation Studio
+                {t("ai_generation_studio")}
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              Create stunning Central Asian inspired content with the power of artificial intelligence. 
-              From traditional bazaars to modern cityscapes, bring your vision to life.
+              {t("create_stunning_content")}
+              {t("from_traditional_to_modern")}
             </p>
-            
+
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-amber-600">50K+</div>
-                <div className="text-sm text-muted-foreground">Generated</div>
+                <div className="text-2xl md:text-3xl font-bold text-amber-600">
+                  50K+
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {t("generated")}
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-orange-600">7</div>
-                <div className="text-sm text-muted-foreground">AI Models</div>
+                <div className="text-2xl md:text-3xl font-bold text-orange-600">
+                  7
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {t("ai_models")}
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-red-600">4K</div>
-                <div className="text-sm text-muted-foreground">Resolution</div>
+                <div className="text-2xl md:text-3xl font-bold text-red-600">
+                  4K
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {t("resolution")}
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-amber-600">3-50</div>
-                <div className="text-sm text-muted-foreground">Tokens</div>
+                <div className="text-2xl md:text-3xl font-bold text-amber-600">
+                  3-50
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {t("tokens")}
+                </div>
               </div>
             </div>
           </div>
@@ -213,8 +297,12 @@ export default function GenerateAI() {
                   <Coins className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Your Token Balance</div>
-                  <div className="text-2xl font-bold text-foreground">{userTokens} tokens</div>
+                  <div className="text-sm text-muted-foreground">
+                    {t("your_token_balance")}
+                  </div>
+                  <div className="text-2xl font-bold text-foreground">
+                    {userTokens} {t("tokens")}
+                  </div>
                 </div>
               </div>
               <Button
@@ -223,7 +311,7 @@ export default function GenerateAI() {
                 onClick={() => setActiveTab("tokens")}
               >
                 <Plus className="h-4 w-4 mr-2" />
-                Buy Tokens
+                {t("buy_tokens")}
               </Button>
             </div>
 
@@ -235,28 +323,28 @@ export default function GenerateAI() {
                     className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white whitespace-nowrap px-4 py-2 flex-shrink-0"
                   >
                     <Zap className="h-4 w-4 mr-2" />
-                    Generate
+                    {t("generate")}
                   </TabsTrigger>
                   <TabsTrigger
                     value="tokens"
                     className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white whitespace-nowrap px-4 py-2 flex-shrink-0"
                   >
                     <Wallet className="h-4 w-4 mr-2" />
-                    Buy Tokens
+                    {t("buy_tokens")}
                   </TabsTrigger>
                   <TabsTrigger
                     value="gallery"
                     className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white whitespace-nowrap px-4 py-2 flex-shrink-0"
                   >
                     <Eye className="h-4 w-4 mr-2" />
-                    Gallery
+                    {t("gallery")}
                   </TabsTrigger>
                   <TabsTrigger
                     value="models"
                     className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white whitespace-nowrap px-4 py-2 flex-shrink-0"
                   >
                     <Settings className="h-4 w-4 mr-2" />
-                    Models
+                    {t("models")}
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -269,14 +357,17 @@ export default function GenerateAI() {
                       <CardHeader className="bg-gradient-to-r from-amber-500/10 to-orange-500/10">
                         <CardTitle className="flex items-center">
                           <Wand2 className="h-5 w-5 mr-2 text-amber-600" />
-                          Create Your Vision
+                          {t("create_your_vision")}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-6 p-6">
                         {/* Prompt Input */}
                         <div className="space-y-2">
-                          <Label htmlFor="prompt" className="text-base font-medium">
-                            Describe what you want to create
+                          <Label
+                            htmlFor="prompt"
+                            className="text-base font-medium"
+                          >
+                            {t("describe_what_you_want")}
                           </Label>
                           <Textarea
                             id="prompt"
@@ -286,14 +377,23 @@ export default function GenerateAI() {
                             className="min-h-[120px] text-base border-amber-500/20 focus:border-amber-500/50"
                           />
                           <div className="flex flex-wrap gap-2 mt-3">
-                            <Badge variant="outline" className="cursor-pointer hover:bg-amber-500/10">
-                              + Traditional Architecture
+                            <Badge
+                              variant="outline"
+                              className="cursor-pointer hover:bg-amber-500/10"
+                            >
+                              {t("traditional_architecture")}
                             </Badge>
-                            <Badge variant="outline" className="cursor-pointer hover:bg-orange-500/10">
-                              + Cultural Patterns
+                            <Badge
+                              variant="outline"
+                              className="cursor-pointer hover:bg-orange-500/10"
+                            >
+                              {t("cultural_patterns")}
                             </Badge>
-                            <Badge variant="outline" className="cursor-pointer hover:bg-red-500/10">
-                              + Silk Road
+                            <Badge
+                              variant="outline"
+                              className="cursor-pointer hover:bg-red-500/10"
+                            >
+                              {t("silk_road")}
                             </Badge>
                           </div>
                         </div>
@@ -301,41 +401,54 @@ export default function GenerateAI() {
                         {/* Settings Grid */}
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label>AI Model</Label>
-                            <Select value={selectedModel} onValueChange={setSelectedModel}>
+                            <Label>{t("ai_model")}</Label>
+                            <Select
+                              value={selectedModel}
+                              onValueChange={setSelectedModel}
+                            >
                               <SelectTrigger>
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                {aiModels.filter(m => m.type === "image").map((model) => (
-                                  <SelectItem key={model.id} value={model.id}>
-                                    <div className="flex items-center justify-between w-full">
-                                      <div className="flex items-center">
-                                        {model.name}
-                                        {model.premium && (
-                                          <Crown className="h-3 w-3 ml-2 text-amber-500" />
-                                        )}
+                                {aiModels
+                                  .filter((m) => m.type === "image")
+                                  .map((model) => (
+                                    <SelectItem key={model.id} value={model.id}>
+                                      <div className="flex items-center justify-between w-full">
+                                        <div className="flex items-center">
+                                          {model.name}
+                                          {model.premium && (
+                                            <Crown className="h-3 w-3 ml-2 text-amber-500" />
+                                          )}
+                                        </div>
+                                        <div className="flex items-center gap-1 text-amber-600">
+                                          <Coins className="h-3 w-3" />
+                                          <span className="text-xs font-medium">
+                                            {model.tokens}
+                                          </span>
+                                        </div>
                                       </div>
-                                      <div className="flex items-center gap-1 text-amber-600">
-                                        <Coins className="h-3 w-3" />
-                                        <span className="text-xs font-medium">{model.tokens}</span>
-                                      </div>
-                                    </div>
-                                  </SelectItem>
-                                ))}
+                                    </SelectItem>
+                                  ))}
                               </SelectContent>
                             </Select>
                             {selectedModelData && (
                               <div className="text-xs text-muted-foreground flex items-center gap-1">
                                 <Coins className="h-3 w-3" />
-                                <span>Costs {selectedModelData.tokens} tokens • {selectedModelData.quality} quality</span>
+                                <span>
+                                  Costs {selectedModelData.tokens} tokens •{" "}
+                                  {selectedModelData.quality} quality
+                                </span>
                               </div>
                             )}
                           </div>
 
                           <div className="space-y-2">
-                            <Label>Style</Label>
-                            <Select value={selectedStyle} onValueChange={setSelectedStyle}>
+                            <Label>{t("style")}</Label>
+                            <Select
+                              value={selectedStyle}
+                              onValueChange={setSelectedStyle}
+                            >
                               <SelectTrigger>
                                 <SelectValue />
                               </SelectTrigger>
@@ -352,14 +465,19 @@ export default function GenerateAI() {
 
                         {/* Generate Button */}
                         <div className="space-y-3">
-                          {selectedModelData && userTokens < selectedModelData.tokens && (
-                            <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                              <div className="flex items-center gap-2 text-red-600 text-sm">
-                                <Coins className="h-4 w-4" />
-                                <span>Insufficient tokens! You need {selectedModelData.tokens} but have {userTokens}.</span>
+                          {selectedModelData &&
+                            userTokens < selectedModelData.tokens && (
+                              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                                <div className="flex items-center gap-2 text-red-600 text-sm">
+                                  <Coins className="h-4 w-4" />
+                                  <span>
+                                    {t("Insufficient tokens")}{" "}
+                                    {selectedModelData.tokens} but have{" "}
+                                    {userTokens}.
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          )}
+                            )}
 
                           <Button
                             onClick={handleGenerate}
@@ -369,15 +487,15 @@ export default function GenerateAI() {
                             {isGenerating ? (
                               <>
                                 <RefreshCw className="h-5 w-5 mr-2 animate-spin" />
-                                Generating Magic...
+                                {t("generating_magic")}
                               </>
                             ) : (
                               <>
                                 <Sparkles className="h-5 w-5 mr-2" />
-                                Generate Content
+                                {t("generate_content")}
                                 {selectedModelData && (
                                   <span className="ml-2 bg-white/20 px-2 py-1 rounded text-xs">
-                                    {selectedModelData.tokens} tokens
+                                    {selectedModelData.tokens} {t("tokens")}
                                   </span>
                                 )}
                               </>
@@ -394,21 +512,31 @@ export default function GenerateAI() {
                       <CardHeader>
                         <CardTitle className="text-lg flex items-center">
                           <Coins className="h-5 w-5 mr-2 text-amber-600" />
-                          Token Usage
+                          {t("token_usage")}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-3">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-muted-foreground">Current Balance:</span>
-                            <span className="font-semibold text-foreground">{userTokens} tokens</span>
+                            <span className="text-sm text-muted-foreground">
+                              {t("current_balance")}
+                            </span>
+                            <span className="font-semibold text-foreground">
+                              {userTokens} {t("tokens")}
+                            </span>
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-muted-foreground">Selected Model:</span>
-                            <span className="font-semibold text-foreground">{selectedModelData?.name}</span>
+                            <span className="text-sm text-muted-foreground">
+                              {t("selected_model")}
+                            </span>
+                            <span className="font-semibold text-foreground">
+                              {selectedModelData?.name}
+                            </span>
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-muted-foreground">Cost per Generation:</span>
+                            <span className="text-sm text-muted-foreground">
+                              {t("cost_per_generation")}
+                            </span>
                             <span className="font-semibold text-amber-600 flex items-center gap-1">
                               <Coins className="h-3 w-3" />
                               {selectedModelData?.tokens || 0}
@@ -416,9 +544,15 @@ export default function GenerateAI() {
                           </div>
                           <div className="pt-2 border-t border-border">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">Generations Available:</span>
+                              <span className="text-sm text-muted-foreground">
+                                {t("generations_available")}
+                              </span>
                               <span className="font-semibold text-green-600">
-                                {selectedModelData ? Math.floor(userTokens / selectedModelData.tokens) : 0}
+                                {selectedModelData
+                                  ? Math.floor(
+                                      userTokens / selectedModelData.tokens,
+                                    )
+                                  : 0}
                               </span>
                             </div>
                           </div>
@@ -428,10 +562,12 @@ export default function GenerateAI() {
                           <div className="mt-4 p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
                             <div className="flex items-center gap-2 text-orange-600 text-sm mb-2">
                               <TrendingUp className="h-4 w-4" />
-                              <span className="font-medium">Low Balance Warning</span>
+                              <span className="font-medium">
+                                {t("low_balance_warning")}
+                              </span>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                              Consider purchasing more tokens to continue creating.
+                              {t("consider_buying_more")}
                             </p>
                           </div>
                         )}
@@ -440,20 +576,24 @@ export default function GenerateAI() {
 
                     <Card className="border-red-500/20">
                       <CardHeader>
-                        <CardTitle className="text-lg">Generation Tips</CardTitle>
+                        <CardTitle className="text-lg">
+                          {t("generation_tips")}
+                        </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3 text-sm text-muted-foreground">
                         <div className="flex items-start gap-2">
                           <Star className="h-4 w-4 text-amber-500 mt-0.5 flex-shrink-0" />
-                          <span>Be specific about Central Asian cultural elements</span>
+                          <span>
+                            Be specific about Central Asian cultural elements
+                          </span>
                         </div>
                         <div className="flex items-start gap-2">
                           <Star className="h-4 w-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                          <span>Include time of day and lighting preferences</span>
+                          <span>{t("include_time_lighting")}</span>
                         </div>
                         <div className="flex items-start gap-2">
                           <Star className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
-                          <span>Mention traditional colors and patterns</span>
+                          <span>{t("mention_colors_patterns")}</span>
                         </div>
                       </CardContent>
                     </Card>
@@ -463,23 +603,28 @@ export default function GenerateAI() {
 
               <TabsContent value="tokens" className="space-y-6">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Purchase Tokens</h3>
-                  <p className="text-muted-foreground">Choose the perfect token package for your creative needs</p>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">
+                    {t("purchase_tokens")}
+                  </h3>
+                  <p className="text-muted-foreground">{t("choose_package")}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
                   {tokenPackages.map((pkg) => (
-                    <Card key={pkg.id} className={cn(
-                      "relative transition-all duration-300 hover:shadow-xl",
-                      pkg.popular
-                        ? "border-amber-500/50 bg-gradient-to-br from-amber-500/10 to-orange-500/10 transform scale-105"
-                        : "border-muted hover:border-amber-500/30"
-                    )}>
+                    <Card
+                      key={pkg.id}
+                      className={cn(
+                        "relative transition-all duration-300 hover:shadow-xl",
+                        pkg.popular
+                          ? "border-amber-500/50 bg-gradient-to-br from-amber-500/10 to-orange-500/10 transform scale-105"
+                          : "border-muted hover:border-amber-500/30",
+                      )}
+                    >
                       {pkg.popular && (
                         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                           <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
                             <Star className="h-3 w-3 mr-1 fill-current" />
-                            Most Popular
+                            {t("most_popular")}
                           </Badge>
                         </div>
                       )}
@@ -503,11 +648,13 @@ export default function GenerateAI() {
                             <span className="text-2xl font-bold text-amber-600">
                               {pkg.tokens.toLocaleString()}
                             </span>
-                            <span className="text-sm text-muted-foreground">tokens</span>
+                            <span className="text-sm text-muted-foreground">
+                              {t("tokens")}
+                            </span>
                           </div>
                           {pkg.bonus > 0 && (
                             <div className="text-sm text-green-600 font-medium">
-                              + {pkg.bonus} bonus tokens!
+                              + {pkg.bonus} bonus {t("tokens")}!
                             </div>
                           )}
                         </div>
@@ -515,15 +662,21 @@ export default function GenerateAI() {
                         <div className="space-y-2 text-xs text-muted-foreground">
                           <div className="flex justify-between">
                             <span>DALL-E 3 generations:</span>
-                            <span className="font-medium">~{Math.floor((pkg.tokens + pkg.bonus) / 15)}</span>
+                            <span className="font-medium">
+                              ~{Math.floor((pkg.tokens + pkg.bonus) / 15)}
+                            </span>
                           </div>
                           <div className="flex justify-between">
                             <span>Stable Diffusion:</span>
-                            <span className="font-medium">~{Math.floor((pkg.tokens + pkg.bonus) / 3)}</span>
+                            <span className="font-medium">
+                              ~{Math.floor((pkg.tokens + pkg.bonus) / 3)}
+                            </span>
                           </div>
                           <div className="flex justify-between">
                             <span>Video generations:</span>
-                            <span className="font-medium">~{Math.floor((pkg.tokens + pkg.bonus) / 35)}</span>
+                            <span className="font-medium">
+                              ~{Math.floor((pkg.tokens + pkg.bonus) / 35)}
+                            </span>
                           </div>
                         </div>
 
@@ -532,7 +685,7 @@ export default function GenerateAI() {
                             "w-full touch-friendly",
                             pkg.popular
                               ? "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
-                              : ""
+                              : "",
                           )}
                           variant={pkg.popular ? "default" : "outline"}
                         >
@@ -568,15 +721,20 @@ export default function GenerateAI() {
 
               <TabsContent value="gallery" className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-2xl font-bold text-foreground">Generated Gallery</h3>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    {t("generated_gallery")}
+                  </h3>
                   <Badge className="bg-gradient-to-r from-amber-500 to-orange-500">
-                    {generatedSamples.length} Items
+                    {generatedSamples.length} {t("items")}
                   </Badge>
                 </div>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                   {generatedSamples.map((item) => (
-                    <Card key={item.id} className="group hover:shadow-xl transition-all duration-300 card-hover">
+                    <Card
+                      key={item.id}
+                      className="group hover:shadow-xl transition-all duration-300 card-hover"
+                    >
                       <div className="relative aspect-square overflow-hidden rounded-t-lg">
                         <img
                           src={item.thumbnail}
@@ -586,11 +744,18 @@ export default function GenerateAI() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                           <div className="absolute bottom-4 left-4 right-4">
                             <div className="flex gap-2">
-                              <Button size="sm" className="flex-1 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm">
+                              <Button
+                                size="sm"
+                                className="flex-1 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm"
+                              >
                                 <Download className="h-4 w-4 mr-1" />
-                                Download
+                                {t("download")}
                               </Button>
-                              <Button size="sm" variant="ghost" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm"
+                              >
                                 <Share className="h-4 w-4" />
                               </Button>
                             </div>
@@ -602,7 +767,10 @@ export default function GenerateAI() {
                           </Badge>
                         </div>
                         <div className="absolute top-2 right-2">
-                          <Badge variant="secondary" className="bg-black/50 text-white">
+                          <Badge
+                            variant="secondary"
+                            className="bg-black/50 text-white"
+                          >
                             {item.resolution}
                           </Badge>
                         </div>
@@ -612,8 +780,12 @@ export default function GenerateAI() {
                           {item.prompt}
                         </p>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
-                          <span>Style: {item.style}</span>
-                          <span>{item.downloadCount} downloads</span>
+                          <span>
+                            {t("style_label")}: {item.style}
+                          </span>
+                          <span>
+                            {item.downloadCount} {t("downloads")}
+                          </span>
                         </div>
                       </CardContent>
                     </Card>
@@ -623,16 +795,24 @@ export default function GenerateAI() {
 
               <TabsContent value="models" className="space-y-6">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Available AI Models</h3>
-                  <p className="text-muted-foreground">Choose from our collection of premium AI models</p>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">
+                    {t("available_models")}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {t("choose_from_collection")}
+                  </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                   {aiModels.map((model) => (
-                    <Card key={model.id} className={cn(
-                      "transition-all duration-300 hover:shadow-lg",
-                      model.premium && "border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5"
-                    )}>
+                    <Card
+                      key={model.id}
+                      className={cn(
+                        "transition-all duration-300 hover:shadow-lg",
+                        model.premium &&
+                          "border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5",
+                      )}
+                    >
                       <CardHeader>
                         <CardTitle className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -656,14 +836,18 @@ export default function GenerateAI() {
                       <CardContent>
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
-                            <span className="text-sm text-muted-foreground">Type:</span>
+                            <span className="text-sm text-muted-foreground">
+                              Type:
+                            </span>
                             <Badge variant="outline" className="capitalize">
                               {model.type}
                             </Badge>
                           </div>
 
                           <div className="flex items-center justify-between">
-                            <span className="text-sm text-muted-foreground">Cost per generation:</span>
+                            <span className="text-sm text-muted-foreground">
+                              {t("cost_per_generation_label")}
+                            </span>
                             <div className="flex items-center gap-1 text-amber-600 font-semibold">
                               <Coins className="h-4 w-4" />
                               <span>{model.tokens}</span>
@@ -671,18 +855,26 @@ export default function GenerateAI() {
                           </div>
 
                           <div className="flex items-center justify-between">
-                            <span className="text-sm text-muted-foreground">Quality:</span>
-                            <Badge className={cn(
-                              model.quality === "Ultra High" && "bg-gradient-to-r from-purple-500 to-pink-500",
-                              model.quality === "High" && "bg-gradient-to-r from-amber-500 to-orange-500",
-                              model.quality === "Good" && "bg-green-600"
-                            )}>
+                            <span className="text-sm text-muted-foreground">
+                              {t("quality")}
+                            </span>
+                            <Badge
+                              className={cn(
+                                model.quality === "Ultra High" &&
+                                  "bg-gradient-to-r from-purple-500 to-pink-500",
+                                model.quality === "High" &&
+                                  "bg-gradient-to-r from-amber-500 to-orange-500",
+                                model.quality === "Good" && "bg-green-600",
+                              )}
+                            >
                               {model.quality}
                             </Badge>
                           </div>
 
                           <div className="flex items-center justify-between">
-                            <span className="text-sm text-muted-foreground">Your generations:</span>
+                            <span className="text-sm text-muted-foreground">
+                              {t("your_generations")}
+                            </span>
                             <span className="font-semibold text-foreground">
                               {Math.floor(userTokens / model.tokens)}
                             </span>
@@ -697,7 +889,8 @@ export default function GenerateAI() {
                             variant={model.premium ? "default" : "outline"}
                             className={cn(
                               "w-full touch-friendly",
-                              model.premium && "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                              model.premium &&
+                                "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600",
                             )}
                           >
                             {userTokens < model.tokens ? (
@@ -708,7 +901,7 @@ export default function GenerateAI() {
                             ) : (
                               <>
                                 <Zap className="h-4 w-4 mr-2" />
-                                Use Model
+                                Use Mode{t("use_model")}
                               </>
                             )}
                           </Button>
@@ -719,33 +912,46 @@ export default function GenerateAI() {
                 </div>
 
                 <div className="mt-8 p-6 bg-muted/50 rounded-xl">
-                  <h4 className="font-semibold text-foreground mb-4">Model Comparison</h4>
+                  <h4 className="font-semibold text-foreground mb-4">
+                    {t("model_comparison")}
+                  </h4>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="border-b">
-                          <th className="text-left p-2">Model</th>
-                          <th className="text-center p-2">Tokens</th>
-                          <th className="text-center p-2">Quality</th>
-                          <th className="text-center p-2">Speed</th>
+                          <th className="text-left p-2">{t("model")}</th>
+                          <th className="text-center p-2">{t("tokens")}</th>
+                          <th className="text-center p-2">{t("quality")}</th>
+                          <th className="text-center p-2">{t("speed")}</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {aiModels.filter(m => m.type === "image").map((model) => (
-                          <tr key={model.id} className="border-b border-muted">
-                            <td className="p-2 font-medium">{model.name}</td>
-                            <td className="p-2 text-center">
-                              <span className="flex items-center justify-center gap-1">
-                                <Coins className="h-3 w-3 text-amber-600" />
-                                {model.tokens}
-                              </span>
-                            </td>
-                            <td className="p-2 text-center">{model.quality}</td>
-                            <td className="p-2 text-center">
-                              {model.tokens > 12 ? "Slower" : model.tokens > 6 ? "Medium" : "Fast"}
-                            </td>
-                          </tr>
-                        ))}
+                        {aiModels
+                          .filter((m) => m.type === "image")
+                          .map((model) => (
+                            <tr
+                              key={model.id}
+                              className="border-b border-muted"
+                            >
+                              <td className="p-2 font-medium">{model.name}</td>
+                              <td className="p-2 text-center">
+                                <span className="flex items-center justify-center gap-1">
+                                  <Coins className="h-3 w-3 text-amber-600" />
+                                  {model.tokens}
+                                </span>
+                              </td>
+                              <td className="p-2 text-center">
+                                {model.quality}
+                              </td>
+                              <td className="p-2 text-center">
+                                {model.tokens > 12
+                                  ? t("slower")
+                                  : model.tokens > 6
+                                    ? t("medium")
+                                    : t("fast")}
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
@@ -754,6 +960,7 @@ export default function GenerateAI() {
             </Tabs>
           </div>
         </section>
+        <Footer />
       </div>
     </Layout>
   );

@@ -4,6 +4,7 @@ import PreviewModal from "@/components/PreviewModal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 import {
   Select,
   SelectContent,
@@ -16,6 +17,7 @@ import { Search, Download, Heart, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Footer from "../components/Footer";
 import Pagination from "@/components/Pagination";
+import { t } from "i18next";
 
 const imageData = [
   {
@@ -85,7 +87,7 @@ const imageData = [
   {
     id: 5,
     title: "Tropical Beach Paradise",
-    category: "Nature",
+    category: "nature",
     tags: ["beach", "tropical", "ocean", "paradise", "vacation"],
     price: "$4",
     downloads: 2100,
@@ -277,23 +279,23 @@ const imageData = [
 ];
 
 const categories = [
-  "All",
-  "Nature",
-  "Abstract",
-  "Urban",
-  "Business",
-  "Technology",
-  "Food",
-  "Lifestyle",
+  t("all"),
+  t("nature"),
+  t("abstract"),
+  t("urban"),
+  t("business"),
+  t("technology"),
+  t("food"),
+  t("lifestyle"),
 ];
-const orientations = ["All", "Landscape", "Portrait", "Square"];
+const orientations = [t("all"), t("landscape"), t("portrait"), t("square")];
 const sortOptions = [
-  "Latest",
-  "Popular",
-  "Most Downloaded",
-  "Highest Rated",
-  "Price: Low to High",
-  "Price: High to Low",
+  t("latest"),
+  t("popular"),
+  t("mostDownloaded"),
+  t("highestRated"),
+  t("priceLowHigh"),
+  t("priceHighLow"),
 ];
 
 export default function Images() {
@@ -309,6 +311,7 @@ export default function Images() {
   const [likedItems, setLikedItems] = useState(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 100;
+  const { t } = useTranslation();
   const [previewItem, setPreviewItem] = useState<(typeof imageData)[0] | null>(
     null,
   );
@@ -325,22 +328,16 @@ export default function Images() {
           ),
       );
     }
-
-    // Filter by category
     if (selectedCategory !== "All") {
       filtered = filtered.filter(
         (image) => image.category === selectedCategory,
       );
     }
-
-    // Filter by orientation
     if (selectedOrientation !== "All") {
       filtered = filtered.filter(
         (image) => image.orientation === selectedOrientation.toLowerCase(),
       );
     }
-
-    // Filter by price
     if (priceFilter === "Free") {
       filtered = filtered.filter((image) => image.price === "Free");
     } else if (priceFilter === "Premium") {
@@ -368,18 +365,14 @@ export default function Images() {
 
   const handleDownload = async (image) => {
     try {
-      // Create a temporary link element
       const link = document.createElement("a");
       link.href = image.thumbnail;
       link.download = `${image.title.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.jpg`;
-
-      // Append to body, click, and remove
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
       console.error("Download failed:", error);
-      // Fallback: open image in new tab
       window.open(image.thumbnail, "_blank");
     }
   };
@@ -421,7 +414,7 @@ export default function Images() {
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium text-foreground">
-                  Filters:
+                  {t("filters")}:
                 </span>
               </div>
 
@@ -448,9 +441,9 @@ export default function Images() {
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="Free">Free</SelectItem>
-                  <SelectItem value="Premium">Premium</SelectItem>
+                  <SelectItem value="All">{t("all")}</SelectItem>
+                  <SelectItem value="Free">{t("free")}</SelectItem>
+                  <SelectItem value="Premium">{t("premium")}</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -472,7 +465,7 @@ export default function Images() {
             {/* Results Count */}
             <div className="flex items-center justify-between mb-6">
               <p className="text-muted-foreground">
-                Showing {filteredImages.length} images
+                {t("showing")} {filteredImages.length} {t("images")}
               </p>
             </div>
 

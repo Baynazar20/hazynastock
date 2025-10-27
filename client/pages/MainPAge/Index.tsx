@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignInModal from "../SignIn";
-import { ChevronDown, User } from "lucide-react";
+import { ChevronDown, Globe, User } from "lucide-react";
 import Footer from "../../components/Footer";
 import Features from "./Features";
 import { Palette, Lock, SquarePen, MessageSquareText } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 function SideImageCard({
   src,
@@ -32,6 +34,16 @@ interface FAQItem {
   question: string;
   answer: string;
 }
+
+const languages = [
+  { code: "en", name: "English" },
+  { code: "ru", name: "Русский" },
+  { code: "tm", name: "Türkmen" },
+  { code: "kk", name: "Қazakh" },
+  { code: "uz", name: "O'zbek" },
+  { code: "Tj", name: "Tajik" },
+  { code: "Kg", name: "Kyrgyz" },
+];
 
 const faqs: FAQItem[] = [
   {
@@ -75,6 +87,8 @@ export default function Page() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   let closeTimeout: NodeJS.Timeout;
   const pricingRef = React.useRef<HTMLDivElement | null>(null);
+  const { t } = useTranslation();
+  const [currentLang, setCurrentLang] = useState(i18n.language || "en");
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -114,6 +128,10 @@ export default function Page() {
     closeTimeout = setTimeout(() => {
       setIsDropdownOpen(false);
     }, 300);
+  };
+  const handleChange = (value: string) => {
+    setCurrentLang(value);
+    i18n.changeLanguage(value);
   };
 
   const handleScrollToPricing = () => {
@@ -159,7 +177,7 @@ export default function Page() {
             ) : (
               <button
                 onClick={() => setIsSignInModalOpen(true)}
-                className="px-4 py-2 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition-colors text-sm"
+                className="px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition-colors"
               >
                 Sign in
               </button>
@@ -245,7 +263,7 @@ export default function Page() {
                         >
                           <div>
                             <h3 className="font-semibold text-gray-300 text-md hover:text-white">
-                              Videos
+                              {t("videos")}
                             </h3>
                           </div>
                         </a>
@@ -285,7 +303,7 @@ export default function Page() {
             <div className="hidden md:block relative max-w-sm w-full">
               <input
                 aria-label="Search"
-                className="w-full rounded-full bg-gray-800 px-4 py-3 placeholder-gray-500 outline-none focus:ring-2 focus:ring-gray-600"
+                className="w-[300px] rounded-full ml-[55px] bg-gray-800 px-4 py-3 placeholder-gray-500 outline-none focus:ring-2 focus:ring-gray-600"
                 placeholder="Search assets or start creating"
                 onKeyDown={handleKeyDown}
               />
@@ -296,11 +314,28 @@ export default function Page() {
             ) : (
               <button
                 onClick={() => setIsSignInModalOpen(true)}
-                className="px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition-colors"
+                className="px-6 py-3 mr-[10px] rounded-full bg-white text-black font-medium hover:bg-gray-100 transition-colors"
               >
                 Sign in
               </button>
             )}
+          </div>
+          <div className="hidden md:block">
+            <button
+              onClick={() => handleChange(currentLang === "en" ? "tm" : "en")}
+              className="w-10 h-10 rounded-full overflow-hidden transition-all duration-200 hover:ring-2 hover:ring-gray-600"
+              aria-label="Switch language"
+            >
+              <img
+                src={
+                  currentLang === "en"
+                    ? "https://flagcdn.com/w80/us.png"
+                    : "https://flagcdn.com/w80/tm.png"
+                }
+                alt={currentLang === "en" ? "English" : "Turkmen"}
+                className="w-full h-full object-cover"
+              />
+            </button>
           </div>
         </div>
 
@@ -351,12 +386,10 @@ export default function Page() {
                       </svg>
                     )}
                   </button>
-
-                  {/* Mobile Stock Dropdown */}
                   {link === "Stock" && isDropdownOpen && (
                     <div
                       className="ml-4 mt-2 space-y-2"
-                      onMouseEnter={() => setIsDropdownOpen(true)} // içine gireniňde açyk sakla
+                      onMouseEnter={() => setIsDropdownOpen(true)}
                       onMouseLeave={() => setIsDropdownOpen(false)}
                     >
                       <a

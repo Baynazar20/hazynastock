@@ -20,6 +20,7 @@ import NotFound from "./components/NotFound";
 import Searching from "./pages/MainPAge/Searching";
 import Soon from "./components/Soon";
 import Admin from "./pages/admin";
+import "./i18n";
 
 const queryClient = new QueryClient();
 

@@ -17,6 +17,7 @@ import { Download, Heart, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Footer from "../../components/Footer";
 import Pagination from "@/components/Pagination";
+import { useTranslation } from "react-i18next";
 
 const imageData = [
   {
@@ -277,16 +278,6 @@ const imageData = [
   },
 ];
 
-const categories = ["All", "Images", "Videos", "3D Models", "Illustrations"];
-const sortOptions = [
-  "Latest",
-  "Popular",
-  "Most Downloaded",
-  "Highest Rated",
-  "Price: Low to High",
-  "Price: High to Low",
-];
-
 export default function Images() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedOrientation, setSelectedOrientation] = useState("All");
@@ -303,6 +294,7 @@ export default function Images() {
   const [likedItems, setLikedItems] = useState(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 100;
+  const { t } = useTranslation();
 
   useEffect(() => {
     let filtered = imageData;
@@ -319,25 +311,19 @@ export default function Images() {
 
     const handleKeyDown = (e) => {
       if (e.key === "Enter") {
-        navigate("/searching"); // Searching.tsx sahypasyna ugrat
+        navigate("/searching");
       }
     };
-
-    // Filter by category
     if (selectedCategory !== "All") {
       filtered = filtered.filter(
         (image) => image.category === selectedCategory,
       );
     }
-
-    // Filter by orientation
     if (selectedOrientation !== "All") {
       filtered = filtered.filter(
         (image) => image.orientation === selectedOrientation.toLowerCase(),
       );
     }
-
-    // Filter by price
     if (priceFilter === "Free") {
       filtered = filtered.filter((image) => image.price === "Free");
     } else if (priceFilter === "Premium") {
@@ -358,6 +344,22 @@ export default function Images() {
       return newLiked;
     });
   };
+  const categories = [
+    t("all"),
+    t("images"),
+    t("Videos"),
+    t("models"),
+    t("illustrations"),
+  ];
+
+  const sortOptions = [
+    t("latest"),
+    t("popular"),
+    t("mostDown"),
+    t("HighestRated"),
+    t("PriceLowHigh"),
+    t("PriceHighLow"),
+  ];
 
   return (
     <Layout>
@@ -392,7 +394,7 @@ export default function Images() {
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium text-foreground">
-                  Filters:
+                  {t("filters")}:
                 </span>
               </div>
 
@@ -401,9 +403,9 @@ export default function Images() {
                   <SelectValue placeholder="Price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="All">All</SelectItem>
-                  <SelectItem value="Free">Free</SelectItem>
-                  <SelectItem value="Premium">Premium</SelectItem>
+                  <SelectItem value="All">{t("all")}</SelectItem>
+                  <SelectItem value="Free">{t("free")}</SelectItem>
+                  <SelectItem value="Premium">{t("premium")}</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -423,7 +425,7 @@ export default function Images() {
 
             <div className="flex items-center justify-between mb-6">
               <p className="text-muted-foreground">
-                Showing {filteredImages.length} images
+                {t("showing")} {filteredImages.length} {t("images")}
               </p>
             </div>
 

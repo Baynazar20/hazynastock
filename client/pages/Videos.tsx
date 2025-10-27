@@ -25,6 +25,7 @@ import {
 import { cn } from "@/lib/utils";
 import Footer from "../components/Footer";
 import Pagination from "@/components/Pagination";
+import { t } from "i18next";
 
 const videoData = [
   {
@@ -41,7 +42,6 @@ const videoData = [
     contributor: "Aman Kekilow",
     duration: "9:56",
     resolution: "4K (3840x2160)",
-    fps: "30",
     format: "MP4",
   },
   {
@@ -60,7 +60,6 @@ const videoData = [
     contributor: "Bahar Saryyeva",
     duration: "10:53",
     resolution: "4K (3840x2160)",
-    fps: "60",
     format: "MP4",
   },
   {
@@ -79,7 +78,6 @@ const videoData = [
     contributor: "Dowlet Kakayew",
     duration: "0:15",
     resolution: "4K (3840x2160)",
-    fps: "30",
     format: "MP4",
   },
   {
@@ -98,7 +96,6 @@ const videoData = [
     contributor: "Muhammedov Jeyhun",
     duration: "0:15",
     resolution: "HD (1920x1080)",
-    fps: "24",
     format: "MP4",
   },
   {
@@ -117,7 +114,6 @@ const videoData = [
     contributor: "Atayewa Jemal",
     duration: "0:60",
     resolution: "4K (3840x2160)",
-    fps: "24",
     format: "MP4",
   },
   {
@@ -136,7 +132,6 @@ const videoData = [
     contributor: "Dowletjan Dowletow",
     duration: "0:15",
     resolution: "4K (3840x2160)",
-    fps: "30",
     format: "MP4",
   },
   {
@@ -155,7 +150,6 @@ const videoData = [
     contributor: "Kerim Dowranov",
     duration: "0:15",
     resolution: "HD (1920x1080)",
-    fps: "30",
     format: "MP4",
   },
   {
@@ -174,24 +168,22 @@ const videoData = [
     contributor: "Bayramov Niyazmyrat",
     duration: "12:18",
     resolution: "4K (3840x2160)",
-    fps: "24",
     format: "MP4",
   },
 ];
 
 const categories = [
-  "All",
-  "Urban",
-  "Nature",
-  "Abstract",
-  "Business",
-  "Food",
-  "Technology",
-  "Sports",
-  "Fashion",
+  t("all"),
+  t("nature"),
+  t("abstract"),
+  t("urban"),
+  t("business"),
+  t("technology"),
+  t("food"),
+  t("lifestyle"),
 ];
-const durations = ["All", "Under 30s", "30s - 1min", "1-2min", "2min+"];
-const resolutions = ["All", "HD (1920x1080)", "4K (3840x2160)", "8K+"];
+const durations = [t("all"), "Under 30s", "30s - 1min", "1-2min", "2min+"];
+const resolutions = [t("all"), "HD (1920x1080)", "4K (3840x2160)", "8K+"];
 
 export default function Videos() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -257,15 +249,6 @@ export default function Videos() {
         (video) => video.resolution === selectedResolution,
       );
     }
-
-    // Filter by frame rate
-    if (selectedFrameRate !== "All") {
-      filtered = filtered.filter(
-        (video) => video.fps === selectedFrameRate.replace("fps", ""),
-      );
-    }
-
-    // Filter by price
     if (priceFilter === "Free") {
       filtered = filtered.filter((video) => video.price === "Free");
     } else if (priceFilter === "Premium") {
@@ -327,7 +310,7 @@ export default function Videos() {
               <div className="flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium text-foreground">
-                  Video Filters:
+                  {t("video")} {t("filters")}
                 </span>
               </div>
 
@@ -369,7 +352,8 @@ export default function Videos() {
             {/* Results Count */}
             <div className="mb-6">
               <p className="text-muted-foreground">
-                Showing {filteredVideos.length} videos
+                {t("videos")} {filteredVideos.length}
+                {t("showing")}
               </p>
             </div>
 
@@ -426,12 +410,6 @@ export default function Videos() {
                       >
                         {video.resolution}
                       </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="text-xs bg-black/70 text-white"
-                      >
-                        {video.fps}fps
-                      </Badge>
                     </div>
 
                     {/* Action Buttons */}
@@ -441,10 +419,10 @@ export default function Videos() {
                         variant="ghost"
                         className={cn(
                           "bg-black/20 hover:bg-black/40 text-white h-8 w-8 p-0",
-                          likedItems.has(video.id) && "text-red-500", // Like edilende reňk üýtger
+                          likedItems.has(video.id) && "text-red-500",
                         )}
                         onClick={(e) => {
-                          e.stopPropagation(); // Modal açylmagyň öňüni al
+                          e.stopPropagation();
                           toggleLike(video.id);
                         }}
                       >

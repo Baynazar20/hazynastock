@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import {
   Instagram,
   Github,
@@ -11,6 +12,7 @@ import {
   Target,
 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +24,6 @@ const Footer = () => {
     if (!email) return;
 
     setIsLoading(true);
-    // Bu ýerde e-poçta ýazgysyny işleýän funksiýaňyz
     setTimeout(() => {
       setIsSubscribed(true);
       setIsLoading(false);
@@ -36,7 +37,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Social Media Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Social Media</h3>
+            <h3 className="text-lg font-semibold mb-4">{t("socialMedia")}</h3>
             <ul className="space-y-2">
               <li>
                 <a
@@ -60,10 +61,8 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
-          {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">{t("quickLinks")}</h3>
             <ul className="space-y-2">
               <li>
                 <a
@@ -71,7 +70,7 @@ const Footer = () => {
                   className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Home className="w-5 h-5 mr-2" />
-                  Home
+                  {t("home")}
                 </a>
               </li>
               <li>
@@ -80,7 +79,7 @@ const Footer = () => {
                   className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Image className="w-5 h-5 mr-2 " />
-                  Images
+                  {t("images")}
                 </a>
               </li>
               <li>
@@ -89,7 +88,7 @@ const Footer = () => {
                   className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Video className="w-5 h-5 mr-2" />
-                  Videos
+                  {t("videos")}
                 </a>
               </li>
               <li>
@@ -98,7 +97,7 @@ const Footer = () => {
                   className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Box className="w-5 h-5 mr-2" />
-                  3D Models
+                  {t("3dModels")}
                 </a>
               </li>
               <li>
@@ -107,7 +106,7 @@ const Footer = () => {
                   className="flex items-center transition-colors hover:text-gray-300"
                 >
                   <Sparkles className="w-5 h-5 mr-2" />
-                  Illustrations
+                  {t("illustrations")}
                 </a>
               </li>
             </ul>
