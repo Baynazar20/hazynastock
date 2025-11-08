@@ -114,10 +114,10 @@ const Footer = () => {
 
           {/* AI Assistant Section */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">AI Assistant</h3>
+            <h3 className="text-lg font-semibold mb-4">EA gurallary</h3>
             <p className="text-gray-300 mb-4">
-              Our smart AI assistant is available 24/7 to guide you, answer
-              questions, and make your workflow easier.
+              Akylly EA kömekçimiz size ýol görkezmek, soraglara jogap bermek 
+              we iş akymyňyzy ýeňilleşdirmek üçin 24/7 elýeterlidir.
             </p>
             <ul className="space-y-3">
               <a
@@ -125,7 +125,7 @@ const Footer = () => {
                 className="flex items-center transition-colors hover:text-gray-300"
               >
                 <Zap className="w-5 h-5 mr-2" />
-                AI Tools
+                EA gurallar
               </a>
 
               <li>
@@ -142,18 +142,17 @@ const Footer = () => {
 
           {/* E-poçta Agzalyk Bölümi */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Register for updates</h3>
+            <h3 className="text-lg font-semibold mb-4">Täzeliklere agza bol</h3>
 
             {isSubscribed ? (
               <div className="bg-green-800 text-green-100 p-3 rounded-md text-center">
-                You have successfully signed up! Updates are being sent to your
-                email.
+                Siz üstünlikli hasaba alyndyňyz! Täzelenmeler e-poçtaňyza iberilýär.
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col space-y-3">
                 <input
                   type="email"
-                  placeholder="Type your e-mail"
+                  placeholder="E-mail girizmek..."
                   className="px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -186,10 +185,10 @@ const Footer = () => {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         ></path>
                       </svg>
-                      Registering...
+                      Agza bolmak...
                     </>
                   ) : (
-                    "Register"
+                    "Agza bol"
                   )}
                 </button>
               </form>
@@ -200,7 +199,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>
-            &copy; {new Date().getFullYear()} HazynaStock. All rights reserved.
+            &copy; {new Date().getFullYear()} HazynaStock. Ähli hukuklar goragly.
           </p>
         </div>
       </div>

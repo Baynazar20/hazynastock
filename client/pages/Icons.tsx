@@ -34,8 +34,7 @@ const modelData = [
     downloads: 890,
     views: 2340,
     rating: 4.8,
-    thumbnail:
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
+    thumbnail: "./illustrator.jpg",
     contributor: "Design Studio",
     fileSize: "2.4 MB",
     polygons: "12,430",
@@ -53,8 +52,7 @@ const modelData = [
     downloads: 1560,
     views: 4320,
     rating: 4.9,
-    thumbnail:
-      "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=300&fit=crop",
+   thumbnail: "./illustrator2.jpg",
     contributor: "Illustrations Artist Pro",
     fileSize: "8.7 MB",
     polygons: "45,680",
@@ -72,8 +70,7 @@ const modelData = [
     downloads: 2100,
     views: 6540,
     rating: 4.7,
-    thumbnail:
-      "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=400&h=300&fit=crop",
+   thumbnail: "./illustrator3.jpg",
     contributor: "Character Artist",
     fileSize: "5.2 MB",
     polygons: "8,920",
@@ -91,8 +88,7 @@ const modelData = [
     downloads: 3210,
     views: 9450,
     rating: 4.6,
-    thumbnail:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+    thumbnail: "./illustrator4.jpg",
     contributor: "Arch Viz Studio",
     fileSize: "15.6 MB",
     polygons: "89,340",
@@ -110,8 +106,7 @@ const modelData = [
     downloads: 1890,
     views: 5210,
     rating: 4.5,
-    thumbnail:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+    thumbnail: "./illustrator5.jpg",
     contributor: "Interior Designer",
     fileSize: "6.8 MB",
     polygons: "23,560",
@@ -129,8 +124,7 @@ const modelData = [
     downloads: 2670,
     views: 7890,
     rating: 4.8,
-    thumbnail:
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+    thumbnail: "./illustrator6.jpg",
     contributor: "Game Assets Co",
     fileSize: "1.9 MB",
     polygons: "5,340",
@@ -148,8 +142,7 @@ const modelData = [
     downloads: 1450,
     views: 3980,
     rating: 4.9,
-    thumbnail:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop",
+    thumbnail: "./illustrator7.jpg",
     contributor: "Nature Illustrations",
     fileSize: "4.3 MB",
     polygons: "18,760",
@@ -167,8 +160,7 @@ const modelData = [
     downloads: 980,
     views: 2890,
     rating: 4.9,
-    thumbnail:
-      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&h=300&fit=crop",
+    thumbnail: "./illustrator8.jpg",
     contributor: "Auto Modeler",
     fileSize: "12.4 MB",
     polygons: "67,890",

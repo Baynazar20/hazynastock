@@ -2,115 +2,115 @@ import { useState } from "react";
 
 const contentData = {
   Images: [
-    { img: "./owadan5.jpg", title: "Generate an AI image" },
-    { img: "./owadan1.jpg", title: "Chat with AI to transform images" },
-    { img: "./owadan4.jpg", title: "Find high-quality images" },
-    { img: "./owadan2.jpg", title: "Edit and enhance photos" },
-    { img: "./owadan3.jpg", title: "Create image collections" },
-    { img: "./owadan5.jpg", title: "Apply filters and effects" },
+    { img: "./owadan5.jpg", title: "EA surat generirle" },
+    { img: "./owadan1.jpg", title: "Suratlary üýtget" },
+    { img: "./owadan4.jpg", title: "Ýokary hilli suratlary al" },
+    { img: "./owadan2.jpg", title: "Suratlary kämilleşdir" },
+    { img: "./owadan3.jpg", title: "Surat toplumyny döret" },
+    { img: "./owadan5.jpg", title: "Filtr we effektleri ulan" },
   ],
   Video: [
     {
       img: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
-      title: "Create stunning videos",
+      title: "Wideolary ýasa",
     },
     {
       img: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&h=300&fit=crop",
-      title: "Edit with AI assistance",
+      title: "Suratlary kämilleşdir",
     },
     {
       img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
-      title: "Add effects and transitions",
+      title: "Effekt we şekil goş",
     },
     {
       img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
-      title: "Generate video thumbnails",
+      title: "Wideo generirle",
     },
     {
       img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
-      title: "Trim and cut videos",
+      title: "Kes we kämilleşdir",
     },
     {
       img: "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=400&h=300&fit=crop",
-      title: "Export in multiple formats",
+      title: "Göçürip al",
     },
   ],
   Icons: [
     {
       img: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-      title: "Thousands of icons",
+      title: "Müňlerçe ikonka",
     },
     {
       img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=300&fit=crop",
-      title: "Custom icon creation",
+      title: "Ikonkalary üýtget",
     },
     {
       img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop",
-      title: "Vector icon editing",
+      title: "Wektor ikonkalar",
     },
     {
       img: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=300&fit=crop",
-      title: "Icon pack collections",
+      title: "Ikonka kolleksiýalary",
     },
     {
       img: "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=400&h=300&fit=crop",
-      title: "Multi-format exports",
+      title: "Dürli formatda ýüklemek",
     },
     {
       img: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&h=300&fit=crop",
-      title: "Brand icon library",
+      title: "Ikonka kitaphanasy",
     },
   ],
   "3D Models": [
     {
       img: "https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?w=400&h=300&fit=crop",
-      title: "3D model library",
+      title: "3D model kitaphanasy",
     },
     {
       img: "https://images.unsplash.com/photo-1626387346567-8a6c2b2d4a7b?w=400&h=300&fit=crop",
-      title: "Interactive 3D viewer",
+      title: "Modelleri görmek",
     },
     {
       img: "https://images.unsplash.com/photo-1617791160588-241658c0f566?w=400&h=300&fit=crop",
-      title: "Custom 3D creation",
+      title: "3D model döretmek",
     },
     {
       img: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=300&fit=crop",
-      title: "3D animation tools",
+      title: "3D animasiýa",
     },
     {
       img: "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=400&h=300&fit=crop",
-      title: "Texture and materials",
+      title: "Tekstura we materiallar",
     },
     {
       img: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=400&h=300&fit=crop",
-      title: "Export for web & AR",
+      title: "Eksport etmek",
     },
   ],
   "AI Tools": [
     {
       img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
-      title: "AI image generation",
+      title: "EA surat generirleme",
     },
     {
       img: "https://images.unsplash.com/photo-1675557009384-88d1ac4946ce?w=400&h=300&fit=crop",
-      title: "AI content writing",
+      title: "EA döredijilik",
     },
     {
       img: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=400&h=300&fit=crop",
-      title: "AI photo enhancement",
+      title: "Suratlary üýtgetmek",
     },
     {
       img: "https://images.unsplash.com/photo-1677756119517-756a188d2d94?w=400&h=300&fit=crop",
-      title: "AI design assistant",
+      title: "Dizaýn kömekçi",
     },
     {
       img: "https://images.unsplash.com/photo-1686191128892-5ba45d6e08ab?w=400&h=300&fit=crop",
-      title: "Smart object removal",
+      title: "Surat arassalaýjy",
     },
     {
       img: "https://images.unsplash.com/photo-1686191128985-45e64af4b00f?w=400&h=300&fit=crop",
-      title: "AI color correction",
+      title: "Reňk saýlaýjy",
     },
   ],
 };
@@ -138,7 +138,7 @@ export default function Features() {
   return (
     <div className="mt-16 p-6  min-h-screen text-white">
       <h3 className="text-2xl md:text-3xl font-semibold mb-10">
-        The features you need, the simplicity you want
+        Siziň isleýän mümkinçilikleriňiz we ýeňillikleriňiz
       </h3>
 
       <div className="flex flex-col md:flex-row gap-10">

@@ -48,6 +48,7 @@ const languages = [
 const faqs: FAQItem[] = [
   {
     question:
+<<<<<<< HEAD
       "Is my content private and secure? Does HazynaStock use my inputs or outputs to train its models?",
     answer:
       "Your content is kept private and secure. HazynaStock does not use your inputs or outputs to train its models unless you explicitly allow it.",
@@ -73,6 +74,33 @@ const faqs: FAQItem[] = [
     question: "Do you offer legal indemnification for AI and stock content?",
     answer:
       "Yes, legal indemnification is offered for eligible AI and stock content to protect you from third-party claims.",
+=======
+      "Meniň mazmunym gizlin we howpsuzmy? HazynaStock öz modellerini öwretmek üçin girişlerimi ýa-da çykyşlarymy ulanýarmy?",
+    answer:
+      "Siziň mazmunyňyz gizlin we howpsuz saklanýar. HazynaStock, siz açyk rugsat bermeseňiz, girişleriňizi ýa-da çykyşlaryňyzy öz modellerini öwretmek üçin ulanmaýar.",
+  },
+  {
+    question:
+      "Kreditler nähili işleýär we her gural üçin näçe token alýaryn?",
+    answer:
+      "Kreditler emeli aň döretmek üçin gurallar üçin ulanylýar. Her bir gural her kredit üçin näçe token berilýändigini görkezýär.",
+  },
+  {
+    question:
+      "Men emeli aň tarapyndan döredilen mazmuny täjirçilik maksady bilen ulanyp bilerinmi we oňa bolan hukuklar maňa degişlimi?",
+    answer:
+      "Hawa, emeli aň tarapyndan döredilen mazmun täjirçilik maksady bilen ulanylyp bilner we platformanyň şertlerine laýyklykda, oňa bolan hukuklar size degişli.",
+  },
+  {
+    question: "HazynaStock mazmunyny ulanmak üçin çeşmäni bellemelimi?",
+    answer:
+      "Mugt görnüşler üçin çeşmäni bellemek talap edilýär. Premium ulanyjylar çeşmäni bellemegi talap edilmeýär.",
+  },
+  {
+    question: "Siz emeli aň we kontent mazmuny üçin kanuny taýdan töleg hödürleýärsiňizmi?",
+    answer:
+      "Hawa, üçünji tarapyň talaplaryndan sizi goramak üçin laýyk gelýän emeli aň we stok mazmuny üçin kanuny öwez tölegi hödürlenýär.",
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
   },
 ];
 
@@ -154,11 +182,19 @@ export default function Page() {
   }, []);
 
   const menuLinks = [
+<<<<<<< HEAD
     "AI Suite",
     "Stock",
     "Pricing",
     "Contributors",
     "About Us",
+=======
+    "EA gurallar",
+    "Stok",
+    "Bahalar",
+    "Döredijiler",
+    "Biz barada",
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
   ];
 
   return (
@@ -304,7 +340,11 @@ export default function Page() {
               <input
                 aria-label="Search"
                 className="w-[300px] rounded-full ml-[55px] bg-gray-800 px-4 py-3 placeholder-gray-500 outline-none focus:ring-2 focus:ring-gray-600"
+<<<<<<< HEAD
                 placeholder="Search assets or start creating"
+=======
+                placeholder="Grafiki material gözle..."
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 onKeyDown={handleKeyDown}
               />
             </div>
@@ -316,7 +356,11 @@ export default function Page() {
                 onClick={() => setIsSignInModalOpen(true)}
                 className="px-6 py-3 mr-[10px] rounded-full bg-white text-black font-medium hover:bg-gray-100 transition-colors"
               >
+<<<<<<< HEAD
                 Sign in
+=======
+                Içeri gir
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
               </button>
             )}
           </div>
@@ -398,7 +442,11 @@ export default function Page() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <div>
+<<<<<<< HEAD
                           <h3 className="font-medium text-white">Photos</h3>
+=======
+                          <h3 className="font-medium text-white">Suratlar</h3>
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                         </div>
                       </a>
 
@@ -408,7 +456,11 @@ export default function Page() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <div>
+<<<<<<< HEAD
                           <h3 className="font-medium text-white">Videos</h3>
+=======
+                          <h3 className="font-medium text-white">Wideolar</h3>
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                         </div>
                       </a>
 
@@ -418,7 +470,11 @@ export default function Page() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <div>
+<<<<<<< HEAD
                           <h3 className="font-medium text-white">3D Models</h3>
+=======
+                          <h3 className="font-medium text-white">3D Modeller</h3>
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                         </div>
                       </a>
 
@@ -429,7 +485,11 @@ export default function Page() {
                       >
                         <div>
                           <h3 className="font-medium text-white">
+<<<<<<< HEAD
                             Illustrations
+=======
+                            Illustrasiýalar
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                           </h3>
                         </div>
                       </a>
@@ -450,15 +510,24 @@ export default function Page() {
               HazynaStock
             </h1>
             <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+<<<<<<< HEAD
               Professional AI tools to create branded posters — plus stock
               images, video, icons and 3D models — tailored for Central Asia.
+=======
+              Merkezi Aziýa üçin niýetlenen ýokary hilli grafiki materiallar we 
+              ýöriteleşdirilen EA gurallar
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
             </p>
             <div className="mt-6">
               <button
                 className="px-6 py-3 rounded-full bg-white text-black font-semibold shadow"
                 onClick={() => navigate("/Soon")}
               >
+<<<<<<< HEAD
                 Get started for free →
+=======
+                Başla →
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
               </button>
             </div>
           </div>
@@ -514,11 +583,19 @@ export default function Page() {
       <section className="bg-background text-white py-16">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <h2 className="text-xl md:text-2xl font-medium">
+<<<<<<< HEAD
             You bring the vision.{" "}
             <span className="font-semibold">We help you go further.</span>
             <span className="text-gray-400">
               {" "}
               Join creative teams, marketers and designers in Central Asia.
+=======
+            Geljegi biziň bilen başla.{" "}
+            {/* <span className="font-semibold">Biz sizi ýokar.</span> */}
+            <span className="text-gray-400">
+              {" "}
+              Biz size ýokary hilli grafiki materiallary hödürleýäris.
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
             </span>
           </h2>
 
@@ -544,7 +621,11 @@ export default function Page() {
         <section className="bg-background text-white py-20">
           <div className="max-w-[1200px] mx-auto px-6">
             <h2 className="text-2xl md:text-3xl font-semibold mb-10 text-gray-300">
+<<<<<<< HEAD
               Why choose HazynaStock?
+=======
+              Näme üçin HazynaStock?
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -552,14 +633,23 @@ export default function Page() {
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 h-[220px] transition-colors relative">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-semibold">
+<<<<<<< HEAD
                     The all-in-one suite for creatives
+=======
+                    Döredijilik işgärleri üçin ähli zat bir ýerde
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   </h3>
                   <Palette className="text-gray" />
                 </div>
 
                 <p className="text-gray-400 text-md leading-relaxed">
+<<<<<<< HEAD
                   Power your creativity with leading GenAI models, pro features,
                   and a vast stock library — all in one platform.
+=======
+                  Öňdebaryjy EA modelleri, professional aýratynlyklary we 
+                  giň kitaphana bilen döredijiligiňizi güýçlendiriň — bularyň hemmesi bir platformada.
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </p>
               </div>
 
@@ -567,13 +657,22 @@ export default function Page() {
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px]relative">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-semibold mb-2">
+<<<<<<< HEAD
                     AI you can trust: private and secure
+=======
+                    Ynamdar emeli aň: hususy we howpsuz
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   </h3>
                   <Lock />
                 </div>
                 <p className="text-gray-400 text-md leading-relaxed">
+<<<<<<< HEAD
                   Your data is never used to train AI — ours or third-party.
                   You're fully protected with advanced security and full rights.
+=======
+                    Siziň maglumatyňyz hiç haçan emeli aň öwretmek üçin ulanylmaýar. 
+                    Siz ösen howpsuzlyk we doly hukuklar bilen doly goralýarsyňyz.
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </p>
               </div>
 
@@ -581,13 +680,22 @@ export default function Page() {
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-semibold mb-2">
+<<<<<<< HEAD
                     Easy to use, with professional results
+=======
+                    Ulanmagy aňsat we professional netijeler
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   </h3>
                   <SquarePen />
                 </div>
                 <p className="text-gray-400 text-md leading-relaxed">
+<<<<<<< HEAD
                   Stay consistent, adapt assets easily, and create confidently
                   with powerful tools built for real workflows like yours.
+=======
+                  Siz ýaly hakyky iş akymlary üçin döredilen güýçli gurallar 
+                  bilen yzygiderli kämilleşiň, aktiwleri aňsatlyk bilen uýgunlaşdyryň we ynamly dörediň.
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </p>
               </div>
 
@@ -595,13 +703,22 @@ export default function Page() {
               <div className="bg-gradient-to-b from-gray-900 to-black p-6 rounded-2xl border border-gray-800 hover:border-gray-700 transition-colors h-[220px] relative">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-semibold mb-2">
+<<<<<<< HEAD
                     Join the creators shaping AI's future
+=======
+                    Emeli aňyň geljegini kemala getirýän döredijilere goşulyň
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   </h3>
                   <MessageSquareText />
                 </div>
                 <p className="text-gray-400 text-md leading-relaxed">
+<<<<<<< HEAD
                   Be part of a global community of top creatives. Get early
                   access to new tools, share your work, and stay inspired.
+=======
+                    Iň gowy döredijilik işgärleriniň global jemgyýetiniň bir bölegi boluň. 
+                    Täze gurallara irki giriş alyň, işiňizi paýlaşyň we ylhamyňyzy saklaň.
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </p>
               </div>
             </div>
@@ -616,7 +733,11 @@ export default function Page() {
         <div className="max-w-6xl mx-auto mt-[-70px]">
           {/* Title */}
           <h2 className="text-center text-3xl md:text-4xl font-bold mb-12">
+<<<<<<< HEAD
             Plans that cover your needs
+=======
+            Abuna görnüşleri
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
           </h2>
 
           {/* Cards */}
@@ -624,6 +745,7 @@ export default function Page() {
             {/* Individuals */}
             <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
               <div>
+<<<<<<< HEAD
                 <h3 className="text-xl font-semibold mb-2">Standart</h3>
                 <p className="text-2xl font-bold">
                   Starting at{" "}
@@ -635,13 +757,32 @@ export default function Page() {
                 </p>
                 <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
                   Show Standart plans
+=======
+                <h3 className="text-xl font-semibold mb-2">Başlangyç</h3>
+                <p className="text-2xl font-bold">
+                  Baha{" "}
+                  <span className="text-[1.25rem] font-extrabold">30 TMT</span>
+                  <span className="text-base font-normal">/aý</span>
+                </p>
+                <p className="text-sm text-zinc-400 mb-6">
+                  40% amatly
+                </p>
+                <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
+                  Beýleki görnüşleri
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </button>
 
                 <ul className="space-y-3 text-sm">
                   {[
+<<<<<<< HEAD
                     "360 stock assets",
                     "50 AI generation images tokens",
                     "Free image editing tools",
+=======
+                    "360 grafik materiallar",
+                    "50 EA generasiýa token",
+                    "Mugt surat düşediş gurallar",
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-blue-400 mr-2">✓</span> {item}
@@ -654,6 +795,7 @@ export default function Page() {
             {/* Teams */}
             <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
               <div>
+<<<<<<< HEAD
                 <h3 className="text-xl font-semibold mb-2">Premium</h3>
                 <p className="text-2xl font-bold">
                   Starting at{" "}
@@ -665,13 +807,32 @@ export default function Page() {
                 </p>
                 <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
                   Show Premium plans
+=======
+                <h3 className="text-xl font-semibold mb-2">Standart</h3>
+                <p className="text-2xl font-bold">
+                  Baha{" "}
+                  <span className="text-[1.25rem] font-extrabold">50 TMT</span>
+                  <span className="text-base font-normal">/aý</span>
+                </p>
+                <p className="text-sm text-zinc-400 mb-6">
+                  40% amatly
+                </p>
+                <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
+                  Beýleki görnüşleri
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </button>
 
                 <ul className="space-y-3 text-sm">
                   {[
+<<<<<<< HEAD
                     "360 stock assets",
                     "100 AI generation images tokens",
                     "Free image editing tools",
+=======
+                    "720 grafik materiallar",
+                    "100 EA generasiýa token",
+                    "Mugt surat düzediş gurallar",
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-blue-400 mr-2">✓</span> {item}
@@ -684,6 +845,7 @@ export default function Page() {
             {/* Enterprise */}
             <div className="bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface2 rounded-2xl p-8 flex flex-col justify-between border border-zinc-800">
               <div>
+<<<<<<< HEAD
                 <h3 className="text-xl font-semibold mb-2">Premium+</h3>
                 <p className="text-2xl font-bold">
                   Starting at{" "}
@@ -695,13 +857,32 @@ export default function Page() {
                 </p>
                 <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
                   Show Premium+ plans
+=======
+                <h3 className="text-xl font-semibold mb-2">Premium</h3>
+                <p className="text-2xl font-bold">
+                  Baha{" "}
+                  <span className="text-[1.25rem] font-extrabold">70 TMT</span>
+                  <span className="text-base font-normal">/aý</span>
+                </p>
+                <p className="text-sm text-zinc-400 mb-6">
+                  40% amatly
+                </p>
+                <button className="bg-zinc-800 hover:bg-zinc-700 text-white w-full py-2 rounded-lg font-medium mb-6">
+                  Beýleki görnüşleri
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </button>
 
                 <ul className="space-y-3 text-sm">
                   {[
+<<<<<<< HEAD
                     "900 stock assets",
                     "200 AI generation images tokens",
                     "Free image editing tools",
+=======
+                    "900 grafik materiallar",
+                    "200 EA generasiýa token",
+                    "Mugt surat düzediş token",
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="text-blue-400 mr-2">✓</span> {item}
@@ -716,7 +897,11 @@ export default function Page() {
       <section className="bg-background text-white py-16 px-4 md:px-8 lg:px-16">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-10">
+<<<<<<< HEAD
             Frequently asked questions
+=======
+            Köp soralýan soraglar
+>>>>>>> e138fd0 (turkmen dili we 3d modellar)
           </h2>
           <div className="space-y-6">
             {faqs.map((faq, index) => (
