@@ -62,11 +62,7 @@ export default function Contributor() {
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center">
                   <Users className="h-4 w-4 mr-2" />
-<<<<<<< HEAD
-                  Total Users
-=======
                   Ulanyjy sany
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </CardTitle>
               </CardHeader>
               <CardContent>

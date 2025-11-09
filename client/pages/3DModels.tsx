@@ -153,7 +153,7 @@ const modelData = [
     animated: false,
   },
   {
-    id: 8,t
+    id: 8,
     title: "Sports Car",
     category: "Vehicles",
     tags: ["car", "sports", "vehicle", "racing", "automotive"],

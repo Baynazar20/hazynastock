@@ -30,17 +30,6 @@ import {
 
 // Mock user data
 const userData = {
-<<<<<<< HEAD
-  name: "Muhammedov Jeyhun",
-  username: "muhammedovjeyhun",
-  email: "jeyhun.doe@example.com",
-  avatar:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-  joinDate: "March 2023",
-  location: "San Francisco, CA",
-  website: "https://baynazar.dev",
-  bio: "Digital artist and 3D designer passionate about creating stunning visual experiences. Specializing in architectural visualization and game assets.",
-=======
   name: "Saparow Gurban",
   username: "saparovgurban",
   email: "saparovgurban@hazynastock.com",
@@ -50,7 +39,6 @@ const userData = {
   location: "Aşgabat, TM",
   website: "https://hazynastock.com",
   bio: "Sanly suratkeş we 3D dizaýner ajaýyp wizual tejribeleri döretmäge höwesli. Binagärlik wizualizasiýasynda we oýun serişdelerinde ýöriteleşýär.",
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
   verified: true,
   totalDownloads: 45670,
   totalViews: 234580,
@@ -64,11 +52,7 @@ const userContent = [
   {
     id: 1,
     type: "image",
-<<<<<<< HEAD
-    title: "Mountain Landscape",
-=======
     title: "Ahalteke aty",
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
     thumbnail:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop",
     downloads: 2340,
@@ -80,41 +64,25 @@ const userContent = [
   {
     id: 2,
     type: "video",
-<<<<<<< HEAD
-    title: "City Timelapse",
-=======
     title: "Türkmen alabaýy",
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
     thumbnail:
       "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=300&h=200&fit=crop",
     downloads: 1890,
     views: 5670,
     likes: 234,
-<<<<<<< HEAD
-    price: "$8",
-=======
     price: "8 TMT",
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
     uploadDate: "2024-01-10",
   },
   {
     id: 3,
     type: "3d",
-<<<<<<< HEAD
-    title: "Modern Chair",
-=======
     title: "Türkmen haly",
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
     thumbnail:
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&h=200&fit=crop",
     downloads: 890,
     views: 2340,
     likes: 123,
-<<<<<<< HEAD
-    price: "$15",
-=======
     price: "15 TMT",
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
     uploadDate: "2024-01-05",
   },
 ];
@@ -213,11 +181,7 @@ export default function Profile() {
                 {userData.verified && (
                   <Badge className="mb-4">
                     <Star className="h-3 w-3 mr-1 fill-current" />
-<<<<<<< HEAD
-                    Verified User
-=======
                     Tassyklanan ulanyjy
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   </Badge>
                 )}
               </div>
@@ -226,11 +190,7 @@ export default function Profile() {
               <div className="flex gap-3 mb-[2px]">
                 <Button size="sm" onClick={() => navigate("/Settings")}>
                   <Edit className="h-4 w-4 mr-2" />
-<<<<<<< HEAD
-                  Edit Profile
-=======
                   Üýtgetmek
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </Button>
                 <Button
                   variant="outline"
@@ -253,41 +213,25 @@ export default function Profile() {
                   value="overview"
                   className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
-<<<<<<< HEAD
-                  Overview
-=======
                   Barada
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </TabsTrigger>
                 <TabsTrigger
                   value="content"
                   className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
-<<<<<<< HEAD
-                  My Content
-=======
                   Maglumatlar
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </TabsTrigger>
                 <TabsTrigger
                   value="downloads"
                   className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
-<<<<<<< HEAD
-                  Downloads
-=======
                   Ýüklemeler
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </TabsTrigger>
                 <TabsTrigger
                   value="favorites"
                   className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
                 >
-<<<<<<< HEAD
-                  Favorites
-=======
                   Halananlar
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </TabsTrigger>
               </TabsList>
 
@@ -297,11 +241,7 @@ export default function Profile() {
                   <Card>
                     <CardHeader className="pb-3">
                       <CardTitle className="text-sm font-medium text-muted-foreground">
-<<<<<<< HEAD
-                        Follewers
-=======
                         Agzalar
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -314,11 +254,7 @@ export default function Profile() {
                   <Card>
                     <CardHeader className="pb-3">
                       <CardTitle className="text-sm font-medium text-muted-foreground">
-<<<<<<< HEAD
-                        Downloads
-=======
                         Ýüklemeler
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -331,20 +267,12 @@ export default function Profile() {
                   <Card>
                     <CardHeader className="pb-3">
                       <CardTitle className="text-sm font-medium text-muted-foreground">
-<<<<<<< HEAD
-                        When registered and started being used
-=======
                         Agza bolan senesi
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="text-2xl font-bold text-foreground">
-<<<<<<< HEAD
-                        20.08.2025
-=======
                         20.04.2025
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                       </div>
                     </CardContent>
                   </Card>
@@ -352,30 +280,17 @@ export default function Profile() {
                   <Card>
                     <CardHeader className="pb-3">
                       <CardTitle className="text-sm font-medium text-muted-foreground">
-<<<<<<< HEAD
-                        Subscription
-=======
                         Abuna
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="text-lg font-semibold text-foreground">
-<<<<<<< HEAD
-                        Premium Plan
-                      </div>
-                      <div className="text-sm text-muted-foreground mt-1">
-                        Expires on:{" "}
-                        <span className="font-medium text-foreground">
-                          2025-12-31
-=======
                         Standart
                       </div>
                       <div className="text-sm text-muted-foreground mt-1">
                         Tamamlanýan senesi:{" "}
                         <span className="font-medium text-foreground">
                           25.11.2025
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                         </span>
                       </div>
                     </CardContent>
@@ -385,21 +300,13 @@ export default function Profile() {
 
               <TabsContent value="content" className="space-y-6">
                 <h3 className="text-xl font-semibold text-foreground">
-<<<<<<< HEAD
-                  Subscriptions
-=======
                   Ýazgylar
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </h3>
 
                 <Card>
                   <CardHeader className="pb-3">
                     <CardTitle className="text-sm font-medium text-muted-foreground">
-<<<<<<< HEAD
-                      Active Subscribers
-=======
                       Aktiw hasaplar
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -407,11 +314,7 @@ export default function Profile() {
                       152 {/* <-- jemi sanyny özüň ýaz */}
                     </div>
                     <p className="text-sm text-muted-foreground">
-<<<<<<< HEAD
-                      Total users who subscribed
-=======
                       Jemi agza sany
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                     </p>
                   </CardContent>
                 </Card>
@@ -423,26 +326,15 @@ export default function Profile() {
                       <div className="p-4 flex items-center justify-between hover:bg-muted/50 transition-colors">
                         <div>
                           <h4 className="font-medium text-foreground">
-<<<<<<< HEAD
-                            Oraz Annayev
-                          </h4>
-                          <p className="text-sm text-muted-foreground">
-                            Plan: Premium
-=======
                             Öwezdurdy Meredow
                           </h4>
                           <p className="text-sm text-muted-foreground">
                             Plan: Standart
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                           </p>
                         </div>
                         <div className="text-right">
                           <div className="font-medium text-foreground">
-<<<<<<< HEAD
-                            Expires: 2025-12-31
-=======
                             Tamamlanýan senesi: 17.11.2025
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                           </div>
                         </div>
                       </div>
@@ -450,26 +342,15 @@ export default function Profile() {
                       <div className="p-4 flex items-center justify-between hover:bg-muted/50 transition-colors">
                         <div>
                           <h4 className="font-medium text-foreground">
-<<<<<<< HEAD
-                            Aman Durdyyev
-                          </h4>
-                          <p className="text-sm text-muted-foreground">
-                            Plan: Standard
-=======
                             Muhammet Gurbanow
                           </h4>
                           <p className="text-sm text-muted-foreground">
                             Plan: Premium
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                           </p>
                         </div>
                         <div className="text-right">
                           <div className="font-medium text-foreground">
-<<<<<<< HEAD
-                            Expires: 2025-10-15
-=======
                             Tamamlanýan senesi: 05.11.2025
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                           </div>
                         </div>
                       </div>
@@ -481,11 +362,7 @@ export default function Profile() {
               <TabsContent value="downloads" className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-semibold text-foreground">
-<<<<<<< HEAD
-                    Total: 638
-=======
                     Jemi: 38
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                   </h3>
                 </div>
 
@@ -532,11 +409,7 @@ export default function Profile() {
                           </div>
                         </div>
                         <div className="text-xs text-muted-foreground mt-2">
-<<<<<<< HEAD
-                          Uploaded{" "}
-=======
                           Ýüklenenler{" "}
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                           {new Date(item.uploadDate).toLocaleDateString()}
                         </div>
                       </CardContent>
@@ -547,11 +420,7 @@ export default function Profile() {
 
               <TabsContent value="favorites" className="space-y-6">
                 <h3 className="text-xl font-semibold text-foreground">
-<<<<<<< HEAD
-                  Favorite Items
-=======
                   Halananlar
->>>>>>> e138fd0 (turkmen dili we 3d modellar)
                 </h3>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
