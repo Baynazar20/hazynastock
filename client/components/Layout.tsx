@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -37,22 +37,41 @@ interface LayoutProps {
 
 const languages = [
   { code: "en", name: "English" },
-  { code: "ru", name: "Русский" },
   { code: "tm", name: "Türkmen" },
-  { code: "kk", name: "Қazakh" },
+  { code: "ru", name: "Русский" },
+  { code: "kk", name: "Қазақ" },
   { code: "uz", name: "O'zbek" },
-  { code: "Tj", name: "Tajik" },
-  { code: "Kg", name: "Kyrgyz" },
+  { code: "tj", name: "Тоҷикӣ" },
+  { code: "kg", name: "Кыргызча" },
 ];
+
+const normalizeLanguageCode = (language?: string) =>
+  language?.split("-")[0].toLowerCase() ?? "tm";
 
 export default function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
-  const { i18n } = useTranslation();
-  const { t } = useTranslation();
-  const [currentLang, setCurrentLang] = useState(i18n.language || "tm");
+  const { i18n, t } = useTranslation();
+  const [currentLang, setCurrentLang] = useState(
+    normalizeLanguageCode(i18n.language),
+  );
+
+  useEffect(() => {
+    const handleLanguageChanged = (lng: string) => {
+      setCurrentLang(normalizeLanguageCode(lng));
+    };
+
+    i18n.on("languageChanged", handleLanguageChanged);
+
+    // ensure state sync with initial language after detector resolves
+    setCurrentLang(normalizeLanguageCode(i18n.language));
+
+    return () => {
+      i18n.off("languageChanged", handleLanguageChanged);
+    };
+  }, [i18n]);
 
   const isActivePath = (path: string) => {
     if (path === "/") {
@@ -69,6 +88,13 @@ export default function Layout({ children }: LayoutProps) {
     setCurrentLang(value);
     i18n.changeLanguage(value);
   };
+
+  const selectTriggerLabel = useMemo(() => {
+    return (
+      languages.find((lang) => lang.code === currentLang)?.name ||
+      languages[0]?.name
+    );
+  }, [currentLang]);
 
   const navigation = [
     { name: t("home"), href: "/", icon: Home },
@@ -386,7 +412,7 @@ export default function Layout({ children }: LayoutProps) {
               <Select value={currentLang} onValueChange={handleChange}>
                 <SelectTrigger className="w-auto border-none bg-transparent rounded-xl transition-all duration-200">
                   <Globe className="h-4 w-4 mr-2" />
-                  <SelectValue />
+                  <SelectValue placeholder={selectTriggerLabel} />
                 </SelectTrigger>
                 <SelectContent className="rounded-xl">
                   {languages.map((lang) => (
